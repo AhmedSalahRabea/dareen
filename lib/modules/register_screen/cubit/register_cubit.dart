@@ -144,17 +144,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
 //دي في حالة ان الكود جاله ودخله بشكل صحيح
 //بس ده في حالة ان اليوزر اللي دخله مش اوتوماتيك
-  Future<void> submitOTP(
-    String otpCode, {
-    required String name,
-    required String phoneNumber,
-    required String email,
-    required String password,
-    required String password_confirmation,
-    required String region,
-    required String address,
-    required BuildContext context,
-  }) async {
+  Future<void> submitOTP(String otpCode) async {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
       //verificationId ده اللي جالي في الرسالة
       //otpCode ده اللي انا كتبته بإيدي
@@ -162,16 +152,6 @@ class RegisterCubit extends Cubit<RegisterState> {
       smsCode: otpCode,
     );
     await signIn(credential);
-    userRegister(
-      name: name,
-      phoneNumber: phoneNumber,
-      email: email,
-      password: password,
-      password_confirmation: password_confirmation,
-      region: region,
-      address: address,
-      context: context,
-    );
   }
 
 //دي الدالة المسئولة عن تسجيل الدخول لما يكون الكود صحيح وهتشتغل لو دخل اوتوماتيك او اليوزر دخله صح

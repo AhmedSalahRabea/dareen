@@ -6,6 +6,7 @@ import 'package:dareen_app/modules/otp_screen/otp_screen_widgets/pin_code_fields
 import 'package:dareen_app/modules/otp_screen/otp_screen_widgets/next_verify_button.dart';
 import 'package:dareen_app/modules/register_screen/cubit/register_cubit.dart';
 import 'package:dareen_app/shared/components/functions.dart';
+import 'package:dareen_app/shared/widgets/my_ok_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,8 +33,20 @@ class OtpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {
-      if (state is LoadingPhoneAuth) {
+      if (state is LoadingPhoneAuth || state is RegisterLoading) {
         return showProgressIndicator(context);
+      }
+      if (state is PhoneOTPVerified) {
+        RegisterCubit.get(context).userRegister(
+          name: name,
+          phoneNumber: phoneNumber,
+          email: email,
+          password: password,
+          password_confirmation: password_confirmation,
+          region: region,
+          address: address,
+          context: context,
+        );
       }
       if (state is RegisterSuccess) {
         Navigator.pop(context);
@@ -42,7 +55,17 @@ class OtpScreen extends StatelessWidget {
       }
       if (state is ErrorOnPhoneAuth) {
         // Navigator.pop(context);
+
         String erroMsg = state.error;
+        showMyAlertDialog(
+        context: context,
+        title: 'خطأ أثناء التسجيل',
+        content:
+            'حدث خطأ غير متوقع أثناء التسجيل يرجي إدخال الكود بشكل صحيح أو التحقق من الإتصال بالإنترنت وأعدالمحاولة مرة أخري',
+        actions: [
+          MyOkTextButtonForDailog(),
+        ],
+      );
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(erroMsg),
           backgroundColor: Colors.black,
@@ -51,7 +74,8 @@ class OtpScreen extends StatelessWidget {
           ),
         ));
       }
-    }, builder: (context, state) {
+    },
+     builder: (context, state) {
       RegisterCubit cubit = RegisterCubit.get(context);
       return SafeArea(
         child: Scaffold(
@@ -73,14 +97,6 @@ class OtpScreen extends StatelessWidget {
                         try {
                           cubit.submitOTP(
                             cubit.otpCode!,
-                            name: name,
-                            phoneNumber: phoneNumber,
-                            email: email,
-                            password: password,
-                            password_confirmation: password_confirmation,
-                            region: region,
-                            address: address,
-                            context: context,
                           );
                         } catch (e) {
                           mySnackBar(
