@@ -1,6 +1,7 @@
 // ignore_for_file: override_on_non_overriding_member, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dareen_app/modules/products/products_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dareen_app/data/models/category_model.dart';
@@ -24,10 +25,7 @@ class CategoryItem extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          showMyAlertDialog(
-              context: context,
-              title: 'تم الضغط',
-              content: 'تم الضغط علي هذا الكاتوجري');
+          navigateTo(context: context, screen: ProductsScreen(categoryName: model.name,));
         },
         child: GridTile(
           child: FadeInImage(

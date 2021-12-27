@@ -12,6 +12,7 @@ import 'package:dareen_app/shared/widgets/my_textbutton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingScreen extends StatelessWidget {
   @override
@@ -19,7 +20,6 @@ class SettingScreen extends StatelessWidget {
     return BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {},
         builder: (context, state) {
-      
           AppCubit cubit = AppCubit.get(context);
           return Directionality(
             textDirection: TextDirection.rtl,
@@ -35,7 +35,7 @@ class SettingScreen extends StatelessWidget {
                     userProfilePic:
                         const AssetImage('assets/images/login/dareen.jpg'),
                     phoneNumber: '01018388182',
-                    address:  'كوبري المستشفي',
+                    address: 'كوبري المستشفي',
                     //  phoneNumber: model!.data!.phoneNumber,
                     //  address: model!.data!.address,
                   ),
@@ -86,6 +86,27 @@ class SettingScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+                  SettingsItem(
+                    onTap: () async {
+                      // String url = "https://wa.me/+2 1018388182";
+                      // if (await canLaunch(url)) {
+                      //   launch(url);
+                      // } else {
+                      //   showMyAlertDialog(
+                      //     context: context,
+                      //     title: 'خطأ أثناء الوصول إلي الواتساب',
+                      //     content:
+                      //         'حدث خطأ ربما يكون تطبيق الواتساب غير موجود علي هاتفك',
+                      //   );
+                      // }
+                    },
+                    icons: Icons.call_rounded,
+                    title: "واتساب",
+                    subtitle: 'للتواصل معنا عبر الواتساب',
+                    titleStyle: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   // You can add a settings title
                   SettingsGroup(
                     //settingsGroupTitle: "Account",
@@ -114,15 +135,6 @@ class SettingScreen extends StatelessWidget {
                         icons: Icons.exit_to_app_rounded,
                         title: "تسجيل الخروج",
                         subtitle: 'اذا كنت تريد تسجيل الخروج',
-                      ),
-                      SettingsItem(
-                        onTap: () {},
-                        icons: CupertinoIcons.delete_solid,
-                        title: "Delete account",
-                        titleStyle: const TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
                       ),
                     ],
                   ),

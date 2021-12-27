@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, use_key_in_widget_constructors, avoid_print, must_be_immutable
 
 import 'package:dareen_app/home/cubit/shop_cubit.dart';
+import 'package:dareen_app/home/home_screen.dart';
 
 import 'package:dareen_app/modules/on_boarding/on_boarding_screen.dart';
+import 'package:dareen_app/modules/products/products_screen.dart';
 import 'package:dareen_app/modules/register_screen/cubit/register_cubit.dart';
 import 'package:dareen_app/shared/bloc_bserver/bloc_observer.dart';
 import 'package:dareen_app/shared/cubit/app_cubit.dart';
@@ -75,7 +77,7 @@ class MyApp extends StatelessWidget {
               theme: MyTheme.myLightThemeMode,
               darkTheme: MyTheme.myDarkThemeMode,
               themeMode: cubit.isLight ? ThemeMode.light : ThemeMode.dark,
-              home: OnBoardingScreen(),
+              home: HomeScreen(),
             );
           }),
     );
