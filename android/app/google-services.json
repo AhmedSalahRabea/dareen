@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "675698159494",
+    "project_id": "dareen-app",
+    "storage_bucket": "dareen-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675698159494:android:613b7693ce9ea8ed034607",
+        "android_client_info": {
+          "package_name": "com.example.dareen_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675698159494-r3lm006bbibrniqrbo6kr8ke2020c84a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dareen_app",
+            "certificate_hash": "f38419e25271d5d61170fc74ed65e927c695065d"
+          }
+        },
+        {
+          "client_id": "675698159494-33ahorhtlotsniitng91q56bqadptb1f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD94wbt5Lh5svCEhcYGM1e11MlJcwUywkM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "675698159494-33ahorhtlotsniitng91q56bqadptb1f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
