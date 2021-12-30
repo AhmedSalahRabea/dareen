@@ -9,9 +9,9 @@ import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/cubit/app_cubit.dart';
 import 'package:dareen_app/shared/widgets/my_ok_text.dart';
 import 'package:dareen_app/shared/widgets/my_textbutton.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -24,7 +24,7 @@ class SettingScreen extends StatelessWidget {
           return Directionality(
             textDirection: TextDirection.rtl,
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(20),
               child: ListView(
                 children: [
                   // User card
@@ -51,6 +51,7 @@ class SettingScreen extends StatelessWidget {
                         ),
                         title: 'الوضع الساطع',
                         subtitle: " للتحويل بين الوضع الليلي والساطع ",
+                        subtitleStyle: Theme.of(context).textTheme.subtitle1,
                         trailing: Switch.adaptive(
                           value: cubit.isLight,
                           onChanged: (value) {
@@ -61,6 +62,67 @@ class SettingScreen extends StatelessWidget {
                     ],
                   ),
                   SettingsGroup(
+                    settingsGroupTitle: 'اتصل بنا',
+                    iconItemSize: 37,
+                    settingsGroupTitleStyle:
+                        Theme.of(context).textTheme.headline1,
+                    items: [
+                      SettingsItem(
+                        onTap: () async {
+                          String url = "tel:+201018388182";
+                          if (await canLaunch(url)) {
+                            launch(url);
+                          } else {
+                            showMyAlertDialog(
+                              context: context,
+                              title: 'خطأ أثناء الوصول إلي الهاتف',
+                              content:
+                                  'حدث خطأ أثناء الوصول برجاء المحاولة لاحقا',
+                            );
+                          }
+                        },
+                        icons: Icons.call_rounded,
+                        title: "عبر الموبايل",
+                        subtitle: 'للإتصال علي 01018388182 ',
+                        subtitleStyle: Theme.of(context).textTheme.subtitle1,
+                        titleStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                        iconStyle: IconStyle(
+                          iconsColor: Colors.deepOrange,
+                          backgroundColor: Colors.white,
+                        ),
+                      ),
+                      SettingsItem(
+                          onTap: () async {
+                            String url = "https://wa.me/+201018388182";
+                            if (await canLaunch(url)) {
+                              launch(url);
+                            } else {
+                              showMyAlertDialog(
+                                context: context,
+                                title: 'خطأ أثناء الوصول إلي الواتساب',
+                                content:
+                                    'حدث خطأ ربما يكون تطبيق الواتساب غير موجود علي هاتفك',
+                              );
+                            }
+                          },
+                          icons: FontAwesomeIcons.whatsappSquare,
+                          title: "واتساب",
+                          subtitle: 'للتواصل معنا عبر الواتساب',
+                          subtitleStyle: Theme.of(context).textTheme.subtitle1,
+                          titleStyle: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          iconStyle: IconStyle(
+                            iconsColor: Colors.green,
+                            withBackground: true,
+                            backgroundColor: Colors.white.withOpacity(0),
+                          )),
+                    ],
+                  ),
+
+                  SettingsGroup(
                     items: [
                       SettingsItem(
                         onTap: () {},
@@ -70,6 +132,7 @@ class SettingScreen extends StatelessWidget {
                         ),
                         title: 'البيانات الشخصية',
                         subtitle: 'للتعديل علي بياناتك الشخصية',
+                        subtitleStyle: Theme.of(context).textTheme.subtitle1,
                       ),
                     ],
                   ),
@@ -83,30 +146,11 @@ class SettingScreen extends StatelessWidget {
                         ),
                         title: 'حول',
                         subtitle: "معلومات عن شركة دارين",
+                        subtitleStyle: Theme.of(context).textTheme.subtitle1,
                       ),
                     ],
                   ),
-                  SettingsItem(
-                    onTap: () async {
-                      // String url = "https://wa.me/+2 1018388182";
-                      // if (await canLaunch(url)) {
-                      //   launch(url);
-                      // } else {
-                      //   showMyAlertDialog(
-                      //     context: context,
-                      //     title: 'خطأ أثناء الوصول إلي الواتساب',
-                      //     content:
-                      //         'حدث خطأ ربما يكون تطبيق الواتساب غير موجود علي هاتفك',
-                      //   );
-                      // }
-                    },
-                    icons: Icons.call_rounded,
-                    title: "واتساب",
-                    subtitle: 'للتواصل معنا عبر الواتساب',
-                    titleStyle: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+
                   // You can add a settings title
                   SettingsGroup(
                     //settingsGroupTitle: "Account",
@@ -135,6 +179,7 @@ class SettingScreen extends StatelessWidget {
                         icons: Icons.exit_to_app_rounded,
                         title: "تسجيل الخروج",
                         subtitle: 'اذا كنت تريد تسجيل الخروج',
+                        subtitleStyle: Theme.of(context).textTheme.subtitle1,
                       ),
                     ],
                   ),

@@ -30,84 +30,84 @@ class OnBoardingScreen extends StatelessWidget {
           'من خلال تطبيق دارين تقدر تطلب أي حاجة ف اي وقت ومن أكتر من مكان وتجيلك لغاية البيت في دقايق ',
     ),
   ];
- // final bool? isOnBoardingSeen;
+  // final bool? isOnBoardingSeen;
 
- // OnBoardingScreen({required this.isOnBoardingSeen});
+  // OnBoardingScreen({required this.isOnBoardingSeen});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-            backgroundColor: Colors.white,
-            appBar: AppBar(
-              toolbarHeight: 100,
-              backgroundColor: Colors.white,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
-                  child: MyTextButton(
-                    text: 'تخطي',
-                    onpressed: () {
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        toolbarHeight: 100,
+        backgroundColor: Colors.white,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: MyTextButton(
+              text: 'تخطي',
+              onpressed: () {
+                // BlocProvider.of<AppCubit>(context)
+                //     .onboardingSeen(isOnBoardingSeen);
+                navigateTo(context: context, screen: LoginScreen());
+              },
+            ),
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: PageView.builder(
+                itemBuilder: (context, index) =>
+                    OnBoardingItem(model: boarding[index]),
+                itemCount: boarding.length,
+                physics: BouncingScrollPhysics(),
+                controller: boardController,
+                onPageChanged: (index) {
+                  if (index == boarding.length - 1) {
+                    isLast = true;
+                  } else {
+                    isLast = false;
+                  }
+                },
+              ),
+            ),
+            SizedBox(height: 40),
+            Row(
+              children: [
+                SmoothPageIndicator(
+                  controller: boardController,
+                  count: boarding.length,
+                  effect: ExpandingDotsEffect(
+                    dotColor: Colors.grey,
+                    dotHeight: 20,
+                    activeDotColor: Colors.deepOrange,
+                    radius: 10,
+                    dotWidth: 20,
+                  ),
+                ),
+                Spacer(),
+                FloatingActionButton(
+                  onPressed: () {
+                    if (isLast) {
+                      navigateTo(context: context, screen: LoginScreen());
                       // BlocProvider.of<AppCubit>(context)
                       //     .onboardingSeen(isOnBoardingSeen);
-                      navigateTo(context: context, screen: LoginScreen());
-                    },
-                  ),
+                    } else {
+                      boardController.nextPage(
+                          duration: Duration(milliseconds: 2000),
+                          curve: Curves.fastLinearToSlowEaseIn);
+                    }
+                  },
+                  child: Icon(Icons.arrow_forward_ios_outlined),
                 ),
               ],
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: PageView.builder(
-                      itemBuilder: (context, index) =>
-                          OnBoardingItem(model: boarding[index]),
-                      itemCount: boarding.length,
-                      physics: BouncingScrollPhysics(),
-                      controller: boardController,
-                      onPageChanged: (index) {
-                        if (index == boarding.length - 1) {
-                          isLast = true;
-                        } else {
-                          isLast = false;
-                        }
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 40),
-                  Row(
-                    children: [
-                      SmoothPageIndicator(
-                        controller: boardController,
-                        count: boarding.length,
-                        effect: ExpandingDotsEffect(
-                          dotColor: Colors.grey,
-                          dotHeight: 20,
-                          activeDotColor: Colors.deepOrange,
-                          radius: 10,
-                          dotWidth: 20,
-                        ),
-                      ),
-                      Spacer(),
-                      FloatingActionButton(
-                        onPressed: () {
-                          if (isLast) {
-                            navigateTo(context: context, screen: LoginScreen());
-                            // BlocProvider.of<AppCubit>(context)
-                            //     .onboardingSeen(isOnBoardingSeen);
-                          } else {
-                            boardController.nextPage(
-                                duration: Duration(milliseconds: 2000),
-                                curve: Curves.fastLinearToSlowEaseIn);
-                          }
-                        },
-                        child: Icon(Icons.arrow_forward_ios_outlined),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          );
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -48,6 +48,8 @@ dependencies:
   babstrap_settings_screen: ^0.1.1
   shared_preferences: ^2.0.11
   url_launcher: ^6.0.17
+  font_awesome_flutter: ^9.2.0
+  carousel_slider: ^4.0.0
 
 dev_dependencies:
   flutter_test:

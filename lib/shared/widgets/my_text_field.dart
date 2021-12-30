@@ -15,6 +15,7 @@ class MyTextFormField extends StatelessWidget {
   final IconData prefix;
   final IconData? suffix;
   final Function? suffixPressed;
+  final List<String>? autofillHints;
   final bool isClickable;
   final bool isDetailedAddress;
 
@@ -33,6 +34,7 @@ class MyTextFormField extends StatelessWidget {
     this.suffixPressed,
     this.isClickable = true,
     this.isDetailedAddress = false,
+    this.autofillHints,
   });
 
   @override
@@ -49,12 +51,11 @@ class MyTextFormField extends StatelessWidget {
       obscureText: isPassword,
       // expands: isDetailedAddress ?true:false,
       maxLines: isDetailedAddress ? 3 : 1,
-     // autofillHints: const[],
+      autofillHints: autofillHints,
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: Icon(prefix),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-        
         suffixIcon: suffix != null
             ? IconButton(
                 onPressed: () {

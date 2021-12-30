@@ -27,10 +27,10 @@ class MyTheme {
       ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-     // type: BottomNavigationBarType.shifting,
+      // type: BottomNavigationBarType.shifting,
       selectedItemColor: Colors.deepOrange,
       elevation: 20.0,
-     backgroundColor: Colors.white,
+      backgroundColor: Colors.white,
       unselectedItemColor: Colors.grey,
     ),
     textTheme: TextTheme(
@@ -39,10 +39,16 @@ class MyTheme {
         fontWeight: FontWeight.w600,
         color: Colors.black,
       ),
+      //for head lines in product details screen
       bodyText2: TextStyle(
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: FontWeight.bold,
-        color: Colors.black,
+        color: Colors.deepOrange,
+      ),
+      //for subtitles in settings screen
+      subtitle1: TextStyle(
+        fontSize: 14,
+        color: Colors.grey,
       ),
       headline1: TextStyle(
         fontSize: 25,
@@ -76,7 +82,7 @@ class MyTheme {
       ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-  //    type: BottomNavigationBarType.shifting,
+      //    type: BottomNavigationBarType.shifting,
       selectedItemColor: Colors.deepOrange,
       elevation: 20.0,
       backgroundColor: Colors.black,
@@ -88,10 +94,16 @@ class MyTheme {
         fontWeight: FontWeight.w600,
         color: Colors.white,
       ),
+      //for head lines in product details screen
       bodyText2: TextStyle(
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: FontWeight.bold,
-        color: Colors.white,
+        color: Colors.deepOrange,
+      ),
+      //for subtitles in settings screen
+      subtitle1: TextStyle(
+        fontSize: 14,
+        color: Colors.grey,
       ),
       headline1: TextStyle(
         fontSize: 25,

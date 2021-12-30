@@ -4,6 +4,7 @@ import 'package:dareen_app/home/cubit/shop_cubit.dart';
 import 'package:dareen_app/home/home_screen.dart';
 
 import 'package:dareen_app/modules/on_boarding/on_boarding_screen.dart';
+import 'package:dareen_app/modules/product_details/product_details_screen.dart';
 import 'package:dareen_app/modules/products/products_screen.dart';
 import 'package:dareen_app/modules/register_screen/cubit/register_cubit.dart';
 import 'package:dareen_app/shared/bloc_bserver/bloc_observer.dart';
@@ -25,14 +26,14 @@ void main() async {
   //هنا هشوف هل المستخدم محدد الثيم بتاعه ولا اول مرة
   bool? isLight = CacheHelper.getDataFromSharedPrefrences(key: 'isLight');
   //علشان احدد هل هو لسه منزل التطبيق فيظهرله الاون بوردينج ولا يدخل علي تسجيل الدخول علي طول
- // bool? isOnBoardingSeen = CacheHelper.getDataFromSharedPrefrences(key: 'isOnBoardingSeen');
+  // bool? isOnBoardingSeen = CacheHelper.getDataFromSharedPrefrences(key: 'isOnBoardingSeen');
 
   //هذه الدالة عشان افعل البلوك اوبسيرفر في المشروع بتاعي
   BlocOverrides.runZoned(
     () {
       runApp(MyApp(
         isLight: isLight,
-       // isOnBoardingSeen: isOnBoardingSeen,
+        // isOnBoardingSeen: isOnBoardingSeen,
       ));
 
       // Use cubits...
@@ -43,7 +44,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final bool? isLight;
- // final bool? isOnBoardingSeen;
+  // final bool? isOnBoardingSeen;
 
   MyApp({
     required this.isLight,
@@ -58,10 +59,9 @@ class MyApp extends StatelessWidget {
           create: (context) => RegisterCubit(),
         ),
         BlocProvider<AppCubit>(
-          create: (context) => AppCubit()
-            ..changeAppMode(fromShared: isLight)
-           // ..homeScreen(isOnBoardingSeen),
-        ),
+            create: (context) => AppCubit()..changeAppMode(fromShared: isLight)
+            // ..homeScreen(isOnBoardingSeen),
+            ),
         BlocProvider<ShopCubit>(
           create: (context) => ShopCubit()..getCategoryData(context),
         ),
@@ -71,13 +71,15 @@ class MyApp extends StatelessWidget {
           builder: (context, state) {
             AppCubit cubit = AppCubit.get(context);
             return MaterialApp(
-              
               debugShowCheckedModeBanner: false,
               title: 'Flutter Demo',
               theme: MyTheme.myLightThemeMode,
               darkTheme: MyTheme.myDarkThemeMode,
               themeMode: cubit.isLight ? ThemeMode.light : ThemeMode.dark,
-              home: HomeScreen(),
+              home: OnBoardingScreen(),
+              
+
+
             );
           }),
     );

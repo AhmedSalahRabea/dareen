@@ -105,6 +105,7 @@ class LoginScreen extends StatelessWidget {
                                 },
                                 label: 'رقم الهاتف',
                                 prefix: Icons.phone,
+                                autofillHints:const [AutofillHints.telephoneNumber],
                               ),
                             ),
                           ],

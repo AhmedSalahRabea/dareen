@@ -28,89 +28,95 @@ class BigUserItem extends StatelessWidget {
         borderRadius:
             BorderRadius.circular(double.parse(cardRadius!.toString())),
       ),
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.bottomRight,
-            child: CircleAvatar(
-              radius: 70,
-              backgroundColor: Colors.white.withOpacity(.1),
+      child: SizedBox(
+        height: mediaQueryHeight / 7,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.bottomRight,
+              child: CircleAvatar(
+                radius: 70,
+                backgroundColor: Colors.white.withOpacity(.1),
+              ),
             ),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: CircleAvatar(
-              radius: 70,
-              backgroundColor: Colors.white.withOpacity(.1),
+            Align(
+              alignment: Alignment.center,
+              child: CircleAvatar(
+                radius: 70,
+                backgroundColor: Colors.white.withOpacity(.1),
+              ),
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.all(10),
-            // color: Colors.black,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Align(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                userName,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
+            Container(
+              margin: const EdgeInsets.all(10),
+              // color: Colors.black,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Align(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  userName,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                phoneNumber,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18,
+                                const SizedBox(height: 5),
+                                Text(
+                                  phoneNumber,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                address,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                                //   const SizedBox(height: 5),
+                                // Text(
+                                //   address,
+                                //   maxLines: 2,
+                                //   overflow: TextOverflow.ellipsis,
+                                //   style: const TextStyle(
+                                //     color: Colors.white,
+                                //     fontWeight: FontWeight.bold,
+                                //     fontSize: 15,
+                                //   ),
+                                // ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      // User profile
-                      Expanded(
-                        child: CircleAvatar(
-                          radius: mediaQueryHeight / 12,
-                          backgroundImage: userProfilePic,
+                        // User profile
+                        SizedBox(
+                          height: mediaQueryHeight / 7,
+                          child: Expanded(
+                            child: CircleAvatar(
+                              radius: mediaQueryHeight / 12,
+                              backgroundImage: userProfilePic,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

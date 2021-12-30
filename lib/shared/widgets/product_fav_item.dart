@@ -1,6 +1,7 @@
 // ignore_for_file: override_on_non_overriding_member
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dareen_app/modules/product_details/product_details_screen.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/widgets/my_outlined_button.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +17,7 @@ class ProductOrFavouriteItem extends StatelessWidget {
         onTap: () {
           // navigateTo(
           //     context: context, screen: ProductScreenDetails(model: model));
-          showMyAlertDialog(
-            context: context,
-            title: 'تم الضغط',
-            content: ' لقد قمت بالضغط علي هذا المنتج',
-          );
+          navigateTo(context: context, screen: ProductDetailsScreen());
         },
         child: Container(
           height: 130,
@@ -30,15 +27,16 @@ class ProductOrFavouriteItem extends StatelessWidget {
               Stack(
                 alignment: AlignmentDirectional.bottomStart,
                 children: [
-                  Image(
+                  const FadeInImage(
+                    height: 150,
+                    width: 120,
+                    placeholder:
+                        const AssetImage('assets/images/imageloading.gif'),
                     image: CachedNetworkImageProvider(
                         'https://janatonline.com/Content/Images/Products/al-osra-white-sugar-1-kg-68614-600.jpg'),
-                    // NetworkImage(model.favouriteProductData!.image,
-
-                    width: 150,
-                    height: 100,
                     fit: BoxFit.contain,
                   ),
+
                   //   if (model.discount != 0)
                   Container(
                     color: Colors.red,
