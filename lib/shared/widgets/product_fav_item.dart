@@ -18,7 +18,8 @@ class ProductOrFavouriteItem extends StatelessWidget {
         onTap: () {
           // navigateTo(
           //     context: context, screen: ProductScreenDetails(model: model));
-          navigateTo(context: context, screen: ProductDetailsScreen(model: model));
+          navigateTo(
+              context: context, screen: ProductDetailsScreen(model: model));
         },
         child: SizedBox(
           height: 130,
@@ -40,9 +41,9 @@ class ProductOrFavouriteItem extends StatelessWidget {
                     Container(
                       color: Colors.red,
                       padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child:const Text(
+                      child: const Text(
                         'عرض خاص',
-                        style:  TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 10,
                         ),
@@ -50,6 +51,7 @@ class ProductOrFavouriteItem extends StatelessWidget {
                     ),
                 ],
               ),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,32 +66,34 @@ class ProductOrFavouriteItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        if(model.newPrice != null && model.newPrice != 0)
-                        Text(
-                           '${model.newPrice.toString()} جـــ',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(color: Colors.deepOrange, fontSize: 15),
-                        ),
-                        if(model.newPrice == null || model.newPrice == 0)
-                        Text(
-                           '${model.price.toString()} جـــ',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(color: Colors.deepOrange, fontSize: 15),
-                        ),
-                       if (model.newPrice != 0 && model.newPrice != null)
-                        Text(
-                              '${model.price.toString()} جــ',
-                          style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    color: Colors.grey,
-                                    fontSize: 16,
-                                    decoration: TextDecoration.lineThrough,
-                                  ),
-                        ),
+                        if (model.newPrice != null && model.newPrice != 0)
+                          Text(
+                            '${model.newPrice.toString()} جـــ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(
+                                    color: Colors.deepOrange, fontSize: 15),
+                          ),
+                        if (model.newPrice == null || model.newPrice == 0)
+                          Text(
+                            '${model.price.toString()} جـــ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(
+                                    color: Colors.deepOrange, fontSize: 15),
+                          ),
+                        if (model.newPrice != 0 && model.newPrice != null)
+                          Text(
+                            '${model.price.toString()} جــ',
+                            style:
+                                Theme.of(context).textTheme.bodyText1!.copyWith(
+                                      color: Colors.grey,
+                                      fontSize: 16,
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
+                          ),
                         IconButton(
                             onPressed: () {
                               buildToast(

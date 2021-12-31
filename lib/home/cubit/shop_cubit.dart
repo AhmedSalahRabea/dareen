@@ -39,6 +39,7 @@ class ShopCubit extends Cubit<ShopState> {
 
 //========== method to get the products into a particular category =======
   ProductsModel? productsModel;
+  List<ProductModel> products =[];
   void getCategoryProducts(String categoryId) {
     emit(ProductsLoading());
     DioHelper.getData(
@@ -48,11 +49,22 @@ class ShopCubit extends Cubit<ShopState> {
       },
     ).then((value) {
       productsModel = ProductsModel.fromJson(value.data);
+    //  print(productsModel!.data![0].name);
+      productsModel!.data!.forEach((element) {
+        products.add(element);
+      });
+
       emit(ProductsGetSuccess());
     }).catchError((error) {
       print(error.toString());
       emit(ProductsGetError());
     });
+  }
+
+//======when the user click back button from products screenr=====
+  void makeProductsModelEmpty() {
+    productsModel!.data == null;
+    emit(MakeProductsModelEmpty());
   }
 
   //========Bottom navigation bar logic==========

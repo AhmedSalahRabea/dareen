@@ -18,13 +18,13 @@ class ProductsScreen extends StatelessWidget {
         builder: (context, state) {
           ShopCubit cubit = ShopCubit.get(context);
           return BuildCondition(
-            condition: cubit.productsModel != null,
+            condition: cubit.products.isNotEmpty ,
             builder: (context) => Directionality(
               textDirection: TextDirection.rtl,
+              //this widget to control back button
               child: WillPopScope(
                 onWillPop: () async {
-                  cubit.productsModel == null;
-                  print('====== back is clicked');
+                 cubit.products = [];
                   return true;
                 },
                 child: Scaffold(
@@ -33,10 +33,10 @@ class ProductsScreen extends StatelessWidget {
                   ),
                   body: ListView.separated(
                     itemBuilder: (contextm, index) => ProductOrFavouriteItem(
-                      model: cubit.productsModel!.data![index],
+                      model: cubit.products[index],
                     ),
                     separatorBuilder: (contextm, index) => MyDivider(),
-                    itemCount: cubit.productsModel!.data!.length,
+                    itemCount: cubit.products.length,
                   ),
                 ),
               ),

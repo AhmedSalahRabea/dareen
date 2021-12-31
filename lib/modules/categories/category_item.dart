@@ -27,7 +27,7 @@ class CategoryItem extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () async {
-          ShopCubit.get(context).productsModel== null;
+          //ShopCubit.get(context).makeProductsModelEmpty();
           ShopCubit.get(context).getCategoryProducts('${model.id}');
          // await Future.delayed(Duration(milliseconds: 200));
           navigateTo(

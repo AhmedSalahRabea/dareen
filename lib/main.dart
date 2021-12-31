@@ -77,9 +77,6 @@ class MyApp extends StatelessWidget {
               darkTheme: MyTheme.myDarkThemeMode,
               themeMode: cubit.isLight ? ThemeMode.light : ThemeMode.dark,
               home: OnBoardingScreen(),
-
-
-
             );
           }),
     );

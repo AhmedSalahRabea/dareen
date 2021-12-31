@@ -15,6 +15,8 @@ class ProductsLoading extends ShopState {}
 class ProductsGetSuccess extends ShopState {}
 class ProductsGetError extends ShopState {}
 
+//======when the user click back button from products screenr=====
+class MakeProductsModelEmpty extends ShopState {}
 //======when change in bottom navigation bar=====
 class ShopChangeBottomNavBar extends ShopState {}
 
