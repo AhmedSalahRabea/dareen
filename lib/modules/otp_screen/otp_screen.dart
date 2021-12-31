@@ -13,7 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class OtpScreen extends StatelessWidget {
   final String name;
   final String phoneNumber;
-  final String email;
   final String password;
   final String password_confirmation;
   final String region;
@@ -22,7 +21,6 @@ class OtpScreen extends StatelessWidget {
   OtpScreen({
     required this.name,
     required this.phoneNumber,
-    required this.email,
     required this.password,
     required this.password_confirmation,
     required this.region,
@@ -40,7 +38,6 @@ class OtpScreen extends StatelessWidget {
         RegisterCubit.get(context).userRegister(
           name: name,
           phoneNumber: phoneNumber,
-          email: email,
           password: password,
           password_confirmation: password_confirmation,
           region: region,

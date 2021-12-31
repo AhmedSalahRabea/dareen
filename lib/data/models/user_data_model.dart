@@ -27,7 +27,6 @@ class UserData {
   final int id;
   final String name;
   final String phoneNumber;
-  final String email;
   final String region;
   final String address;
   final String image;
@@ -36,7 +35,6 @@ class UserData {
     required this.id,
     required this.name,
     required this.phoneNumber,
-    required this.email,
     required this.region,
     required this.address,
     required this.image,
@@ -47,7 +45,6 @@ class UserData {
       id: jsonData['id'],
       name: jsonData['name'],
       phoneNumber: jsonData['phoneNumber'],
-      email: jsonData['email'],
       region: jsonData['region'],
       address: jsonData['address'],
       image: jsonData['image'] ?? '',

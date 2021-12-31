@@ -1,13 +1,14 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dareen_app/data/models/product_model.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/widgets/my_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
+  final ProductModel model;
   PageController boardController = PageController();
 
   List<String> images = [
@@ -15,9 +16,12 @@ class ProductDetailsScreen extends StatelessWidget {
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwGax5b22_luSu4fweyIoY48wuPiTvFdTvpw&usqp=CAU',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREUI2PCiLkcnUijT5fR4m5FOy5RvL2mXjFcA&usqp=CAU',
   ];
+
+  ProductDetailsScreen({required this.model});
   @override
   Widget build(BuildContext context) {
     var mediaQueryHeight = MediaQuery.of(context).size.height;
+    var mediaQueryWidth = MediaQuery.of(context).size.width;
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -32,60 +36,51 @@ class ProductDetailsScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Stack(alignment: AlignmentDirectional.bottomStart, children: [
-                    SizedBox(
-                      width: double.infinity,
-                      height: mediaQueryHeight / 5.5,
-                      child: CarouselSlider(
-                        items: images.map((banner) {
-                          return ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: FadeInImage(
-                              height: double.infinity,
-                              placeholder: const AssetImage(
-                                  'assets/images/imageloading.gif'),
-                              image: CachedNetworkImageProvider(banner),
-                              width: double.infinity,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          );
-                        }).toList(),
-                        options: CarouselOptions(
-                          //  height: 200,
-                          initialPage: 0,
-                          enableInfiniteScroll: true,
-                          reverse: false,
-                          autoPlay: false,
-                          //autoPlayInterval: Duration(seconds: 1),
-                          // autoPlayAnimationDuration: Duration(seconds: 3),
-                          autoPlayCurve: Curves.fastOutSlowIn,
-                          scrollDirection: Axis.horizontal,
-                          viewportFraction: 1,
-                          enlargeCenterPage: false,
-                         
+                  FadeInImage(
+                    height: mediaQueryHeight / 5,
+                    placeholder:
+                        const AssetImage('assets/images/imageloading.gif'),
+                    image: CachedNetworkImageProvider(model.image),
+                    width: double.infinity,
+                    fit: BoxFit.contain,
+                  ),
 
-                        ),
-
-                      ),
-                    ),
-                    SmoothPageIndicator(
-                      controller: boardController,
-                      count: images.length,
-                      effect: const ExpandingDotsEffect(
-                        dotColor: Colors.grey,
-                        dotHeight: 10,
-                        activeDotColor: Colors.deepOrange,
-                        radius: 10,
-                        dotWidth: 15,
-                      ),
-
-
-                    ),
-                  ]),
+                  // Stack(alignment: AlignmentDirectional.bottomStart, children: [
+                  //   SizedBox(
+                  //     height: mediaQueryHeight / 5,
+                  //     child: PageView.builder(
+                  //       itemBuilder: (context, index) => ClipRRect(
+                  //         borderRadius: BorderRadius.circular(50),
+                  //         child: FadeInImage(
+                  //           height: double.infinity,
+                  //           placeholder: const AssetImage(
+                  //               'assets/images/imageloading.gif'),
+                  //           image: CachedNetworkImageProvider(images[index]),
+                  //           width: double.infinity,
+                  //           fit: BoxFit.contain,
+                  //         ),
+                  //       ),
+                  //       itemCount: images.length,
+                  //       physics: const BouncingScrollPhysics(),
+                  //       controller: boardController,
+                  //     ),
+                  //   ),
+                  //   SmoothPageIndicator(
+                  //     controller: boardController,
+                  //     count: images.length,
+                  //     effect: const ExpandingDotsEffect(
+                  //       dotColor: Colors.grey,
+                  //       dotHeight: 10,
+                  //       activeDotColor: Colors.deepOrange,
+                  //       radius: 10,
+                  //       dotWidth: 15,
+                  //     ),
+                  //   ),
+                  // ]),
                   const SizedBox(height: 20),
                   Center(
                     child: Text(
-                      'سكر أبيض 1 كجم',
+                      model.name,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyText1,
@@ -98,52 +93,62 @@ class ProductDetailsScreen extends StatelessWidget {
                         'السعر',
                         style: Theme.of(context).textTheme.bodyText2,
                       ),
-                      const Spacer(),
-                      Text(
-                        '25 جنيه ',
-                        // '${model!.price} EGY',
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
+                      SizedBox(width: mediaQueryWidth / 2),
+                      if (model.newPrice != null && model.newPrice != 0)
+                        Text(
+                          '${model.newPrice} جــ',
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                      if (model.newPrice == null || model.newPrice == 0)
+                        Text(
+                          '${model.price} جــ',
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
                     ],
                   ),
-                  MyDivider(),
-                  Row(
-                    children: [
-                      Text(
-                        'السعر قبل الخصم',
-                        style: Theme.of(context).textTheme.bodyText2,
-                      ),
-                      const Spacer(),
-                      Text(
-                        '30 جنيه ',
-
-                        //     '${model!.oldPrice} EGY',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              decoration: TextDecoration.lineThrough,
-                            ),
-                      ),
-                    ],
-                  ),
+                  if (model.newPrice != null && model.newPrice != 0)
+                    MyDivider(),
+                  if (model.newPrice != null && model.newPrice != 0)
+                    Row(
+                      children: [
+                        Text(
+                          'السعر قبل الخصم',
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                        SizedBox(width: mediaQueryWidth / 4),
+                        Text(
+                          '${model.price} جــ',
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                        ),
+                      ],
+                    ),
                   MyDivider(),
                   Text(
                     'وصف المنتج',
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
-                  const SizedBox(height: 10),
-                  Expanded(
-                    child: SizedBox(
-                      child: ListView(
-                        children: [
-                          Text(
-                            'سكر أبيض 1 كجم جيد التصنيع ومن أجود أنواع السكر الأبيض سكر أبيض 1 كجم جيد التصنيع ومن أجود أنواع السكر الأبيضسكر أبيض 1 كجم جيد التصنيع ومن أجود أنواع السكر الأبيضسكر أبيض 1 كجم جيد التصنيع ومن أجود أنواع السكر الأبيضسكر أبيض 1 كجم جيد التصنيع ومن أجود أنواع السكر الأبيضسكر أبيض 1 كجم جيد التصنيع ومن أجود أنواع السكر الأبيضسكر أبيض 1 كجم جيد التصنيع ومن أجود أنواع السكر الأبيضسكر أبيض 1 كجم جيد التصنيع ومن أجود أنواع السكر الأبيضسكر أبيض 1 كجم جيد التصنيع ومن أجود أنواع السكر الأبيضسكر أبيض 1 كجم جيد التصنيع ومن أجود أنواع السكر الأبيضسكر أبيض 1 كجم جيد التصنيع ومن أجود أنواع السكر الأبيضسكر أبيض 1 كجم جيد التصنيع ومن أجود أنواع السكر الأبيضسكر أبيض 1 كجم جيد التصنيع ومن أجود أنواع السكر الأبيض',
-
-                            //   model!.description,
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                        ],
+                  if (model.desc != null) const SizedBox(height: 10),
+                  if (model.desc != null)
+                    Expanded(
+                      child: SizedBox(
+                        child: ListView(
+                          children: [
+                            Text(
+                              model.desc!,
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
+                  if (model.desc == null)
+                    Text(
+                      'لا يوجد وصف لهذا المنتج',
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
                 ],
               ),
               SizedBox(

@@ -46,7 +46,7 @@ class MyTheme {
         color: Colors.deepOrange,
       ),
       //for subtitles in settings screen
-      subtitle1: TextStyle(
+      subtitle2: TextStyle(
         fontSize: 14,
         color: Colors.grey,
       ),
@@ -101,7 +101,7 @@ class MyTheme {
         color: Colors.deepOrange,
       ),
       //for subtitles in settings screen
-      subtitle1: TextStyle(
+      subtitle2: TextStyle(
         fontSize: 14,
         color: Colors.grey,
       ),

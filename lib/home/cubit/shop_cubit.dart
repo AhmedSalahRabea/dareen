@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls
 
 import 'package:dareen_app/data/models/category_model.dart';
+import 'package:dareen_app/data/models/product_model.dart';
 import 'package:dareen_app/modules/cart/cart_screen.dart';
 import 'package:dareen_app/modules/categories/categories_screen.dart';
 import 'package:dareen_app/modules/favourite/favourite_screen.dart';
@@ -17,7 +18,7 @@ class ShopCubit extends Cubit<ShopState> {
   ShopCubit() : super(ShopInitial());
 
   static ShopCubit get(context) => BlocProvider.of(context);
-  //=========method to get Catageories from api=====
+  //========= method to get Catageories from api=====
   CategoriesModel? categoriesModel;
   void getCategoryData(BuildContext context) {
     emit(CategoriesGetLoading());
@@ -33,6 +34,24 @@ class ShopCubit extends Cubit<ShopState> {
           title: 'خطأ اثناء تحميل الاقسام',
           content: error.toString());
       emit(CategoriesGetFailed());
+    });
+  }
+
+//========== method to get the products into a particular category =======
+  ProductsModel? productsModel;
+  void getCategoryProducts(String categoryId) {
+    emit(ProductsLoading());
+    DioHelper.getData(
+      url: CATEGORYPRODUCTS,
+      query: {
+        'category_id': categoryId,
+      },
+    ).then((value) {
+      productsModel = ProductsModel.fromJson(value.data);
+      emit(ProductsGetSuccess());
+    }).catchError((error) {
+      print(error.toString());
+      emit(ProductsGetError());
     });
   }
 

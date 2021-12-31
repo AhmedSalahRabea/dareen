@@ -14,7 +14,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class RegisterScreen extends StatelessWidget {
   //form fields controller
   TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController rePasswordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -37,7 +36,6 @@ class RegisterScreen extends StatelessWidget {
                 screen: OtpScreen(
                   name: nameController.text,
                   phoneNumber: phoneController.text,
-                  email: emailController.text,
                   password: passwordController.text,
                   password_confirmation: rePasswordController.text,
                   region: regionController.text,
@@ -122,22 +120,6 @@ class RegisterScreen extends StatelessWidget {
                           },
                           label: 'رقم الهاتف',
                           prefix: Icons.phone,
-                        ),
-                        const SizedBox(height: 20),
-                        MyTextFormField(
-                          controller: emailController,
-                          type: TextInputType.emailAddress,
-                          validate: (value) {
-                            if (value.isEmpty) {
-                              return 'من فضلك أدخل الايميل';
-                            } else if (!value.contains('@')) {
-                              return 'من فضلك أدخل الإيميل بشكل صحيح';
-                            } else {
-                              return null;
-                            }
-                          },
-                          label: 'البريد اللإلكتروني',
-                          prefix: Icons.email_outlined,
                         ),
                         const SizedBox(height: 20),
                         MyTextFormField(

@@ -24,7 +24,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   void userRegister({
     required String name,
     required String phoneNumber,
-    required String email,
     required String password,
     required String password_confirmation,
     required String region,
@@ -37,7 +36,6 @@ class RegisterCubit extends Cubit<RegisterState> {
       data: {
         'name': name,
         'phoneNumber': phoneNumber,
-        'email': email,
         'password': password,
         'password_confirmation': password_confirmation,
         'region': region,

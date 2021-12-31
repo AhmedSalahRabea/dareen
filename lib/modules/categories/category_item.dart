@@ -1,6 +1,7 @@
 // ignore_for_file: override_on_non_overriding_member, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dareen_app/home/cubit/shop_cubit.dart';
 import 'package:dareen_app/modules/products/products_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,7 @@ import 'package:dareen_app/shared/components/functions.dart';
 
 class CategoryItem extends StatelessWidget {
   final CategoryModel model;
+
   CategoryItem({
     required this.model,
   });
@@ -24,8 +26,15 @@ class CategoryItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: InkWell(
-        onTap: () {
-          navigateTo(context: context, screen: ProductsScreen(categoryName: model.name,));
+        onTap: () async {
+          ShopCubit.get(context).productsModel== null;
+          ShopCubit.get(context).getCategoryProducts('${model.id}');
+         // await Future.delayed(Duration(milliseconds: 200));
+          navigateTo(
+              context: context,
+              screen: ProductsScreen(
+                categoryName: model.name,
+              ));
         },
         child: GridTile(
           child: FadeInImage(

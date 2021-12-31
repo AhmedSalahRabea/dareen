@@ -1,14 +1,15 @@
-// ignore_for_file: override_on_non_overriding_member
+// ignore_for_file: override_on_non_overriding_member, prefer_const_constructors_in_immutables, use_key_in_widget_constructors
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dareen_app/data/models/product_model.dart';
 import 'package:dareen_app/modules/product_details/product_details_screen.dart';
 import 'package:dareen_app/shared/components/functions.dart';
-import 'package:dareen_app/shared/widgets/my_outlined_button.dart';
 import 'package:flutter/material.dart';
 
 class ProductOrFavouriteItem extends StatelessWidget {
-  const ProductOrFavouriteItem({Key? key}) : super(key: key);
+  final ProductModel model;
 
+  ProductOrFavouriteItem({required this.model});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -17,9 +18,9 @@ class ProductOrFavouriteItem extends StatelessWidget {
         onTap: () {
           // navigateTo(
           //     context: context, screen: ProductScreenDetails(model: model));
-          navigateTo(context: context, screen: ProductDetailsScreen());
+          navigateTo(context: context, screen: ProductDetailsScreen(model: model));
         },
-        child: Container(
+        child: SizedBox(
           height: 130,
           //color: Colors.grey,
           child: Row(
@@ -27,28 +28,26 @@ class ProductOrFavouriteItem extends StatelessWidget {
               Stack(
                 alignment: AlignmentDirectional.bottomStart,
                 children: [
-                  const FadeInImage(
+                  FadeInImage(
                     height: 150,
                     width: 120,
                     placeholder:
                         const AssetImage('assets/images/imageloading.gif'),
-                    image: CachedNetworkImageProvider(
-                        'https://janatonline.com/Content/Images/Products/al-osra-white-sugar-1-kg-68614-600.jpg'),
+                    image: CachedNetworkImageProvider(model.image),
                     fit: BoxFit.contain,
                   ),
-
-                  //   if (model.discount != 0)
-                  Container(
-                    color: Colors.red,
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: const Text(
-                      'Discount',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
+                  if (model.newPrice != null && model.newPrice != 0)
+                    Container(
+                      color: Colors.red,
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child:const Text(
+                        'عرض خاص',
+                        style:  TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
                       ),
                     ),
-                  ),
                 ],
               ),
               Expanded(
@@ -56,7 +55,7 @@ class ProductOrFavouriteItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'سكر أبيض 1 كجم',
+                      model.name,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyText1,
@@ -65,18 +64,25 @@ class ProductOrFavouriteItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
+                        if(model.newPrice != null && model.newPrice != 0)
                         Text(
-                          '15 جــ',
-                          //  '${model.price.toString()} EGP',
+                           '${model.newPrice.toString()} جـــ',
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
                               .copyWith(color: Colors.deepOrange, fontSize: 15),
                         ),
-                        // if (model.discount != 0)
+                        if(model.newPrice == null || model.newPrice == 0)
                         Text(
-                          '20 جـ',
-                          //     '${model.oldPrice.toString()} EGP',
+                           '${model.price.toString()} جـــ',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(color: Colors.deepOrange, fontSize: 15),
+                        ),
+                       if (model.newPrice != 0 && model.newPrice != null)
+                        Text(
+                              '${model.price.toString()} جــ',
                           style:
                               Theme.of(context).textTheme.bodyText1!.copyWith(
                                     color: Colors.grey,
@@ -92,7 +98,7 @@ class ProductOrFavouriteItem extends StatelessWidget {
                               // ShopCubit.get(context)
                               //     .changeFavourite(model.id, context);
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.favorite_sharp,
                               size: 18,
                               color: Colors.grey,

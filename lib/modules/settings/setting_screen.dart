@@ -51,7 +51,7 @@ class SettingScreen extends StatelessWidget {
                         ),
                         title: 'الوضع الساطع',
                         subtitle: " للتحويل بين الوضع الليلي والساطع ",
-                        subtitleStyle: Theme.of(context).textTheme.subtitle1,
+                        subtitleStyle: Theme.of(context).textTheme.subtitle2,
                         trailing: Switch.adaptive(
                           value: cubit.isLight,
                           onChanged: (value) {
@@ -84,7 +84,7 @@ class SettingScreen extends StatelessWidget {
                         icons: Icons.call_rounded,
                         title: "عبر الموبايل",
                         subtitle: 'للإتصال علي 01018388182 ',
-                        subtitleStyle: Theme.of(context).textTheme.subtitle1,
+                        subtitleStyle: Theme.of(context).textTheme.subtitle2,
                         titleStyle: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -110,7 +110,7 @@ class SettingScreen extends StatelessWidget {
                           icons: FontAwesomeIcons.whatsappSquare,
                           title: "واتساب",
                           subtitle: 'للتواصل معنا عبر الواتساب',
-                          subtitleStyle: Theme.of(context).textTheme.subtitle1,
+                          subtitleStyle: Theme.of(context).textTheme.subtitle2,
                           titleStyle: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
@@ -132,7 +132,7 @@ class SettingScreen extends StatelessWidget {
                         ),
                         title: 'البيانات الشخصية',
                         subtitle: 'للتعديل علي بياناتك الشخصية',
-                        subtitleStyle: Theme.of(context).textTheme.subtitle1,
+                        subtitleStyle: Theme.of(context).textTheme.subtitle2,
                       ),
                     ],
                   ),
@@ -146,7 +146,7 @@ class SettingScreen extends StatelessWidget {
                         ),
                         title: 'حول',
                         subtitle: "معلومات عن شركة دارين",
-                        subtitleStyle: Theme.of(context).textTheme.subtitle1,
+                        subtitleStyle: Theme.of(context).textTheme.subtitle2,
                       ),
                     ],
                   ),
@@ -179,7 +179,7 @@ class SettingScreen extends StatelessWidget {
                         icons: Icons.exit_to_app_rounded,
                         title: "تسجيل الخروج",
                         subtitle: 'اذا كنت تريد تسجيل الخروج',
-                        subtitleStyle: Theme.of(context).textTheme.subtitle1,
+                        subtitleStyle: Theme.of(context).textTheme.subtitle2,
                       ),
                     ],
                   ),

@@ -63,7 +63,7 @@ class OnBoardingScreen extends StatelessWidget {
                 itemBuilder: (context, index) =>
                     OnBoardingItem(model: boarding[index]),
                 itemCount: boarding.length,
-                physics: BouncingScrollPhysics(),
+                physics:const BouncingScrollPhysics(),
                 controller: boardController,
                 onPageChanged: (index) {
                   if (index == boarding.length - 1) {
@@ -80,7 +80,7 @@ class OnBoardingScreen extends StatelessWidget {
                 SmoothPageIndicator(
                   controller: boardController,
                   count: boarding.length,
-                  effect: ExpandingDotsEffect(
+                  effect:const ExpandingDotsEffect(
                     dotColor: Colors.grey,
                     dotHeight: 20,
                     activeDotColor: Colors.deepOrange,

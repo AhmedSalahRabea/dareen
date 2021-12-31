@@ -3,6 +3,8 @@
 const String LOGIN = 'client/login';
 const String REGISTER = 'client/register';
 const String CATEGORIES = 'all/categories';
+const String CATEGORYPRODUCTS = 'get/products';
+
 
 //token
 String? token;
