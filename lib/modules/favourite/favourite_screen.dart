@@ -1,16 +1,41 @@
 // ignore_for_file: override_on_non_overriding_member, use_key_in_widget_constructors
 
+import 'package:buildcondition/buildcondition.dart';
+import 'package:dareen_app/home/cubit/shop_cubit.dart';
+import 'package:dareen_app/shared/widgets/my_divider.dart';
+import 'package:dareen_app/shared/widgets/product_fav_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavouriteScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Favourite Screen',
-        style: Theme.of(context).textTheme.bodyText1,
-      ),
-    );
+    return BlocConsumer<ShopCubit, ShopState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          ShopCubit cubit = ShopCubit.get(context);
+          return BuildCondition(
+            condition: cubit.favourites.isNotEmpty,
+            builder: (context) => Directionality(
+              textDirection: TextDirection.rtl,
+              //this widget to control back button
+              child: WillPopScope(
+                onWillPop: () async {
+                  cubit.favourites = [];
+                  return true;
+                },
+                child: ListView.separated(
+                  itemBuilder: (contextm, index) => ProductOrFavouriteItem(
+                    model: cubit.favourites[index],
+                  ),
+                  separatorBuilder: (contextm, index) => MyDivider(),
+                  itemCount: cubit.favourites.length,
+                ),
+              ),
+            ),
+            fallback: (context) =>
+                const Center(child: CircularProgressIndicator()),
+          );
+        });
   }
 }

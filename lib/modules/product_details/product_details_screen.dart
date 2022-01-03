@@ -167,7 +167,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                   label: const Text(
-                    'أضف إلي السلة',
+                    'أضف إلي عربة التسوق',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

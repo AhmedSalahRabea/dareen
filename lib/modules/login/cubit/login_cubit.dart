@@ -32,7 +32,15 @@ class LoginCubit extends Cubit<LoginState> {
     ).then((value) {
       loginModel = LoginModel.fromJson(value.data);
       if (loginModel.status) {
-        token = loginModel.token;
+        //token = loginModel.token;
+         saveUserDataInSharedPref(
+          token: loginModel.token!,
+          userId: loginModel.data!.id,
+          userName: loginModel.data!.name,
+          phoneNumber: loginModel.data!.phoneNumber,
+          userRegion: loginModel.data!.region,
+          userAddress: loginModel.data!.address,
+        );
         print('new token from login=========$token');
         navigateAndFinish(context: context, screen: HomeScreen());
         emit(LoginSuccess(loginModel));

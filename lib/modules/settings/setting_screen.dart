@@ -7,6 +7,7 @@ import 'package:dareen_app/modules/register_screen/cubit/register_cubit.dart';
 import 'package:dareen_app/modules/settings/big_user_item.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/cubit/app_cubit.dart';
+import 'package:dareen_app/shared/network/local/cache_helper.dart';
 import 'package:dareen_app/shared/widgets/my_ok_text.dart';
 import 'package:dareen_app/shared/widgets/my_textbutton.dart';
 import 'package:flutter/material.dart';
@@ -30,14 +31,13 @@ class SettingScreen extends StatelessWidget {
                   // User card
                   //this item from my setting not from the package
                   BigUserItem(
-                    userName: 'احمد صلاح',
-                    //  userName: model!.data!.name,
+                    userName: CacheHelper.getDataFromSharedPrefrences(
+                        key: 'userName'),
                     userProfilePic:
                         const AssetImage('assets/images/login/dareen.jpg'),
-                    phoneNumber: '01018388182',
+                    phoneNumber: CacheHelper.getDataFromSharedPrefrences(
+                        key: 'phoneNumber'),
                     address: 'كوبري المستشفي',
-                    //  phoneNumber: model!.data!.phoneNumber,
-                    //  address: model!.data!.address,
                   ),
                   SettingsGroup(
                     items: [

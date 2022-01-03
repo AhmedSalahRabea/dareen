@@ -3,6 +3,7 @@
 import 'package:dareen_app/data/models/user_data_model.dart';
 import 'package:dareen_app/modules/login/login_screen.dart';
 import 'package:dareen_app/shared/components/functions.dart';
+import 'package:dareen_app/shared/network/local/cache_helper.dart';
 import 'package:dareen_app/shared/network/remote/doi_helper.dart';
 import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:dareen_app/shared/widgets/my_ok_text.dart';
@@ -44,7 +45,16 @@ class RegisterCubit extends Cubit<RegisterState> {
     ).then((value) {
       loginModel = LoginModel.fromJson(value.data);
       if (loginModel.status) {
-        token = loginModel.token;
+        //  token = loginModel.token;
+        saveUserDataInSharedPref(
+          token: loginModel.token!,
+          userId: loginModel.data!.id,
+          userName: loginModel.data!.name,
+          phoneNumber: loginModel.data!.phoneNumber,
+          userRegion: loginModel.data!.region,
+          userAddress: loginModel.data!.address,
+        );
+
         print('new token from register=========$token');
         emit(RegisterSuccess(loginModel));
       } else {
@@ -168,6 +178,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     navigateAndFinish(context: context, screen: LoginScreen());
+    deleteUserDataWhenLogout();
     emit(UserSignedOut());
   }
 

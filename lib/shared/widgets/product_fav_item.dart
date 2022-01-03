@@ -117,10 +117,10 @@ class ProductOrFavouriteItem extends StatelessWidget {
                               context: context,
                               title: 'السلة',
                               content:
-                                  'تم إضافة هذا المنتج إلي سلة التسوق الخاصة بكم');
+                                  'تم إضافة هذا المنتج إلي عربة التسوق الخاصة بكم');
                         },
                         icon: const Icon(Icons.shopping_cart_outlined),
-                        label: const Text('أضف إلي السلة'),
+                        label: const Text('أضف إلي عربة التسوق'),
                         style: OutlinedButton.styleFrom(
                           //padding: EdgeInsets.zero,
                           side: const BorderSide(color: Colors.deepOrange),

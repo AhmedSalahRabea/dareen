@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls
 
 import 'package:dareen_app/data/models/category_model.dart';
+import 'package:dareen_app/data/models/favourite_model.dart';
 import 'package:dareen_app/data/models/product_model.dart';
 import 'package:dareen_app/modules/cart/cart_screen.dart';
 import 'package:dareen_app/modules/categories/categories_screen.dart';
@@ -39,7 +40,7 @@ class ShopCubit extends Cubit<ShopState> {
 
 //========== method to get the products into a particular category =======
   ProductsModel? productsModel;
-  List<ProductModel> products =[];
+  List<ProductModel> products = [];
   void getCategoryProducts(String categoryId) {
     emit(ProductsLoading());
     DioHelper.getData(
@@ -49,7 +50,7 @@ class ShopCubit extends Cubit<ShopState> {
       },
     ).then((value) {
       productsModel = ProductsModel.fromJson(value.data);
-    //  print(productsModel!.data![0].name);
+      //  print(productsModel!.data![0].name);
       productsModel!.data!.forEach((element) {
         products.add(element);
       });
@@ -61,16 +62,42 @@ class ShopCubit extends Cubit<ShopState> {
     });
   }
 
-//======when the user click back button from products screenr=====
-  void makeProductsModelEmpty() {
-    productsModel!.data == null;
-    emit(MakeProductsModelEmpty());
+//========== method to get favourites =======
+  late FavouritesModel? favouritesModel;
+  List<ProductModel> favourites = [];
+  void getFavourites(int? userId) {
+    emit(FavouritesLoading());
+    DioHelper.getData(
+      url: FAVOURITES,
+      query: {
+        'user_id': userId,
+      },
+    ).then((value) {
+      favouritesModel = FavouritesModel.fromJson(value.data);
+      if (favouritesModel != null) {
+        if (favouritesModel!.data != null) {
+          favouritesModel!.data!.forEach((element) {
+            favourites.add(element.product);
+          });
+        }
+      }
+      emit(FavouritesGetSuccess());
+    }).catchError((error) {
+      print(error.toString());
+      emit(FavouritesGetError());
+    });
   }
 
   //========Bottom navigation bar logic==========
   int currebIndex = 0;
   void changeBottomNavIndex(int index) {
     currebIndex = index;
+    if (currebIndex == 1) {
+      getFavourites(userId!);
+    }else{
+      favourites = [];
+    }
+    
     emit(ShopChangeBottomNavBar());
   }
 
