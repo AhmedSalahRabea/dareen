@@ -7,6 +7,10 @@ const String REGISTER = 'client/register';
 const String CATEGORIES = 'all/categories';
 const String CATEGORYPRODUCTS = 'get/products';
 const String FAVOURITES = 'get/favorites';
+const String ADDORDELETEFAVOURITE = 'add/favorites';
+const String SEARCH = 'search/product';
+
+
 
 //token
 String? token = CacheHelper.getDataFromSharedPrefrences(key: 'token');

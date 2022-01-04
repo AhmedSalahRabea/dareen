@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
             // ..homeScreen(isOnBoardingSeen),
             ),
         BlocProvider<ShopCubit>(
-          create: (context) => ShopCubit()..getCategoryData(context),
+          create: (context) => ShopCubit()..getCategoryData(context)..getFavourites(userId),
         ),
       ],
       child: BlocConsumer<AppCubit, AppState>(

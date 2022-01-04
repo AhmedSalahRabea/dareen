@@ -40,6 +40,7 @@ class LoginScreen extends StatelessWidget {
               backgroundColor: Colors.white,
 
               body: SingleChildScrollView(
+                reverse: true,
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Form(
@@ -105,7 +106,9 @@ class LoginScreen extends StatelessWidget {
                                 },
                                 label: 'رقم الهاتف',
                                 prefix: Icons.phone,
-                                autofillHints:const [AutofillHints.telephoneNumber],
+                                autofillHints: const [
+                                  AutofillHints.telephoneNumber
+                                ],
                               ),
                             ),
                           ],

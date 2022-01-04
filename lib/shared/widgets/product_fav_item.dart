@@ -2,13 +2,13 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dareen_app/data/models/product_model.dart';
+import 'package:dareen_app/home/cubit/shop_cubit.dart';
 import 'package:dareen_app/modules/product_details/product_details_screen.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:flutter/material.dart';
 
 class ProductOrFavouriteItem extends StatelessWidget {
   final ProductModel model;
-
   ProductOrFavouriteItem({required this.model});
   @override
   Widget build(BuildContext context) {
@@ -16,14 +16,13 @@ class ProductOrFavouriteItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 20),
       child: InkWell(
         onTap: () {
-          // navigateTo(
-          //     context: context, screen: ProductScreenDetails(model: model));
           navigateTo(
-              context: context, screen: ProductDetailsScreen(model: model));
+            context: context,
+            screen: ProductDetailsScreen(model: model),
+          );
         },
         child: SizedBox(
           height: 130,
-          //color: Colors.grey,
           child: Row(
             children: [
               Stack(
@@ -55,6 +54,7 @@ class ProductOrFavouriteItem extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       model.name,
@@ -62,7 +62,6 @@ class ProductOrFavouriteItem extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
-                    //   const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -94,21 +93,24 @@ class ProductOrFavouriteItem extends StatelessWidget {
                                       decoration: TextDecoration.lineThrough,
                                     ),
                           ),
+                        // MyLikeButton(model: model,),
                         IconButton(
-                            onPressed: () {
-                              buildToast(
-                                  message: 'تم إضافة هذا المنتج الي المفضلة',
-                                  context: context);
-                              // ShopCubit.get(context)
-                              //     .changeFavourite(model.id, context);
-                            },
-                            icon: const Icon(
-                              Icons.favorite_sharp,
-                              size: 18,
-                              color: Colors.grey,
-                            )),
+                          onPressed: () {
+                            ShopCubit.get(context)
+                                .addOrDeleteProductToFavourite(
+                                    productId: model.id, context: context);
+                          },
+                          icon: Icon(
+                            Icons.favorite_sharp,
+                            size: 25,
+                            color: ShopCubit.get(context).likeButtonColor(model)
+                                ? Colors.red
+                                : Colors.grey,
+                          ),
+                        ),
                       ],
                     ),
+                    //   Spacer(),
                     SizedBox(
                       width: double.infinity,
                       child: OutlinedButton.icon(
@@ -122,7 +124,6 @@ class ProductOrFavouriteItem extends StatelessWidget {
                         icon: const Icon(Icons.shopping_cart_outlined),
                         label: const Text('أضف إلي عربة التسوق'),
                         style: OutlinedButton.styleFrom(
-                          //padding: EdgeInsets.zero,
                           side: const BorderSide(color: Colors.deepOrange),
                         ),
                       ),

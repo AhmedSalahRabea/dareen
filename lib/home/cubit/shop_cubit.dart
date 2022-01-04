@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls
 
+import 'package:dareen_app/data/models/add_delete_favourite.dart';
 import 'package:dareen_app/data/models/category_model.dart';
 import 'package:dareen_app/data/models/favourite_model.dart';
 import 'package:dareen_app/data/models/product_model.dart';
@@ -42,6 +43,7 @@ class ShopCubit extends Cubit<ShopState> {
   ProductsModel? productsModel;
   List<ProductModel> products = [];
   void getCategoryProducts(String categoryId) {
+    products = [];
     emit(ProductsLoading());
     DioHelper.getData(
       url: CATEGORYPRODUCTS,
@@ -50,7 +52,6 @@ class ShopCubit extends Cubit<ShopState> {
       },
     ).then((value) {
       productsModel = ProductsModel.fromJson(value.data);
-      //  print(productsModel!.data![0].name);
       productsModel!.data!.forEach((element) {
         products.add(element);
       });
@@ -66,6 +67,7 @@ class ShopCubit extends Cubit<ShopState> {
   late FavouritesModel? favouritesModel;
   List<ProductModel> favourites = [];
   void getFavourites(int? userId) {
+    favourites = [];
     emit(FavouritesLoading());
     DioHelper.getData(
       url: FAVOURITES,
@@ -88,16 +90,62 @@ class ShopCubit extends Cubit<ShopState> {
     });
   }
 
+//=====To add or delete product from favourites=====
+  // bool isLiked = false;
+  AddOrDeleteProductFromFavouritesModel? model;
+  void addOrDeleteProductToFavourite({
+    required int productId,
+    required BuildContext context,
+  }) {
+    //  this.isLiked = isLiked;
+    emit(AddOrDeleteFavouriteLoading());
+    DioHelper.postData(
+      url: ADDORDELETEFAVOURITE,
+      data: {
+        'user_id': userId,
+        'product_id': productId,
+      },
+    ).then((value) {
+      model = AddOrDeleteProductFromFavouritesModel.fromJson(value.data);
+      if (model!.status) {
+        mySnackBar(context: context, content: model!.message);
+        emit(AddOrDeleteFavouriteSuccess());
+        print('now favourite status changed');
+      } else {
+        // this.isLiked = !isLiked;
+        mySnackBar(context: context, content: model!.message);
+        emit(AddOrDeleteFavouriteError());
+      }
+    }).catchError((error) {
+      mySnackBar(context: context, content: 'حدث خطأ اثناء إضافة أو حذف منتج من المفضلة يرجي التأكد من الإتصال بالإنترنت وأعد المحاولة ');
+
+      print(error.toString());
+      emit(AddOrDeleteFavouriteError());
+    });
+  }
+
+// ====to determine the like button color===
+  late bool isInFavourites;
+  bool likeButtonColor(ProductModel model) {
+    if (favourites.contains(model)) {
+      // isInFavourites = true;
+      // emit(ProductAlreadyInFavourites());
+      return true;
+    } else {
+      //isInFavourites = false;
+      //  emit(ProductNotInFavourites());
+      return false;
+    }
+  }
+
   //========Bottom navigation bar logic==========
   int currebIndex = 0;
   void changeBottomNavIndex(int index) {
     currebIndex = index;
     if (currebIndex == 1) {
       getFavourites(userId!);
-    }else{
-      favourites = [];
     }
-    
+
     emit(ShopChangeBottomNavBar());
   }
 
