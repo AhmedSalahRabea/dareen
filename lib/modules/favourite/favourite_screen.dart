@@ -22,14 +22,25 @@ class FavouriteScreen extends StatelessWidget {
         builder: (context) => Directionality(
           textDirection: TextDirection.rtl,
           child: ListView.separated(
-            itemBuilder: (contextm, index) => ProductOrFavouriteItem(
-              model: cubit.favourites[index],
-            ),
+            itemBuilder: (_, index) {
+              return ProductOrFavouriteItem(
+                model: cubit.favourites[index],
+              );
+            },
             separatorBuilder: (contextm, index) => MyDivider(),
             itemCount: cubit.favourites.length,
           ),
         ),
-        fallback: (context) => const Center(child: CircularProgressIndicator()),
+        fallback: state is FavouritesGetSuccess && cubit.favourites.isEmpty
+            ? (context) => const Center(
+                    child: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Text(
+                    ' لم يتم إضافة منتجات في قائمة المفضلة الخاصة بك يرجي زيارة متاجرنا وإضافة ما يعجبك إلي المفضلة لتسهيل الوصول إليه',
+                    //  style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                ))
+            : (context) => const Center(child: CircularProgressIndicator()),
       );
     });
   }

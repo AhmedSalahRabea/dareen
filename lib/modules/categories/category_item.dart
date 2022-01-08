@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dareen_app/home/cubit/shop_cubit.dart';
 import 'package:dareen_app/modules/products/products_screen.dart';
+import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dareen_app/data/models/category_model.dart';
@@ -27,12 +28,16 @@ class CategoryItem extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () async {
+          ShopCubit.get(context).getFavourites(userId);
+
           ShopCubit.get(context).getCategoryProducts('${model.id}');
+
           navigateTo(
               context: context,
               screen: ProductsScreen(
                 categoryName: model.name,
               ));
+ 
         },
         child: GridTile(
           child: FadeInImage(

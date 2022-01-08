@@ -5,7 +5,6 @@ import 'package:dareen_app/data/models/product_model.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/widgets/my_divider.dart';
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final ProductModel model;

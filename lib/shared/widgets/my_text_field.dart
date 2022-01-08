@@ -36,6 +36,8 @@ class MyTextFormField extends StatelessWidget {
     this.isDetailedAddress = false,
     this.autofillHints,
   });
+  //to determine is the textField is focused or not
+  FocusNode fieldNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +51,18 @@ class MyTextFormField extends StatelessWidget {
       onSaved: onSaved,
       validator: validate,
       obscureText: isPassword,
+
       // expands: isDetailedAddress ?true:false,
       maxLines: isDetailedAddress ? 3 : 1,
       autofillHints: autofillHints,
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(prefix),
+        labelStyle:
+            Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15),
+        prefixIcon: Icon(
+          prefix,
+          color: Theme.of(context).primaryColor,
+        ),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
         suffixIcon: suffix != null
             ? IconButton(

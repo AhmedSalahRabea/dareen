@@ -66,7 +66,7 @@ void showMyAlertDialog({
     backgroundColor: Colors.white,
     elevation: 5,
     scrollable: true,
-    actionsPadding: const EdgeInsets.symmetric(horizontal: 10),
+    actionsPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     titleTextStyle: const TextStyle(
       color: Colors.deepOrange,
@@ -76,7 +76,7 @@ void showMyAlertDialog({
     content: Text(
       content,
       textDirection: TextDirection.rtl,
-      style:const TextStyle(color: Colors.black, fontSize: 16),
+      style: const TextStyle(color: Colors.black, fontSize: 16),
     ),
     title: Text(
       title,
@@ -88,6 +88,7 @@ void showMyAlertDialog({
     context: context,
     builder: (context) => alertDialog,
     barrierDismissible: isBarrierDismissible,
+    barrierColor: Colors.amber.withOpacity(0.5),
   );
 }
 

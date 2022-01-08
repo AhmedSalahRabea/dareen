@@ -1,9 +1,9 @@
 // ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'package:dareen_app/data/models/user_data_model.dart';
+import 'package:dareen_app/home/cubit/shop_cubit.dart';
 import 'package:dareen_app/modules/login/login_screen.dart';
 import 'package:dareen_app/shared/components/functions.dart';
-import 'package:dareen_app/shared/network/local/cache_helper.dart';
 import 'package:dareen_app/shared/network/remote/doi_helper.dart';
 import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:dareen_app/shared/widgets/my_ok_text.dart';
@@ -31,6 +31,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String address,
     required BuildContext context,
   }) {
+    ShopCubit.get(context).currebIndex =0;
     emit(RegisterLoading());
     DioHelper.postData(
       url: REGISTER,
@@ -177,8 +178,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   //دالة تسجيل الخروج
   Future<void> signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    navigateAndFinish(context: context, screen: LoginScreen());
     deleteUserDataWhenLogout();
+    navigateAndFinish(context: context, screen: LoginScreen());
     emit(UserSignedOut());
   }
 

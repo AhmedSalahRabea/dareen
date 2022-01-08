@@ -5,6 +5,7 @@ import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 
 import 'package:dareen_app/modules/register_screen/cubit/register_cubit.dart';
 import 'package:dareen_app/modules/settings/big_user_item.dart';
+import 'package:dareen_app/modules/update_user_data/update_user_data.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/cubit/app_cubit.dart';
 import 'package:dareen_app/shared/network/local/cache_helper.dart';
@@ -50,6 +51,10 @@ class SettingScreen extends StatelessWidget {
                           backgroundColor: Colors.deepOrange,
                         ),
                         title: 'الوضع الساطع',
+                        titleStyle: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(color: Colors.black),
                         subtitle: " للتحويل بين الوضع الليلي والساطع ",
                         subtitleStyle: Theme.of(context).textTheme.subtitle2,
                         trailing: Switch.adaptive(
@@ -85,9 +90,10 @@ class SettingScreen extends StatelessWidget {
                         title: "عبر الموبايل",
                         subtitle: 'للإتصال علي 01018388182 ',
                         subtitleStyle: Theme.of(context).textTheme.subtitle2,
-                        titleStyle: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        titleStyle: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(color: Colors.black),
                         iconStyle: IconStyle(
                           iconsColor: Colors.deepOrange,
                           backgroundColor: Colors.white,
@@ -111,9 +117,10 @@ class SettingScreen extends StatelessWidget {
                           title: "واتساب",
                           subtitle: 'للتواصل معنا عبر الواتساب',
                           subtitleStyle: Theme.of(context).textTheme.subtitle2,
-                          titleStyle: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          titleStyle: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(color: Colors.black),
                           iconStyle: IconStyle(
                             iconsColor: Colors.green,
                             withBackground: true,
@@ -125,12 +132,19 @@ class SettingScreen extends StatelessWidget {
                   SettingsGroup(
                     items: [
                       SettingsItem(
-                        onTap: () {},
+                        onTap: () {
+                          navigateTo(
+                              context: context, screen: UpdateUserDataScreen());
+                        },
                         icons: Icons.person_pin_sharp,
                         iconStyle: IconStyle(
                           backgroundColor: Colors.deepOrange,
                         ),
                         title: 'البيانات الشخصية',
+                        titleStyle: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(color: Colors.black),
                         subtitle: 'للتعديل علي بياناتك الشخصية',
                         subtitleStyle: Theme.of(context).textTheme.subtitle2,
                       ),
@@ -145,6 +159,10 @@ class SettingScreen extends StatelessWidget {
                           backgroundColor: Colors.deepOrange,
                         ),
                         title: 'حول',
+                        titleStyle: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(color: Colors.black),
                         subtitle: "معلومات عن شركة دارين",
                         subtitleStyle: Theme.of(context).textTheme.subtitle2,
                       ),
@@ -178,6 +196,10 @@ class SettingScreen extends StatelessWidget {
                         },
                         icons: Icons.exit_to_app_rounded,
                         title: "تسجيل الخروج",
+                        titleStyle: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(color: Colors.black),
                         subtitle: 'اذا كنت تريد تسجيل الخروج',
                         subtitleStyle: Theme.of(context).textTheme.subtitle2,
                       ),

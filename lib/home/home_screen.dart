@@ -13,36 +13,50 @@ class HomeScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         ShopCubit cubit = ShopCubit.get(context);
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              'Dareen',
-              style:
-                  Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 27),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: IconButton(
-                  onPressed: () {
-                    navigateTo(context: context, screen: SearchScreen());
-                  },
-                  icon: const Icon(Icons.search),
-                  color: Colors.deepOrange,
-                  iconSize: 30,
-                ),
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(
+                'Dareen',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(fontSize: 27),
               ),
-            ],
-          ),
-          body: cubit.screens[cubit.currebIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            items: cubit.items,
-            currentIndex: cubit.currebIndex,
-            onTap: (index) {
-              cubit.changeBottomNavIndex(index);
-            },
-            iconSize: 27,
-            type: BottomNavigationBarType.fixed,
+              centerTitle: true,
+              leadingWidth: 100,
+              leading: TextButton.icon(
+                onPressed: () {
+                  cubit.changeIndexToMaychCartScreen(context);
+                },
+                icon: const Icon(Icons.shopping_cart),
+                label: Text('3'),
+              ),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: IconButton(
+                    onPressed: () {
+                      navigateTo(context: context, screen: SearchScreen());
+                    },
+                    icon: const Icon(Icons.search),
+                    color: Colors.deepOrange,
+                    iconSize: 30,
+                  ),
+                ),
+              ],
+            ),
+            body: cubit.screens[cubit.currebIndex],
+            bottomNavigationBar: BottomNavigationBar(
+              items: cubit.items,
+              currentIndex: cubit.currebIndex,
+              onTap: (index) {
+                cubit.changeBottomNavIndex(index);
+              },
+              iconSize: 27,
+              type: BottomNavigationBarType.fixed,
+            ),
           ),
         );
       },

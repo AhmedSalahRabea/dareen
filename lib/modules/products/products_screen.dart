@@ -2,6 +2,9 @@
 
 import 'package:buildcondition/buildcondition.dart';
 import 'package:dareen_app/home/cubit/shop_cubit.dart';
+import 'package:dareen_app/home/home_screen.dart';
+import 'package:dareen_app/shared/components/functions.dart';
+import 'package:dareen_app/shared/widgets/my_default_button.dart';
 import 'package:dareen_app/shared/widgets/my_divider.dart';
 import 'package:dareen_app/shared/widgets/product_fav_item.dart';
 import 'package:flutter/material.dart';
@@ -13,33 +16,52 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ShopCubit, ShopState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          ShopCubit cubit = ShopCubit.get(context);
-          return BuildCondition(
+    return BlocConsumer<ShopCubit, ShopState>(listener: (context, state) {
+      if (state is ProductsGetSuccess) {
+        if (ShopCubit.get(context).products.isEmpty) {
+          return showMyAlertDialog(
+            context: context,
+            title: 'قسم $categoryName',
+            // isBarrierDismissible: false,
+            content: 'لا يوجد منتجات في هذا القسم يرجي زيارته قريباً ',
+            actions: [
+              MyDefaultButton(
+                  text: 'حسناً',
+                  function: () {
+                    navigateTo(context: context, screen: HomeScreen());
+                  }),
+            ],
+          );
+        }
+      }
+    }, builder: (context, state) {
+      ShopCubit cubit = ShopCubit.get(context);
+      return Directionality(
+        textDirection: TextDirection.rtl,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(categoryName),
+          ),
+          body: BuildCondition(
             condition: cubit.products.isNotEmpty,
-            builder: (context) => Directionality(
-              textDirection: TextDirection.rtl,
-              //this widget to control back button
-              child: Scaffold(
-                appBar: AppBar(
-                  title: Text(categoryName),
-                ),
-                body: ListView.separated(
-                  itemBuilder: (contextm, index) {
-                    return ProductOrFavouriteItem(
-                      model: cubit.products[index],
-                    );
-                  },
-                  separatorBuilder: (contextm, index) => MyDivider(),
-                  itemCount: cubit.products.length,
-                ),
-              ),
-            ),
+            builder: (context) {
+              return ListView.separated(
+                itemBuilder: (_, index) {
+                  return ProductOrFavouriteItem(
+                    model: cubit.products[index],
+                  );
+                },
+                separatorBuilder: (contextm, index) => MyDivider(),
+                itemCount: cubit.products.length,
+              );
+            },
             fallback: (context) =>
                 const Center(child: CircularProgressIndicator()),
-          );
-        });
+          ),
+        ),
+      );
+
+      //    fallback: (context) => const Center(child: CircularProgressIndicator()),
+    });
   }
 }

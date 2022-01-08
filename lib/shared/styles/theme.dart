@@ -45,6 +45,11 @@ class MyTheme {
         fontWeight: FontWeight.bold,
         color: Colors.deepOrange,
       ),
+      //for text form fields
+      subtitle1: TextStyle(
+        fontSize: 16,
+        color: Colors.black,
+      ),
       //for subtitles in settings screen
       subtitle2: TextStyle(
         fontSize: 14,
@@ -59,13 +64,13 @@ class MyTheme {
   );
   static ThemeData myDarkThemeMode = ThemeData(
     primarySwatch: Colors.deepOrange,
-    scaffoldBackgroundColor: Colors.black,
+    scaffoldBackgroundColor: Color(0xff121212),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: Colors.deepOrange,
     ),
     appBarTheme: AppBarTheme(
       titleSpacing: 20,
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xff121212),
       elevation: 0.0,
       iconTheme: IconThemeData(
         color: Colors.white,
@@ -77,7 +82,7 @@ class MyTheme {
       ),
       // backwardsCompatibility: true,
       systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Colors.black,
+        statusBarColor: Color(0xff121212),
         statusBarIconBrightness: Brightness.light,
       ),
     ),
@@ -85,7 +90,7 @@ class MyTheme {
       //    type: BottomNavigationBarType.shifting,
       selectedItemColor: Colors.deepOrange,
       elevation: 20.0,
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xff121212),
       unselectedItemColor: Colors.grey,
     ),
     textTheme: TextTheme(
@@ -99,6 +104,11 @@ class MyTheme {
         fontSize: 20,
         fontWeight: FontWeight.bold,
         color: Colors.deepOrange,
+      ),
+      //for text form fields
+      subtitle1: TextStyle(
+        fontSize: 16,
+        color: Colors.white,
       ),
       //for subtitles in settings screen
       subtitle2: TextStyle(

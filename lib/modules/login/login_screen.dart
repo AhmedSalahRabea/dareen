@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
             textDirection: TextDirection.rtl,
             child: Scaffold(
               //appBar: AppBar(),
-              backgroundColor: Colors.white,
+              //  backgroundColor: Colors.white,
 
               body: SingleChildScrollView(
                 reverse: true,
@@ -57,10 +57,7 @@ class LoginScreen extends StatelessWidget {
                         Text(
                           'قم بتسجيل الدخول لتستمتع بجميع خدمات تطبيق دارين',
                           maxLines: 3,
-                          style:
-                              Theme.of(context).textTheme.bodyText2!.copyWith(
-                                    color: Colors.grey,
-                                  ),
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
                         const SizedBox(height: 20),
                         Row(
@@ -79,11 +76,12 @@ class LoginScreen extends StatelessWidget {
                                 child: Text(
                                   generateCountryFlag() + ' +2',
                                   textAlign: TextAlign.left,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    letterSpacing: 2.0,
-                                    color: Colors.black,
-                                  ),
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                  //  const TextStyle(
+                                  //   fontSize: 18,
+                                  //   letterSpacing: 2.0,
+                                  //   color: Colors.black,
+                                  // ),
                                 ),
                               ),
                             ),
@@ -176,13 +174,10 @@ class LoginScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'لا يوجد لديك حساب ؟ ',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(color: Colors.black),
-                            ),
+                            Text('لا يوجد لديك حساب ؟ ',
+                                style: Theme.of(context).textTheme.bodyText1!
+                                // .copyWith(color: Colors.black),
+                                ),
                             MyTextButton(
                               text: 'إنشاء حساب جديد ',
                               fontSize: 16,

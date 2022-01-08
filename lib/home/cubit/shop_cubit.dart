@@ -95,9 +95,9 @@ class ShopCubit extends Cubit<ShopState> {
   AddOrDeleteProductFromFavouritesModel? model;
   void addOrDeleteProductToFavourite({
     required int productId,
+    required ProductModel productModel,
     required BuildContext context,
   }) {
-    //  this.isLiked = isLiked;
     emit(AddOrDeleteFavouriteLoading());
     DioHelper.postData(
       url: ADDORDELETEFAVOURITE,
@@ -112,12 +112,14 @@ class ShopCubit extends Cubit<ShopState> {
         emit(AddOrDeleteFavouriteSuccess());
         print('now favourite status changed');
       } else {
-        // this.isLiked = !isLiked;
         mySnackBar(context: context, content: model!.message);
         emit(AddOrDeleteFavouriteError());
       }
     }).catchError((error) {
-      mySnackBar(context: context, content: 'حدث خطأ اثناء إضافة أو حذف منتج من المفضلة يرجي التأكد من الإتصال بالإنترنت وأعد المحاولة ');
+      mySnackBar(
+          context: context,
+          content:
+              'حدث خطأ اثناء إضافة أو حذف منتج من المفضلة يرجي التأكد من الإتصال بالإنترنت وأعد المحاولة ');
 
       print(error.toString());
       emit(AddOrDeleteFavouriteError());
@@ -125,17 +127,35 @@ class ShopCubit extends Cubit<ShopState> {
   }
 
 // ====to determine the like button color===
-  late bool isInFavourites;
-  bool likeButtonColor(ProductModel model) {
-    if (favourites.contains(model)) {
-      // isInFavourites = true;
-      // emit(ProductAlreadyInFavourites());
-      return true;
-    } else {
-      //isInFavourites = false;
-      //  emit(ProductNotInFavourites());
-      return false;
+  Color loveButtonColor = Colors.grey;
+  Color likeButtonColor(ProductModel model) {
+    for (var product in favourites) {
+      if (product.id == model.id) {
+        loveButtonColor = Colors.red;
+        return Colors.red;
+      }
     }
+    loveButtonColor = Colors.grey;
+    return Colors.grey;
+  }
+
+  bool isLiked = false;
+  bool loveButtonColorForPackage(ProductModel model) {
+    for (var product in favourites) {
+      if (product.id == model.id) {
+        isLiked = true;
+        return true;
+      }
+    }
+    isLiked = false;
+
+    return false;
+  }
+
+  //=======
+  void changeIndexToMaychCartScreen(BuildContext context) {
+    currebIndex = 2;
+    emit(ChangeIndexToMaychCartScreen());
   }
 
   //========Bottom navigation bar logic==========
@@ -152,7 +172,7 @@ class ShopCubit extends Cubit<ShopState> {
   List<BottomNavigationBarItem> items = const [
     BottomNavigationBarItem(
       icon: Icon(Icons.home),
-      label: 'الصفحة الرئيسية',
+      label: 'الرئيسية',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.favorite),
@@ -160,7 +180,7 @@ class ShopCubit extends Cubit<ShopState> {
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.shopping_cart),
-      label: 'السلة',
+      label: 'عربة التسوق',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.settings),

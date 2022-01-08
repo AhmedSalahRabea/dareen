@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:dareen_app/data/models/user_data_model.dart';
+import 'package:dareen_app/home/cubit/shop_cubit.dart';
 import 'package:dareen_app/home/home_screen.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/network/remote/doi_helper.dart';
@@ -22,6 +23,7 @@ class LoginCubit extends Cubit<LoginState> {
     required String password,
     required BuildContext context,
   }) {
+    ShopCubit.get(context).currebIndex =0;
     emit(LoginLoading());
     DioHelper.postData(
       url: LOGIN,
@@ -33,7 +35,7 @@ class LoginCubit extends Cubit<LoginState> {
       loginModel = LoginModel.fromJson(value.data);
       if (loginModel.status) {
         //token = loginModel.token;
-         saveUserDataInSharedPref(
+        saveUserDataInSharedPref(
           token: loginModel.token!,
           userId: loginModel.data!.id,
           userName: loginModel.data!.name,
@@ -63,7 +65,6 @@ class LoginCubit extends Cubit<LoginState> {
             'حدث خطأ ما أثناء تسجيل الدخول برجاء التأكد من الإتصال بالإنترنت وأعد المحاولة مرة أخري',
         actions: [
           MyOkTextButtonForDailog(),
-        
         ],
       );
       print(error.toString());

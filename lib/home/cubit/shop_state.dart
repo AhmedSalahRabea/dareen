@@ -33,10 +33,9 @@ class AddOrDeleteFavouriteSuccess extends ShopState {}
 
 class AddOrDeleteFavouriteError extends ShopState {}
 //===to determine like button  color===
-class ProductAlreadyInFavourites extends ShopState {}
-class ProductNotInFavourites extends ShopState {}
+class LikeButtonColorChanged extends ShopState {}
 
-
+class ChangeIndexToMaychCartScreen extends ShopState {}
 //======when the user click back button from products screenr=====
 class MakeProductsModelEmpty extends ShopState {}
 

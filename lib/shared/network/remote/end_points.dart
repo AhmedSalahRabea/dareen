@@ -51,11 +51,11 @@ void saveUserDataInSharedPref({
 //===== delete user data when logout===
 void deleteUserDataWhenLogout() async {
   await CacheHelper.removeDataFromSharedPrefrence(key: 'token');
-  await CacheHelper.removeDataFromSharedPrefrence(key: 'uId');
+  await CacheHelper.removeDataFromSharedPrefrence(key: 'userId');
   await CacheHelper.removeDataFromSharedPrefrence(key: 'userName');
   await CacheHelper.removeDataFromSharedPrefrence(key: 'phoneNumber');
   await CacheHelper.removeDataFromSharedPrefrence(key: 'userRegion');
   await CacheHelper.removeDataFromSharedPrefrence(key: 'userAddress');
   print(
-      'all userData deleted and user name now is ${await CacheHelper.getDataFromSharedPrefrences(key: 'userName')}');
+      'all userData deleted and userId now is ${await CacheHelper.getDataFromSharedPrefrences(key: 'userId')}');
 }

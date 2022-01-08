@@ -67,7 +67,7 @@ class SearchScreen extends StatelessWidget {
                             children: [
                               SizedBox(height: 20),
                               Text(
-                                'من فضلك أدخل اسم المنتج الذي تريد البحث عنه في منتجاتنا',
+                                'من فضلك أدخل اسم المنتج الذي تريد البحث عنه',
                                 style: Theme.of(context).textTheme.subtitle1,
                               ),
                             ],
