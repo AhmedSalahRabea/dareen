@@ -4,11 +4,12 @@ part of 'app_cubit.dart';
 abstract class AppState {}
 
 class AppInitial extends AppState {}
+//========when change app mode ===
 class ThemeModeChange extends AppState{}
-class OnBoardingScreenSeen extends AppState{}
-//========emit to know which screen is opened first===
-class ShowOnBoardingScreen extends AppState{}
-class ShowOnLoginScreen extends AppState{}
-class ShowOnHomeScreen extends AppState{}
+//========when update user data ===
+class UpdateUserDataLoading extends AppState{}
+class UpdateUserDataSuccess extends AppState{}
+class UpdateUserDataError extends AppState{}
+
 
 

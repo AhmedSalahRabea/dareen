@@ -9,6 +9,7 @@ import 'package:dareen_app/modules/update_user_data/update_user_data.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/cubit/app_cubit.dart';
 import 'package:dareen_app/shared/network/local/cache_helper.dart';
+import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:dareen_app/shared/widgets/my_ok_text.dart';
 import 'package:dareen_app/shared/widgets/my_textbutton.dart';
 import 'package:flutter/material.dart';
@@ -73,18 +74,8 @@ class SettingScreen extends StatelessWidget {
                         Theme.of(context).textTheme.headline1,
                     items: [
                       SettingsItem(
-                        onTap: () async {
-                          String url = "tel:+201018388182";
-                          if (await canLaunch(url)) {
-                            launch(url);
-                          } else {
-                            showMyAlertDialog(
-                              context: context,
-                              title: 'خطأ أثناء الوصول إلي الهاتف',
-                              content:
-                                  'حدث خطأ أثناء الوصول برجاء المحاولة لاحقا',
-                            );
-                          }
+                        onTap: () {
+                          cubit.callPhone(context);
                         },
                         icons: Icons.call_rounded,
                         title: "عبر الموبايل",
@@ -100,18 +91,8 @@ class SettingScreen extends StatelessWidget {
                         ),
                       ),
                       SettingsItem(
-                          onTap: () async {
-                            String url = "https://wa.me/+201018388182";
-                            if (await canLaunch(url)) {
-                              launch(url);
-                            } else {
-                              showMyAlertDialog(
-                                context: context,
-                                title: 'خطأ أثناء الوصول إلي الواتساب',
-                                content:
-                                    'حدث خطأ ربما يكون تطبيق الواتساب غير موجود علي هاتفك',
-                              );
-                            }
+                          onTap: () {
+                            cubit.openWhatapp(context);
                           },
                           icons: FontAwesomeIcons.whatsappSquare,
                           title: "واتساب",
@@ -132,7 +113,7 @@ class SettingScreen extends StatelessWidget {
                   SettingsGroup(
                     items: [
                       SettingsItem(
-                        onTap: () {
+                        onTap: () async {
                           navigateTo(
                               context: context, screen: UpdateUserDataScreen());
                         },

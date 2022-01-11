@@ -2,8 +2,11 @@
 
 import 'dart:io';
 
+import 'package:dareen_app/data/models/update_user_data_model.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/network/local/cache_helper.dart';
+import 'package:dareen_app/shared/network/remote/doi_helper.dart';
+import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -32,84 +35,98 @@ class AppCubit extends Cubit<AppState> {
   }
 
 // =======to open what's app
-  void openWhatsapp(BuildContext context) async {
-    String phoneNumber = '+201018388182';
-    var whatsappURL_android = 'whatsapp://send?phone=$phoneNumber';
-    var whatsappURL_ios = 'https://wa.me/$phoneNumber';
-    if (Platform.isIOS) {
-      //for ios devices
-      if (await canLaunch(whatsappURL_ios)) {
-        await launch(whatsappURL_ios);
-      } else {
-        showMyAlertDialog(
-          context: context,
-          title: 'خطأ أثناء الوصول إلي الواتساب',
-          content: 'حدث خطأ ربما يكون تطبيق الواتساب غير موجود علي هاتفك',
-        );
-      }
+  void openWhatapp(BuildContext context) async {
+    String url = "https://wa.me/+201018388182";
+    if (await canLaunch(url)) {
+      launch(url);
     } else {
-//for andriod and web
-      if (await canLaunch(whatsappURL_android)) {
-        await launch(whatsappURL_android);
-      } else {
-        showMyAlertDialog(
-          context: context,
-          title: 'خطأ أثناء الوصول إلي الواتساب',
-          content: 'حدث خطأ ربما يكون تطبيق الواتساب غير موجود علي هاتفك',
-        );
+      showMyAlertDialog(
+        context: context,
+        title: 'خطأ أثناء الوصول إلي الواتساب',
+        content: 'حدث خطأ ربما يكون تطبيق الواتساب غير موجود علي هاتفك',
+      );
+    }
+  }
+
+  // === to call on phone ====
+  void callPhone(BuildContext context) async {
+    String url = "tel:+201018388182";
+    if (await canLaunch(url)) {
+      launch(url);
+    } else {
+      showMyAlertDialog(
+        context: context,
+        title: 'خطأ أثناء الوصول إلي الهاتف',
+        content: 'حدث خطأ أثناء الوصول برجاء المحاولة لاحقا',
+      );
+    }
+  }
+//   void openWhatsapp(BuildContext context) async {
+//     String phoneNumber = '+201018388182';
+//     var whatsappURL_android = 'whatsapp://send?phone=$phoneNumber';
+//     var whatsappURL_ios = 'https://wa.me/$phoneNumber';
+//     if (Platform.isIOS) {
+//       //for ios devices
+//       if (await canLaunch(whatsappURL_ios)) {
+//         await launch(whatsappURL_ios);
+//       } else {
+//         showMyAlertDialog(
+//           context: context,
+//           title: 'خطأ أثناء الوصول إلي الواتساب',
+//           content: 'حدث خطأ ربما يكون تطبيق الواتساب غير موجود علي هاتفك',
+//         );
+//       }
+//     } else {
+// //for andriod and web
+//       if (await canLaunch(whatsappURL_android)) {
+//         await launch(whatsappURL_android);
+//       } else {
+//         showMyAlertDialog(
+//           context: context,
+//           title: 'خطأ أثناء الوصول إلي الواتساب',
+//           content: 'حدث خطأ ربما يكون تطبيق الواتساب غير موجود علي هاتفك',
+//         );
+//       }
+//     }
+//   }
+
+//====to update user Data =====
+  UpdateUserDataModel? updateUserDataModel;
+  void updateUserData({
+    //required int uId,
+    required String userName,
+    required String userRegion,
+    required String userAddress,
+  }) async {
+    emit(UpdateUserDataLoading());
+    await DioHelper.postData(
+      url: UPDATEUSERDATA,
+      data: {
+        'id': userId,
+        'name': userName,
+        'region': userRegion,
+        'address': userAddress,
+      },
+    ).then((value) {
+      updateUserDataModel = UpdateUserDataModel.fromJson(value.data);
+      if (updateUserDataModel != null) {
+        if (updateUserDataModel!.status) {
+          saveUserDataInSharedPref(
+            token: token!,
+            userId: userId!,
+            userName: userName,
+            phoneNumber: phoneNumber!,
+            userRegion: userRegion,
+            userAddress: userAddress,
+          );
+          emit(UpdateUserDataSuccess());
+        }
       }
-    }
-  }
 
-  //======== to detect is the user saw onboarding screen or no ====
-  void onboardingSeen(bool? isOnBoardingSeen) {
-    if (isOnBoardingSeen == null) {
-      CacheHelper.saveDataInSharedPrefrences(
-        key: 'isOnBoardingSeen',
-        value: true,
-      ).then((value) {
-        emit(OnBoardingScreenSeen());
-      });
-    }
+      //emit(UpdateUserDataSuccess());
+    }).catchError((error) {
+      print(error.toString());
+      emit(UpdateUserDataError());
+    });
   }
-
-  //=======to detect the start screen========
-//  late Widget startScreen;
-//   void homeScreen(isOnBoardingSeen) {
-//     if (isOnBoardingSeen == null) {
-//       startScreen = OnBoardingScreen(isOnBoardingSeen: isOnBoardingSeen);
-//       emit(ShowOnBoardingScreen());
-//     } else {
-//       FirebaseAuth.instance.userChanges().listen((User? user) {
-//         if (user == null) {
-//           startScreen = LoginScreen();
-//           print('===== show login screen');
-//           emit(ShowOnLoginScreen());
-//         } else {
-//           startScreen = HomeScreen();
-//           print('===== show home screen');
-//           emit(ShowOnHomeScreen());
-//         }
-//       });
-//     }
-//   }
-//  late Widget startScreen;
-//   void homeScreen(isOnBoardingSeen) {
-//     if (isOnBoardingSeen == null) {
-//       startScreen = OnBoardingScreen(isOnBoardingSeen: isOnBoardingSeen);
-//       emit(ShowOnBoardingScreen());
-//     } else {
-//       FirebaseAuth.instance.userChanges().listen((User? user) {
-//         if (user == null) {
-//           startScreen = LoginScreen();
-//           print('===== show login screen');
-//           emit(ShowOnLoginScreen());
-//         } else {
-//           startScreen = HomeScreen();
-//           print('===== show home screen');
-//           emit(ShowOnHomeScreen());
-//         }
-//       });
-//     }
-//   }
 }

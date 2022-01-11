@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class MyOkTextButtonForDailog extends StatelessWidget {
   final String okOrCancel;
+  
   MyOkTextButtonForDailog({this.okOrCancel = 'حسناً'});
   @override
   Widget build(BuildContext context) {

@@ -133,24 +133,20 @@ class LoginScreen extends StatelessWidget {
                             cubit.changePasswordVisibilty();
                           },
                         ),
-                        const SizedBox(height: 4),
-                        MyTextButton(
-                          text: 'هل نسيت كلمة السر ؟',
-                          onpressed: () {
-                            showMyAlertDialog(
-                              context: context,
-                              title: 'هل نسيت كلمة السر',
-                              content: 'تم الضغط علي هل نسيت كلمة السر',
-                              actions: [MyOkTextButtonForDailog()],
-                              isBarrierDismissible: false,
-                            );
-                            mySnackBar(
-                              context: context,
-                              content: 'تم الضغط علي هل نسيت كلمة السر ',
-                            );
-                          },
-                          fontSize: 14,
-                        ),
+                        const SizedBox(height: 30),
+                        // MyTextButton(
+                        //   text: 'هل نسيت كلمة السر ؟',
+                        //   onpressed: () {
+                        //     showMyAlertDialog(
+                        //       context: context,
+                        //       title: 'هل نسيت كلمة السر',
+                        //       content: 'تم الضغط علي هل نسيت كلمة السر',
+                        //       actions: [MyOkTextButtonForDailog()],
+                        //       isBarrierDismissible: false,
+                        //     );
+                        //   },
+                        //   fontSize: 14,
+                        // ),
                         //  const SizedBox(height: 7),
                         BuildCondition(
                           condition: state is! LoginLoading,

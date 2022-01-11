@@ -2,6 +2,7 @@
 
 import 'package:dareen_app/shared/network/local/cache_helper.dart';
 
+//end points 
 const String LOGIN = 'client/login';
 const String REGISTER = 'client/register';
 const String CATEGORIES = 'all/categories';
@@ -9,10 +10,12 @@ const String CATEGORYPRODUCTS = 'get/products';
 const String FAVOURITES = 'get/favorites';
 const String ADDORDELETEFAVOURITE = 'add/favorites';
 const String SEARCH = 'search/product';
+const String UPDATEUSERDATA = 'client/edit/profile';
 
 
 
-//token
+
+//user Data
 String? token = CacheHelper.getDataFromSharedPrefrences(key: 'token');
 int? userId = CacheHelper.getDataFromSharedPrefrences(key: 'userId');
 String? userName = CacheHelper.getDataFromSharedPrefrences(key: 'userName');

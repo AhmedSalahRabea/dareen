@@ -10,11 +10,11 @@ class ProductDetailsScreen extends StatelessWidget {
   final ProductModel model;
   PageController boardController = PageController();
 
-  List<String> images = [
-    'https://janatonline.com/Content/Images/Products/al-osra-white-sugar-1-kg-68614-600.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwGax5b22_luSu4fweyIoY48wuPiTvFdTvpw&usqp=CAU',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREUI2PCiLkcnUijT5fR4m5FOy5RvL2mXjFcA&usqp=CAU',
-  ];
+  // List<String> images = [
+  //   'https://janatonline.com/Content/Images/Products/al-osra-white-sugar-1-kg-68614-600.jpg',
+  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwGax5b22_luSu4fweyIoY48wuPiTvFdTvpw&usqp=CAU',
+  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREUI2PCiLkcnUijT5fR4m5FOy5RvL2mXjFcA&usqp=CAU',
+  // ];
 
   ProductDetailsScreen({required this.model});
   @override

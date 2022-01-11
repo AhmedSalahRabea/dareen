@@ -1,20 +1,31 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 
+import 'package:dareen_app/home/cubit/shop_cubit.dart';
+import 'package:dareen_app/home/home_screen.dart';
 import 'package:dareen_app/modules/register_screen/cubit/register_cubit.dart';
 import 'package:dareen_app/shared/components/functions.dart';
+import 'package:dareen_app/shared/cubit/app_cubit.dart';
+import 'package:dareen_app/shared/network/local/cache_helper.dart';
 import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:dareen_app/shared/widgets/my_default_button.dart';
+import 'package:dareen_app/shared/widgets/my_ok_text.dart';
 import 'package:dareen_app/shared/widgets/my_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UpdateUserDataScreen extends StatelessWidget {
+  // final String userName;
+  // final String userRegion;
+  // final String userAddress;
+
   //form fields controller
   TextEditingController nameController = TextEditingController();
   TextEditingController regionController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   //form key
   var formKey = GlobalKey<FormState>();
+
+  // UpdateUserDataScreen({required this.userName,required this.userRegion,required this.userAddress});
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -22,13 +33,45 @@ class UpdateUserDataScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(),
         //backgroundColor: Colors.white,
-        body: BlocConsumer<RegisterCubit, RegisterState>(
-          listener: (context, state) {},
+        body: BlocConsumer<AppCubit, AppState>(
+          listener: (context, state) {
+            if (state is UpdateUserDataError) {
+              showMyAlertDialog(
+                context: context,
+                title: 'خطأ أثناء تحديث البيانات',
+                content:
+                    'حدث خطأ أثناء تحديث البيانات يرجي التأكد من الإتصال باللإنترنت وأعد المحاولة مرة أخري',
+                actions: [
+                  MyOkTextButtonForDailog(),
+                ],
+              );
+            }
+            if (state is UpdateUserDataSuccess) {
+              showMyAlertDialog(
+                context: context,
+                title: 'تحديث البيانات',
+                content: 'تم تحديث البيانات بنجاح',
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      ShopCubit.get(context).currebIndex = 0;
+                      navigateTo(context: context, screen: HomeScreen());
+                    },
+                    child: const Text(
+                      'حسناً',
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              );
+            }
+          },
           builder: (context, state) {
-            RegisterCubit cubit = RegisterCubit.get(context);
-            nameController.text = userName!;
-            regionController.text = userRegion!;
-            addressController.text = userAddress!;
+            AppCubit cubit = AppCubit.get(context);
+            nameController.text = CacheHelper.getDataFromSharedPrefrences(key: 'userName');
+            regionController.text = CacheHelper.getDataFromSharedPrefrences(key: 'userRegion');
+            addressController.text = CacheHelper.getDataFromSharedPrefrences(key: 'userAddress');
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.only(
@@ -45,8 +88,11 @@ class UpdateUserDataScreen extends StatelessWidget {
                           width: double.infinity,
                           child: Image.asset('assets/images/login/dareen.jpg'),
                         ),
-
                         const SizedBox(height: 30),
+                        if (state is UpdateUserDataLoading)
+                          const LinearProgressIndicator(),
+                        if (state is UpdateUserDataLoading)
+                          const SizedBox(height: 30),
                         MyTextFormField(
                           controller: nameController,
                           type: TextInputType.name,
@@ -63,7 +109,6 @@ class UpdateUserDataScreen extends StatelessWidget {
                           prefix: Icons.person,
                         ),
                         const SizedBox(height: 20), // Text(
-
                         MyTextFormField(
                           controller: regionController,
                           type: TextInputType.text,
@@ -95,11 +140,15 @@ class UpdateUserDataScreen extends StatelessWidget {
                         const SizedBox(height: 20),
                         MyDefaultButton(
                           text: 'التحديث',
-                          function: () async {
-                            showMyAlertDialog(
-                                context: context,
-                                title: 'تحديث',
-                                content: 'UPDATE CLICKED');
+                          function: ()  {
+                            if (formKey.currentState!.validate()) {
+                               cubit.updateUserData(
+                                //uId: userId!,
+                                userName: nameController.text,
+                                userRegion: regionController.text,
+                                userAddress: addressController.text,
+                              );
+                            }
                           },
                         ),
                       ],
