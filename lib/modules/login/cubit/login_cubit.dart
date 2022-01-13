@@ -23,7 +23,7 @@ class LoginCubit extends Cubit<LoginState> {
     required String password,
     required BuildContext context,
   }) {
-    ShopCubit.get(context).currebIndex =0;
+    ShopCubit.get(context).curretIndex =0;
     emit(LoginLoading());
     DioHelper.postData(
       url: LOGIN,

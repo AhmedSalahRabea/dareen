@@ -2,9 +2,10 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dareen_app/data/models/product_model.dart';
-import 'package:dareen_app/shared/components/functions.dart';
+import 'package:dareen_app/modules/cart/cubit/cart_cubit.dart';
 import 'package:dareen_app/shared/widgets/my_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final ProductModel model;
@@ -150,36 +151,36 @@ class ProductDetailsScreen extends StatelessWidget {
                     ),
                 ],
               ),
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: OutlinedButton.icon(
-                  onPressed: () {
-                    showMyAlertDialog(
-                        context: context,
-                        title: 'السلة',
-                        content:
-                            'تم إضافة هذا المنتج إلي سلة التسوق الخاصة بكم');
-                  },
-                  icon: const Icon(
-                    Icons.shopping_cart_outlined,
-                    color: Colors.white,
-                  ),
-                  label: const Text(
-                    'أضف إلي عربة التسوق',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.deepOrange.withOpacity(.9),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                  ),
-                ),
-              ),
+              BlocConsumer<CartCubit, CartState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: OutlinedButton.icon(
+                        onPressed: () {
+                          CartCubit.get(context).addProductToCart(context: context,productId: model.id);
+                        },
+                        icon: const Icon(
+                          Icons.shopping_cart_outlined,
+                          color: Colors.white,
+                        ),
+                        label: const Text(
+                          'أضف إلي عربة التسوق',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: Colors.deepOrange.withOpacity(.9),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                        ),
+                      ),
+                    );
+                  }),
             ],
           ),
         ),

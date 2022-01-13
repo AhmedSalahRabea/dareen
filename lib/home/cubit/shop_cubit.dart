@@ -5,10 +5,12 @@ import 'package:dareen_app/data/models/category_model.dart';
 import 'package:dareen_app/data/models/favourite_model.dart';
 import 'package:dareen_app/data/models/product_model.dart';
 import 'package:dareen_app/modules/cart/cart_screen.dart';
+import 'package:dareen_app/modules/cart/cubit/cart_cubit.dart';
 import 'package:dareen_app/modules/categories/categories_screen.dart';
 import 'package:dareen_app/modules/favourite/favourite_screen.dart';
 import 'package:dareen_app/modules/settings/setting_screen.dart';
 import 'package:dareen_app/shared/components/functions.dart';
+import 'package:dareen_app/shared/cubit/app_cubit.dart';
 import 'package:dareen_app/shared/network/remote/doi_helper.dart';
 import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +21,7 @@ part 'shop_state.dart';
 class ShopCubit extends Cubit<ShopState> {
   ShopCubit() : super(ShopInitial());
 
-  static ShopCubit get(context) => BlocProvider.of(context);
+  static ShopCubit get(BuildContext? context) => BlocProvider.of(context!);
   //========= method to get Catageories from api=====
   CategoriesModel? categoriesModel;
   void getCategoryData(BuildContext context) {
@@ -154,16 +156,27 @@ class ShopCubit extends Cubit<ShopState> {
 
   //=======
   void changeIndexToMaychCartScreen(BuildContext context) {
-    currebIndex = 2;
+    curretIndex = 2;
+    isFloatingActionButtonShown = false;
     emit(ChangeIndexToMaychCartScreen());
   }
 
+//====to hide floating action button in cart screen
+  bool isFloatingActionButtonShown = true;
   //========Bottom navigation bar logic==========
-  int currebIndex = 0;
+  int curretIndex = 0;
   void changeBottomNavIndex(int index) {
-    currebIndex = index;
-    if (currebIndex == 1) {
+    curretIndex = index;
+
+    if (curretIndex == 1) {
       getFavourites(userId!);
+    }
+    if (curretIndex == 2) {
+      isFloatingActionButtonShown = false;
+      // CartCubit.get(context!).getCartProducts();
+      emit(ChangeIndexToMaychCartScreen());
+    } else {
+      isFloatingActionButtonShown = true;
     }
 
     emit(ShopChangeBottomNavBar());

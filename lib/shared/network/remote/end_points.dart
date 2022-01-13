@@ -11,6 +11,10 @@ const String FAVOURITES = 'get/favorites';
 const String ADDORDELETEFAVOURITE = 'add/favorites';
 const String SEARCH = 'search/product';
 const String UPDATEUSERDATA = 'client/edit/profile';
+const String GETCARTPRODUCTS = 'get/Product/From/Cart';
+const String ADDPRODUCTTOCART = 'add/new/cart';
+
+
 
 
 

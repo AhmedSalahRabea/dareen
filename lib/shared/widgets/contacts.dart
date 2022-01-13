@@ -5,6 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ContactsWidget extends StatelessWidget {
+  final String whatsappString;
+  final String callString;
+
+  const ContactsWidget({
+    required this.whatsappString,
+    required this.callString,
+  });
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,7 +33,7 @@ class ContactsWidget extends StatelessWidget {
                   color: Color(0xff25d366),
                 ),
               ),
-              label: const Text('لإرسال الروشتة عبر الواتساب'),
+              label:  Text(whatsappString),
               style: OutlinedButton.styleFrom(
                 textStyle: Theme.of(context)
                     .textTheme
@@ -54,7 +61,7 @@ class ContactsWidget extends StatelessWidget {
                   color: Color(0xff25d366),
                 ),
               ),
-              label: const Text('للإتصال بنا مباشرةً'),
+              label:  Text(callString),
               style: OutlinedButton.styleFrom(
                 textStyle: Theme.of(context)
                     .textTheme

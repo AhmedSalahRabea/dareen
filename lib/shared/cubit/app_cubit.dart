@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print, non_constant_identifier_names
 
-import 'dart:io';
 
 import 'package:dareen_app/data/models/update_user_data_model.dart';
 import 'package:dareen_app/shared/components/functions.dart';

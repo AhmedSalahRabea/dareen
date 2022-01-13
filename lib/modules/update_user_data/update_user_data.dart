@@ -2,11 +2,9 @@
 
 import 'package:dareen_app/home/cubit/shop_cubit.dart';
 import 'package:dareen_app/home/home_screen.dart';
-import 'package:dareen_app/modules/register_screen/cubit/register_cubit.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/cubit/app_cubit.dart';
 import 'package:dareen_app/shared/network/local/cache_helper.dart';
-import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:dareen_app/shared/widgets/my_default_button.dart';
 import 'package:dareen_app/shared/widgets/my_ok_text.dart';
 import 'package:dareen_app/shared/widgets/my_text_field.dart';
@@ -54,7 +52,7 @@ class UpdateUserDataScreen extends StatelessWidget {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      ShopCubit.get(context).currebIndex = 0;
+                      ShopCubit.get(context).curretIndex = 0;
                       navigateTo(context: context, screen: HomeScreen());
                     },
                     child: const Text(

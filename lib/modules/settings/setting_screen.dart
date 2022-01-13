@@ -9,13 +9,11 @@ import 'package:dareen_app/modules/update_user_data/update_user_data.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/cubit/app_cubit.dart';
 import 'package:dareen_app/shared/network/local/cache_helper.dart';
-import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:dareen_app/shared/widgets/my_ok_text.dart';
 import 'package:dareen_app/shared/widgets/my_textbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SettingScreen extends StatelessWidget {
   @override

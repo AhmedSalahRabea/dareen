@@ -37,7 +37,6 @@ class CategoryItem extends StatelessWidget {
               screen: ProductsScreen(
                 categoryName: model.name,
               ));
- 
         },
         child: GridTile(
           child: FadeInImage(
@@ -50,7 +49,7 @@ class CategoryItem extends StatelessWidget {
             height: 45,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Colors.black87,
+              color: Colors.deepOrange.withOpacity(1),
             ),
             alignment: Alignment.bottomCenter,
             child: Text(

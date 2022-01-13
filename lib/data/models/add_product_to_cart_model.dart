@@ -1,14 +1,13 @@
-
-class UpdateUserDataModel {
+class AddProductToCartModel {
   final String message;
   final bool status;
 
-  UpdateUserDataModel({
+  AddProductToCartModel({
     required this.message,
     required this.status,
   });
-  factory UpdateUserDataModel.fromJson(Map<String, dynamic> jsonData) {
-    return UpdateUserDataModel(
+  factory AddProductToCartModel.fromJson(Map<String, dynamic> jsonData) {
+    return AddProductToCartModel(
       message: jsonData['message'],
       status: jsonData['status'],
     );

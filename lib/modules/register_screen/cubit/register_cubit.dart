@@ -31,7 +31,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String address,
     required BuildContext context,
   }) {
-    ShopCubit.get(context).currebIndex =0;
+    ShopCubit.get(context).curretIndex =0;
     emit(RegisterLoading());
     DioHelper.postData(
       url: REGISTER,

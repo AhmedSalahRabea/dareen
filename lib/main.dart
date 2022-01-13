@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
             ..getFavourites(userId),
         ),
         BlocProvider<CartCubit>(
-          create: (context) => CartCubit(),
+          create: (context) => CartCubit()..getCartProducts(),
         ),
       ],
       child: BlocConsumer<AppCubit, AppState>(

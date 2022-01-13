@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 
 class MyOkTextButtonForDailog extends StatelessWidget {
   final String okOrCancel;
-  
-  MyOkTextButtonForDailog({this.okOrCancel = 'حسناً'});
+  final double fontSize;
+
+  MyOkTextButtonForDailog({this.okOrCancel = 'حسناً', this.fontSize = 15});
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
         Navigator.pop(context);
       },
-      child:  Text(
+      child: Text(
         okOrCancel,
-        style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
       ),
     );
   }

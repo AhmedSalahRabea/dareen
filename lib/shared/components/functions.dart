@@ -1,3 +1,5 @@
+import 'package:dareen_app/shared/widgets/contacts.dart';
+import 'package:dareen_app/shared/widgets/my_ok_text.dart';
 import 'package:flutter/material.dart';
 import 'package:tbib_toast/tbib_toast.dart';
 
@@ -105,4 +107,52 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> mySnackBar({
       seconds: 3,
     ),
   ));
+}
+
+//====my bottpm sheet
+void myModalBottomSheet({
+  required BuildContext context,
+}) {
+  showModalBottomSheet(
+      context: context,
+      elevation: 50,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
+      ),
+      builder: (context) {
+        return Container(
+          height: MediaQuery.of(context).size.height / 1.4,
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            //controller: controller,
+            children: [
+              Image.asset(
+                'assets/images/toktok.png',
+                fit: BoxFit.contain,
+                width: 150,
+                height: MediaQuery.of(context).size.height / 7,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                'يمكنك الان طلب توكتوك بضغة زر واحدة',
+                textDirection: TextDirection.rtl,
+              ),
+              const Directionality(
+                textDirection: TextDirection.rtl,
+                child: ContactsWidget(
+                  whatsappString: 'اطلب توكتوك من خلال الواتساب',
+                  callString: 'اتصل بنا مباشرةً لطلب التوكتوك',
+                ),
+              ),
+              MyOkTextButtonForDailog(
+                okOrCancel: 'إلغاء',
+                fontSize: 20,
+              ),
+            ],
+          ),
+        );
+      });
 }

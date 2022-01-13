@@ -5,7 +5,6 @@ import 'package:dareen_app/modules/login/cubit/login_cubit.dart';
 import 'package:dareen_app/modules/register_screen/register_screen.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/widgets/my_default_button.dart';
-import 'package:dareen_app/shared/widgets/my_ok_text.dart';
 import 'package:dareen_app/shared/widgets/my_text_field.dart';
 import 'package:dareen_app/shared/widgets/my_textbutton.dart';
 

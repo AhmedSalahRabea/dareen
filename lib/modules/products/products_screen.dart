@@ -10,7 +10,6 @@ import 'package:dareen_app/shared/widgets/my_divider.dart';
 import 'package:dareen_app/shared/widgets/product_fav_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProductsScreen extends StatelessWidget {
   final String categoryName;
@@ -64,7 +63,10 @@ class ProductsScreen extends StatelessWidget {
                     const Center(child: CircularProgressIndicator()),
               ),
               if (categoryName == 'صيدلية' || categoryName == 'pharmacy')
-                ContactsWidget(),
+                const ContactsWidget(
+                  whatsappString: 'لإرسال الروشتة عبر الواتساب',
+                  callString: 'للإتصال بنا مباشرةً',
+                ),
             ],
           ),
         ),
