@@ -20,7 +20,7 @@ class CartItemData {
   final int id;
   final int cartId;
   final int productId;
-  final int quantity;
+   int quantity;
   final int totalPrice;
   final ProductModel productModel;
 

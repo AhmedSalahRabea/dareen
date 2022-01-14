@@ -35,6 +35,7 @@ class RegisterErrorfromPhoneOrEmailExisted extends RegisterState {}
 
 //user sign out
 class UserSignedOut extends RegisterState {}
+class UserDataDeletedWhenSignedOut extends RegisterState {}
 
 
 //to change verify button status from disabled to enabled

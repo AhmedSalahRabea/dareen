@@ -1,13 +1,13 @@
-class AddProductToCartModel {
+class AddOrDeleteProductToCartModel {
   final String message;
   final bool status;
 
-  AddProductToCartModel({
+  AddOrDeleteProductToCartModel({
     required this.message,
     required this.status,
   });
-  factory AddProductToCartModel.fromJson(Map<String, dynamic> jsonData) {
-    return AddProductToCartModel(
+  factory AddOrDeleteProductToCartModel.fromJson(Map<String, dynamic> jsonData) {
+    return AddOrDeleteProductToCartModel(
       message: jsonData['message'],
       status: jsonData['status'],
     );

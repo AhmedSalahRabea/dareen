@@ -18,12 +18,14 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // var mediaQueryHeight = MediaQuery.of(context).size.height;
+
     return Container(
       width: double.infinity,
       margin: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
       padding: const EdgeInsetsDirectional.all(4),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.white.withOpacity(1.0),
         borderRadius: BorderRadius.circular(10),
       ),
       child: InkWell(
@@ -49,7 +51,7 @@ class CategoryItem extends StatelessWidget {
             height: 45,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Colors.deepOrange.withOpacity(1),
+              color: Theme.of(context).primaryColor,
             ),
             alignment: Alignment.bottomCenter,
             child: Text(

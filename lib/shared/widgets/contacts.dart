@@ -33,15 +33,15 @@ class ContactsWidget extends StatelessWidget {
                   color: Color(0xff25d366),
                 ),
               ),
-              label:  Text(whatsappString),
+              label: Text(whatsappString),
               style: OutlinedButton.styleFrom(
                 textStyle: Theme.of(context)
                     .textTheme
                     .bodyText2!
                     .copyWith(fontSize: 16),
-                side: const BorderSide(
+                side: BorderSide(
                   width: 1,
-                  color: Colors.deepOrange,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
             ),
@@ -61,13 +61,14 @@ class ContactsWidget extends StatelessWidget {
                   color: Color(0xff25d366),
                 ),
               ),
-              label:  Text(callString),
+              label: Text(callString),
               style: OutlinedButton.styleFrom(
                 textStyle: Theme.of(context)
                     .textTheme
                     .bodyText2!
                     .copyWith(fontSize: 16),
-                side: const BorderSide(width: 1, color: Colors.deepOrange),
+                side:
+                    BorderSide(width: 1, color: Theme.of(context).primaryColor),
               ),
             ),
           ),

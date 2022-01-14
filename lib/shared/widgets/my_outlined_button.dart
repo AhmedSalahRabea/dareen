@@ -22,7 +22,7 @@ class MyOutlinedButton extends StatelessWidget {
         //  padding: const EdgeInsets.all(20),
         //  fixedSize: Size(100, 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        side: const BorderSide(color: Colors.deepOrange, width: 1),
+        side:  BorderSide(color: Theme.of(context).primaryColor, width: 1),
         minimumSize:const Size(50, 30),
         padding:const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
       ),

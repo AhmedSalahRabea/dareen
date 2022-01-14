@@ -9,10 +9,16 @@ import 'package:dareen_app/shared/components/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CartItem extends StatelessWidget {
+class CartItem extends StatefulWidget {
   final CartItemData model;
   CartItem({required this.model});
 
+  @override
+  State<CartItem> createState() => _CartItemState();
+}
+
+class _CartItemState extends State<CartItem> {
+  int quantity = 1;
   @override
   Widget build(BuildContext context) {
     var mediaQueryHeight = MediaQuery.of(context).size.height;
@@ -28,7 +34,8 @@ class CartItem extends StatelessWidget {
               onTap: () {
                 navigateTo(
                   context: context,
-                  screen: ProductDetailsScreen(model: model.productModel),
+                  screen:
+                      ProductDetailsScreen(model: widget.model.productModel),
                 );
               },
               child: SizedBox(
@@ -44,11 +51,11 @@ class CartItem extends StatelessWidget {
                           placeholder: const AssetImage(
                               'assets/images/imageloading.gif'),
                           image: CachedNetworkImageProvider(
-                              model.productModel.image),
+                              widget.model.productModel.image),
                           fit: BoxFit.contain,
                         ),
-                        if (model.productModel.newPrice != null &&
-                            model.productModel.newPrice != 0)
+                        if (widget.model.productModel.newPrice != null &&
+                            widget.model.productModel.newPrice != 0)
                           Container(
                             color: Colors.red,
                             padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -69,7 +76,7 @@ class CartItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            model.productModel.name,
+                            widget.model.productModel.name,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context).textTheme.bodyText1,
@@ -77,32 +84,32 @@ class CartItem extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              if (model.productModel.newPrice != null &&
-                                  model.productModel.newPrice != 0)
+                              if (widget.model.productModel.newPrice != null &&
+                                  widget.model.productModel.newPrice != 0)
                                 Text(
-                                  '${model.productModel.newPrice.toString()} جـــ',
+                                  '${widget.model.productModel.newPrice.toString()} جـــ',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
                                       .copyWith(
-                                          color: Colors.deepOrange,
+                                          color: Theme.of(context).primaryColor,
                                           fontSize: 15),
                                 ),
-                              if (model.productModel.newPrice == null ||
-                                  model.productModel.newPrice == 0)
+                              if (widget.model.productModel.newPrice == null ||
+                                  widget.model.productModel.newPrice == 0)
                                 Text(
-                                  '${model.productModel.price.toString()} جـــ',
+                                  '${widget.model.productModel.price.toString()} جـــ',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
                                       .copyWith(
-                                          color: Colors.deepOrange,
+                                          color: Theme.of(context).primaryColor,
                                           fontSize: 15),
                                 ),
-                              if (model.productModel.newPrice != 0 &&
-                                  model.productModel.newPrice != null)
+                              if (widget.model.productModel.newPrice != 0 &&
+                                  widget.model.productModel.newPrice != null)
                                 Text(
-                                  '${model.productModel.price.toString()} جــ',
+                                  '${widget.model.productModel.price.toString()} جــ',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
@@ -114,8 +121,14 @@ class CartItem extends StatelessWidget {
                                 ),
                               IconButton(
                                 onPressed: () {
+                                  cubit.cartProducts.remove(widget.model);
                                   cubit.deleteProductFromCart(
-                                      product: model.productModel);
+                                    context: context,
+                                    cartId: widget.model.cartId,
+                                    productId: widget.model.productModel.id,
+                                  );
+                                  // if (state is DeleteProductFromCartError)
+                                  //   cubit.cartProducts.add(model);
                                 },
                                 icon: const Icon(
                                   Icons.delete,
@@ -129,31 +142,54 @@ class CartItem extends StatelessWidget {
                             children: [
                               IconButton(
                                   onPressed: () {
-                                    cubit.increaseQuantity();
+                                    //  cubit.increaseQuantity();
+                                    setState(() {
+                                      quantity += 1;
+                                      cubit.cartDetails.addAll({
+                                        widget.model.productModel.id: {
+                                          'quantity': quantity,
+                                          'totalPrice':
+                                              '${(widget.model.productModel.newPrice ?? widget.model.productModel.price)! * quantity}',
+                                        },
+                                      });
+                                   ///   cubit.totalPriceFunction();
+                                    });
+                                    print(cubit.cartDetails);
                                   },
                                   icon: Icon(
-                                    Icons.add,
+                                    Icons.add_circle,
                                     color: Theme.of(context).primaryColor,
                                   )),
                               Text(
-                                model.quantity.toString(),
+                                '$quantity',
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
                               IconButton(
                                 onPressed: () {
-                                  cubit.decreaseQuantity();
+                                  // cubit.decreaseQuantity();
+                                  if (quantity > 1) {
+                                    setState(() {
+                                      quantity -= 1;
+                                      cubit.cartDetails.addAll({
+                                        widget.model.productModel.id: {
+                                          'quantity': quantity,
+                                          'totalPrice':
+                                              '${(widget.model.productModel.newPrice ?? widget.model.productModel.price)! * quantity}',
+                                        },
+                                      });
+                                    });
+                                  }
+                                  print(cubit.cartDetails);
                                 },
                                 icon: Icon(
-                                  Icons.remove,
+                                  Icons.remove_circle,
                                   color: Theme.of(context).primaryColor,
                                 ),
                               ),
                               const Spacer(),
-                              // const SizedBox(
-                              //   width: 30,
-                              // ),
                               Text(
-                                model.totalPrice.toString(),
+                              //  '${cubit.totalPrice}',
+                                 '${(widget.model.productModel.newPrice ?? widget.model.productModel.price)! * quantity}',
                               ),
                             ],
                           ),

@@ -11,7 +11,7 @@ class MyTextButton extends StatelessWidget {
     required this.text,
     required this.onpressed,
     this.fontSize = 20,
-    this.color = Colors.deepOrange,
+    this.color =const Color(0xff0097A7),
   });
 
   @override

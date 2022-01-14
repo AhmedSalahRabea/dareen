@@ -44,7 +44,7 @@ class ProductOrFavouriteItem extends StatelessWidget {
                         ),
                         if (model.newPrice != null && model.newPrice != 0)
                           Container(
-                            color: Colors.red,
+                            color: Theme.of(context).primaryColor,
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             child: const Text(
                               'عرض خاص',
@@ -78,7 +78,7 @@ class ProductOrFavouriteItem extends StatelessWidget {
                                       .textTheme
                                       .bodyText1!
                                       .copyWith(
-                                          color: Colors.deepOrange,
+                                          color: Theme.of(context).primaryColor,
                                           fontSize: 15),
                                 ),
                               if (model.newPrice == null || model.newPrice == 0)
@@ -88,7 +88,7 @@ class ProductOrFavouriteItem extends StatelessWidget {
                                       .textTheme
                                       .bodyText1!
                                       .copyWith(
-                                          color: Colors.deepOrange,
+                                          color: Theme.of(context).primaryColor,
                                           fontSize: 15),
                                 ),
                               if (model.newPrice != 0 && model.newPrice != null)
@@ -130,14 +130,19 @@ class ProductOrFavouriteItem extends StatelessWidget {
                                   width: double.infinity,
                                   child: OutlinedButton.icon(
                                     onPressed: () {
-                                      CartCubit.get(context).addProductToCart(context: context,productId: model.id);
+                                      CartCubit.get(context).addProductToCart(
+                                          context: context,
+                                          productId: model.id);
                                     },
                                     icon: const Icon(
                                         Icons.shopping_cart_outlined),
-                                    label: const Text('أضف إلي عربة التسوق'),
+                                    label: const Text('أضف إلي عربة التسوق',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
                                     style: OutlinedButton.styleFrom(
-                                      side: const BorderSide(
-                                          color: Colors.deepOrange),
+                                      side: BorderSide(
+                                          color:
+                                              Theme.of(context).primaryColor),
                                     ),
                                   ),
                                 );

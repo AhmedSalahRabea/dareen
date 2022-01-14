@@ -70,4 +70,24 @@ class DioHelper {
       data: data,
     );
   }
+
+  //=====this method to delte data from my api=========
+  static Future<Response> deleteData({
+    required String url,
+    required Map<String, dynamic> data,
+    Map<String, dynamic>? query,
+    String lang = 'ar',
+    String? token,
+  }) async {
+    // dio.options.headers = {
+    //   'Content-Type': 'application/json',
+    //   'lang': lang,
+    //   'Authorization': token ?? '',
+    // };
+    return await dio.delete(
+      url,
+      queryParameters: query,
+      data: data,
+    );
+  }
 }

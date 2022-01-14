@@ -47,7 +47,7 @@ class SettingScreen extends StatelessWidget {
                         iconStyle: IconStyle(
                           iconsColor: Colors.white,
                           withBackground: true,
-                          backgroundColor: Colors.deepOrange,
+                          backgroundColor: Theme.of(context).primaryColor,
                         ),
                         title: 'الوضع الساطع',
                         titleStyle: Theme.of(context)
@@ -84,7 +84,7 @@ class SettingScreen extends StatelessWidget {
                             .bodyText1!
                             .copyWith(color: Colors.black),
                         iconStyle: IconStyle(
-                          iconsColor: Colors.deepOrange,
+                          iconsColor: Theme.of(context).primaryColor,
                           backgroundColor: Colors.white,
                         ),
                       ),
@@ -117,7 +117,7 @@ class SettingScreen extends StatelessWidget {
                         },
                         icons: Icons.person_pin_sharp,
                         iconStyle: IconStyle(
-                          backgroundColor: Colors.deepOrange,
+                          backgroundColor: Theme.of(context).primaryColor,
                         ),
                         title: 'البيانات الشخصية',
                         titleStyle: Theme.of(context)
@@ -135,7 +135,7 @@ class SettingScreen extends StatelessWidget {
                         onTap: () {},
                         icons: Icons.info_rounded,
                         iconStyle: IconStyle(
-                          backgroundColor: Colors.deepOrange,
+                          backgroundColor: Theme.of(context).primaryColor,
                         ),
                         title: 'حول',
                         titleStyle: Theme.of(context)
@@ -162,13 +162,20 @@ class SettingScreen extends StatelessWidget {
                               MyOkTextButtonForDailog(
                                 okOrCancel: 'إلغاء',
                               ),
-                              MyTextButton(
-                                text: 'تسجيل الخروج',
-                                fontSize: 14,
-                                onpressed: () {
-                                  BlocProvider.of<RegisterCubit>(context)
-                                      .signOut(context);
+                              BlocConsumer<RegisterCubit,RegisterState>(
+                                listener: (context, state) {
+                                  
                                 },
+                                builder:(context, state) {
+                                  return  MyTextButton(
+                                  text: 'تسجيل الخروج',
+                                  fontSize: 14,
+                                  onpressed: () {
+                                    BlocProvider.of<RegisterCubit>(context)
+                                        .signOut(context);
+                                  },
+                                );
+                                }
                               ),
                             ],
                           );

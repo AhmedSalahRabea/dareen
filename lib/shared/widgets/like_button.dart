@@ -19,17 +19,18 @@ class MyLikeButton extends StatelessWidget {
         return LikeButton(
           size: 25,
           isLiked: isLiked,
-          circleColor: const CircleColor(
-              start: Colors.deepOrange, end: Color(0xff0099cc)),
-          bubblesColor: const BubblesColor(
-            dotPrimaryColor: Colors.red,
-            dotSecondaryColor: Color(0xff0099cc),
+          circleColor: CircleColor(
+              start: Theme.of(context).primaryColor,
+              end: const Color(0xff0099cc)),
+          bubblesColor: BubblesColor(
+            dotPrimaryColor: Theme.of(context).primaryColor,
+            dotSecondaryColor: const Color(0xff0099cc),
           ),
           bubblesSize: 60,
           likeBuilder: (bool isLiked) {
             return Icon(
               Icons.favorite,
-              color: isLiked ? Colors.red : Colors.grey,
+              color: isLiked ? Theme.of(context).primaryColor : Colors.grey,
               size: 30,
             );
           },
@@ -58,7 +59,7 @@ class MyLikeButton extends StatelessWidget {
           //   } else {
           //     result = Text(
           //       text,
-          //       style: const TextStyle(color: Colors.red),
+          //       style: const TextStyle(color: Theme.of(context).primaryColor),
           //     );
           //   }
           //   return result;

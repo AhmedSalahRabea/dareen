@@ -3,7 +3,9 @@
 import 'package:dareen_app/data/models/user_data_model.dart';
 import 'package:dareen_app/home/cubit/shop_cubit.dart';
 import 'package:dareen_app/home/home_screen.dart';
+import 'package:dareen_app/modules/cart/cubit/cart_cubit.dart';
 import 'package:dareen_app/shared/components/functions.dart';
+import 'package:dareen_app/shared/cubit/app_cubit.dart';
 import 'package:dareen_app/shared/network/remote/doi_helper.dart';
 import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:dareen_app/shared/widgets/my_ok_text.dart';
@@ -23,7 +25,7 @@ class LoginCubit extends Cubit<LoginState> {
     required String password,
     required BuildContext context,
   }) {
-    ShopCubit.get(context).curretIndex =0;
+    ShopCubit.get(context).curretIndex = 0;
     emit(LoginLoading());
     DioHelper.postData(
       url: LOGIN,
@@ -42,10 +44,18 @@ class LoginCubit extends Cubit<LoginState> {
           phoneNumber: loginModel.data!.phoneNumber,
           userRegion: loginModel.data!.region,
           userAddress: loginModel.data!.address,
-        );
+        ).then((value) {
+          ShopCubit.get(context).getCategoryData(context);
+          ShopCubit.get(context).getFavourites(userId);
+          CartCubit.get(context).getCartProducts();
+
+          navigateAndFinish(context: context, screen: HomeScreen());
+          emit(LoginSuccess(loginModel));
+        });
+        // ShopCubit.get(context).getCategoryData(context);
+        // ShopCubit.get(context).getFavourites(userId);
+        // CartCubit.get(context).getCartProducts();
         print('new token from login=========$token');
-        navigateAndFinish(context: context, screen: HomeScreen());
-        emit(LoginSuccess(loginModel));
       } else {
         showMyAlertDialog(
           context: context,

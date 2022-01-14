@@ -8,7 +8,7 @@ class MyDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Divider(
-    color: Colors.deepOrange,
+    color: Color(0xff0097A7),
     endIndent: 20,
     indent: 20,
     thickness: 1.5,

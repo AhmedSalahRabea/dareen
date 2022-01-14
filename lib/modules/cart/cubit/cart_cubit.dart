@@ -29,11 +29,23 @@ class CartCubit extends Cubit<CartState> {
       },
     ).then((value) {
       cartModel = CartModel.fromJson(value.data);
-      if (cartModel!.data != null) {
-        cartModel!.data!.forEach((element) {
-          cartProducts.add(element);
-          emit(GetCartSuccess());
-        });
+      if (cartModel!.status!) {
+        if (cartModel!.data != null) {
+          cartModel!.data!.forEach((element) {
+            cartProducts.add(element);
+            cartDetails.addAll({
+              element.productModel.id: {
+                'quantity': element.quantity,
+                'totalPrice':
+                    '${(element.productModel.newPrice ?? element.productModel.price)! * element.quantity}',
+              },
+            });
+            print('now ============ $cartDetails');
+            emit(GetCartSuccess());
+          });
+        }
+      } else {
+        emit(CartEmptyState());
       }
     }).catchError((error) {
       print(error.toString());
@@ -41,97 +53,116 @@ class CartCubit extends Cubit<CartState> {
     });
   }
 
-  //to load cart when click on bottom nav bar
-  void loadCartItemsWhenClickBottomNavBar(BuildContext? context) {
-    if (ShopCubit.get(context).curretIndex == 2) {
-      getCartProducts();
-    }
-  }
+  //=== the total of price to all products ====
+  // int get totalPrice =>
+  //     cartProducts.fold(0, (previousValue, element) => previousValue +element.productModel.newPrice!);
 
 //====== to add product to cart ========
-  AddProductToCartModel? addProductToCartModel;
-  void addProductToCart(
-      {required int productId, required BuildContext context}) async {
+  AddOrDeleteProductToCartModel? addProductToCartModel;
+  void addProductToCart({
+    required int productId,
+    required BuildContext context,
+  }) async {
+    // getCartProducts();
     emit(AddProductToCartLoading());
-    await DioHelper.postData(
-      url: ADDPRODUCTTOCART,
-      data: {
-        'user_id': userId,
-        'cart': [
-          {
-            'product_id': productId,
-            'qty': 1,
-          },
-        ],
-      },
-    ).then((value) {
-      addProductToCartModel = AddProductToCartModel.fromJson(value.data);
-      if (addProductToCartModel!.status) {
-        mySnackBar(
-            context: context,
-            content: 'تم إضافة المنتج إلي عربة التسوق الخاصة بكم ');
-        emit(AddProductToCartSuccess());
-      } else {
-        mySnackBar(context: context, content: addProductToCartModel!.message);
-        emit(AddProductToCartError());
-      }
-    }).catchError((error) {
-      print(error.toString());
+    if (cartProducts.any((element) {
+          if (element.productModel.id != productId) {
+            return false;
+          } else {
+            return true;
+          }
+        }) ==
+        false) {
+      await DioHelper.postData(
+        url: ADDPRODUCTTOCART,
+        data: {
+          'user_id': userId,
+          'cart': [
+            {
+              'product_id': productId,
+              'qty': 1,
+            },
+          ],
+        },
+      ).then((value) {
+        addProductToCartModel =
+            AddOrDeleteProductToCartModel.fromJson(value.data);
+        if (addProductToCartModel!.status) {
+          getCartProducts();
+          mySnackBar(
+              context: context,
+              content: 'تم إضافة المنتج إلي عربة التسوق الخاصة بكم ');
+
+          emit(AddProductToCartSuccess());
+        }
+      }).catchError(
+        (error) {
+          print(error.toString());
+          emit(AddProductToCartError());
+        },
+      );
+    } else {
+      mySnackBar(context: context, content: 'المنتج موجود في السلة بالفعل');
       emit(AddProductToCartError());
-    });
-    // cartProducts.add(product);
-    // if (cartProducts.any((element) {
-    //       if (element.productId != product.id) {
-    //         return false;
-    //       } else {
-    //         return true;
-    //       }
-    //     }) ==
-    //     false) {
-    //   //cartProducts.add(product);
-    //   emit(AddProductToCartSuccess());
-    // } else {
-    //   print('the product already in cart');
-    //   emit(AddProductToCartError());
-    // }
-  }
-
-  // void addProductToCart({required ProductModel product}) {
-  //   emit(AddProductToCartLoading());
-  //   // cartProducts.add(product);
-  //   if (cartProducts.any((element) {
-  //         if (element.productId != product.id) {
-  //           return false;
-  //         } else {
-  //           return true;
-  //         }
-  //       }) ==
-  //       false) {
-  //     //cartProducts.add(product);
-  //     emit(AddProductToCartSuccess());
-  //   } else {
-  //     print('the product already in cart');
-  //     emit(AddProductToCartError());
-  //   }
-  // }
-
-  //======to delete item from cart ====
-  void deleteProductFromCart({required ProductModel product}) {
-    emit(DeleteProductFromCartLoading());
-    cartProducts.remove(product);
-    emit(DeleteProductFromCartSuccess());
-  }
-
-  int quantity = 1;
-  void increaseQuantity() {
-    quantity += 1;
-    emit(IncreaseQuantity());
-  }
-
-  void decreaseQuantity() {
-    if (quantity > 1) {
-      quantity -= 1;
-      emit(DecreaseQuantity());
     }
+  }
+
+  //====to delete product from cart ====
+  AddOrDeleteProductToCartModel? deleteProductFromCartModel;
+  void deleteProductFromCart({
+    required int cartId,
+    required int productId,
+    required BuildContext context,
+  }) async {
+    emit(DeleteProductFromCartLoading());
+    await DioHelper.deleteData(url: DELETEPRODUCTFROMCART, data: {
+      'cart_id': cartId,
+      'product_id': productId,
+    }, query: {
+      'cart_id': cartId,
+      'product_id': productId,
+    }).then((value) {
+      deleteProductFromCartModel =
+          AddOrDeleteProductToCartModel.fromJson(value.data);
+      if (deleteProductFromCartModel!.status) {
+        getCartProducts();
+        cartDetails.remove(productId);
+        emit(DeleteProductFromCartSuccess());
+      }
+    }).catchError(
+      (error) {
+        print(error.toString());
+        mySnackBar(
+            context: context, content: 'حدث خطأ أثناء حذف المنتج من السلة');
+        emit(DeleteProductFromCartError());
+      },
+    );
+
+    int quantity = 1;
+    void increaseQuantity() {
+      quantity += 1;
+      emit(IncreaseQuantity());
+    }
+
+    void decreaseQuantity() {
+      if (quantity > 1) {
+        quantity -= 1;
+        emit(DecreaseQuantity());
+      }
+    }
+  }
+
+  Map<int, dynamic> cartDetails = {
+    // 00: {
+    //   'quantity': 3,
+    //   'totalPrice': 45,
+    // },
+  };
+  double totalPrice = 0;
+  void totalPriceFunction() {
+    cartDetails.forEach((key, value) {
+     // totalPrice = totalPrice + (value['quantity'] * value['totalPrice']);
+    });
+    emit(TotalPriceChanged());
   }
 }

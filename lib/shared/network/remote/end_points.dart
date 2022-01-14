@@ -2,7 +2,7 @@
 
 import 'package:dareen_app/shared/network/local/cache_helper.dart';
 
-//end points 
+//end points
 const String LOGIN = 'client/login';
 const String REGISTER = 'client/register';
 const String CATEGORIES = 'all/categories';
@@ -13,10 +13,7 @@ const String SEARCH = 'search/product';
 const String UPDATEUSERDATA = 'client/edit/profile';
 const String GETCARTPRODUCTS = 'get/Product/From/Cart';
 const String ADDPRODUCTTOCART = 'add/new/cart';
-
-
-
-
+const String DELETEPRODUCTFROMCART = 'delete/product/cart';
 
 
 //user Data
@@ -30,7 +27,7 @@ String? userAddress =
     CacheHelper.getDataFromSharedPrefrences(key: 'userAddress');
 
 //=== method called when make register or login ===
-void saveUserDataInSharedPref({
+Future<void> saveUserDataInSharedPref({
   required String token,
   required int userId,
   required String userName,
@@ -53,10 +50,11 @@ void saveUserDataInSharedPref({
   print(await CacheHelper.getDataFromSharedPrefrences(key: 'userName'));
   print(await CacheHelper.getDataFromSharedPrefrences(key: 'userId'));
   print(await CacheHelper.getDataFromSharedPrefrences(key: 'phoneNumber'));
+  print(await CacheHelper.getDataFromSharedPrefrences(key: 'token'));
 }
 
 //===== delete user data when logout===
-void deleteUserDataWhenLogout() async {
+Future<void> deleteUserDataWhenLogout() async {
   await CacheHelper.removeDataFromSharedPrefrence(key: 'token');
   await CacheHelper.removeDataFromSharedPrefrence(key: 'userId');
   await CacheHelper.removeDataFromSharedPrefrence(key: 'userName');
@@ -65,4 +63,6 @@ void deleteUserDataWhenLogout() async {
   await CacheHelper.removeDataFromSharedPrefrence(key: 'userAddress');
   print(
       'all userData deleted and userId now is ${await CacheHelper.getDataFromSharedPrefrences(key: 'userId')}');
+  print(
+      'all userData deleted and token now is ${await CacheHelper.getDataFromSharedPrefrences(key: 'token')}');
 }

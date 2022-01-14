@@ -1,14 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:dareen_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class MyTheme {
   static ThemeData myLightThemeMode = ThemeData(
-    primarySwatch: Colors.deepOrange,
+    primaryColor: Color(0xff0097A7),
+    primarySwatch: Palette.myColor,
     scaffoldBackgroundColor: Colors.white,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: Colors.deepOrange,
+      backgroundColor: Color(0xff0097A7),
     ),
     appBarTheme: AppBarTheme(
       titleSpacing: 20,
@@ -28,7 +30,7 @@ class MyTheme {
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       // type: BottomNavigationBarType.shifting,
-      selectedItemColor: Colors.deepOrange,
+      selectedItemColor: Color(0xff0097A7),
       elevation: 20.0,
       backgroundColor: Colors.white,
       unselectedItemColor: Colors.grey,
@@ -43,7 +45,7 @@ class MyTheme {
       bodyText2: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.bold,
-        color: Colors.deepOrange,
+        color: Color(0xff0097A7),
       ),
       //for text form fields
       subtitle1: TextStyle(
@@ -63,14 +65,15 @@ class MyTheme {
     ),
   );
   static ThemeData myDarkThemeMode = ThemeData(
-    primarySwatch: Colors.deepOrange,
-    scaffoldBackgroundColor: Color(0xff121212),
+    primaryColor: Color(0xff0097A7),
+    primarySwatch: Palette.myColor,
+    scaffoldBackgroundColor: Color(0xff333739),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: Colors.deepOrange,
+      backgroundColor: Color(0xff0097A7),
     ),
     appBarTheme: AppBarTheme(
       titleSpacing: 20,
-      backgroundColor: Color(0xff121212),
+      backgroundColor: Color(0xff333739),
       elevation: 0.0,
       iconTheme: IconThemeData(
         color: Colors.white,
@@ -88,9 +91,9 @@ class MyTheme {
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       //    type: BottomNavigationBarType.shifting,
-      selectedItemColor: Colors.deepOrange,
+      selectedItemColor: Color(0xff0097A7),
       elevation: 20.0,
-      backgroundColor: Color(0xff121212),
+      backgroundColor: Color(0xff333739),
       unselectedItemColor: Colors.grey,
     ),
     textTheme: TextTheme(
@@ -103,7 +106,7 @@ class MyTheme {
       bodyText2: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.bold,
-        color: Colors.deepOrange,
+        color: Color(0xff0097A7),
       ),
       //for text form fields
       subtitle1: TextStyle(

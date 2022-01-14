@@ -28,18 +28,22 @@ class HomeScreen extends StatelessWidget {
               centerTitle: true,
               leadingWidth: 100,
               leading: BlocConsumer<CartCubit, CartState>(
-                  listener: (context, state) {},
-                  builder: (context, state) {
-                    return TextButton.icon(
-                      onPressed: () {
-                        cubit.changeIndexToMaychCartScreen(context);
-                        CartCubit.get(context).getCartProducts();
-                      },
-                      icon: const Icon(Icons.shopping_cart),
-                      label:
-                          Text('${CartCubit.get(context).cartProducts.length}'),
-                    );
-                  }),
+                  listener: (context, state) {
+                if (state is AddOrDeleteFavouriteSuccess) {
+                  CartCubit.get(context).getCartProducts();
+                }
+              }, builder: (context, state) {
+                int cartItemsNumber =
+                    CartCubit.get(context).cartProducts.length;
+                return TextButton.icon(
+                  onPressed: () {
+                    cubit.changeIndexToMaychCartScreen(context);
+                    CartCubit.get(context).getCartProducts();
+                  },
+                  icon: const Icon(Icons.shopping_cart),
+                  label: Text('$cartItemsNumber'),
+                );
+              }),
               actions: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -48,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                       navigateTo(context: context, screen: SearchScreen());
                     },
                     icon: const Icon(Icons.search),
-                    color: Colors.deepOrange,
+                    color: const Color(0xff0097A7),
                     iconSize: 30,
                   ),
                 ),
@@ -70,34 +74,32 @@ class HomeScreen extends StatelessWidget {
             ),
             // floatingActionButtonLocation:
             //     FloatingActionButtonLocation.miniCenterFloat,
-            floatingActionButton:   Directionality(
-                textDirection: TextDirection.ltr,
-                child: Visibility(
-                  visible: ShopCubit.get(context).isFloatingActionButtonShown,
-                  child: FloatingActionButton(
-                    onPressed: () {
-                      myModalBottomSheet(context: context);
-                    },
-                    backgroundColor: Colors.transparent,
-                    elevation: 0,
-                    splashColor: Colors.deepOrange,
-                    // extendedTextStyle: Theme.of(context).textTheme.bodyText1,
-                    // extendedIconLabelSpacing: 5,
-                    // extendedPadding: const EdgeInsets.only(right: 5, left: 10),
-                    tooltip: 'اضغط هنا لطلب توكتوك',
-                    foregroundColor: Colors.deepOrange,
-                    // label: const Text('لطلب توكتوك'),
-                    //icon: Icon(Icons.cake_rounded),
-                    child: Image.asset(
-                      'assets/images/toktok.png',
-                      width: 60,
-                      height: 50,
-                    ),
+            floatingActionButton: Directionality(
+              textDirection: TextDirection.ltr,
+              child: Visibility(
+                visible: ShopCubit.get(context).isFloatingActionButtonShown,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    myModalBottomSheet(context: context);
+                  },
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  splashColor: Colors.deepOrange,
+                  // extendedTextStyle: Theme.of(context).textTheme.bodyText1,
+                  // extendedIconLabelSpacing: 5,
+                  // extendedPadding: const EdgeInsets.only(right: 5, left: 10),
+                  tooltip: 'اضغط هنا لطلب توكتوك',
+                  foregroundColor: Colors.deepOrange,
+                  // label: const Text('لطلب توكتوك'),
+                  //icon: Icon(Icons.cake_rounded),
+                  child: Image.asset(
+                    'assets/images/toktok.png',
+                    width: 60,
+                    height: 50,
                   ),
                 ),
               ),
-              
-            
+            ),
           ),
         );
       },

@@ -32,14 +32,22 @@ class FavouriteScreen extends StatelessWidget {
           ),
         ),
         fallback: state is FavouritesGetSuccess && cubit.favourites.isEmpty
-            ? (context) => const Center(
-                    child: Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Text(
-                    ' لم يتم إضافة منتجات في قائمة المفضلة الخاصة بك يرجي زيارة متاجرنا وإضافة ما يعجبك إلي المفضلة لتسهيل الوصول إليه',
-                    //  style: Theme.of(context).textTheme.bodyText2,
+            ? (context) => SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.favorite,
+                        size: 150,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    const  SizedBox(height: 20),
+                    const  Text('قائمة المفضلة فارغة'),
+                    ],
                   ),
-                ))
+                )
             : (context) => const Center(child: CircularProgressIndicator()),
       );
     });
