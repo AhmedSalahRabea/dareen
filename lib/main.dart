@@ -3,6 +3,7 @@
 import 'package:dareen_app/home/cubit/shop_cubit.dart';
 import 'package:dareen_app/home/home_screen.dart';
 import 'package:dareen_app/modules/cart/cubit/cart_cubit.dart';
+import 'package:dareen_app/modules/login/cubit/login_cubit.dart';
 import 'package:dareen_app/modules/on_boarding/on_boarding_screen.dart';
 import 'package:dareen_app/modules/register_screen/cubit/register_cubit.dart';
 import 'package:dareen_app/shared/bloc_bserver/bloc_observer.dart';
@@ -47,6 +48,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<RegisterCubit>(
           create: (context) => RegisterCubit(),
         ),
+        BlocProvider<LoginCubit>(
+          create: (context) => LoginCubit(),
+        ),
         BlocProvider<AppCubit>(
             create: (context) => AppCubit()..changeAppMode(fromShared: isLight)
             // ..homeScreen(isOnBoardingSeen),
@@ -54,7 +58,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<ShopCubit>(
           create: (context) => ShopCubit()
             ..getCategoryData(context)
-            ..getFavourites(userId),
+            ..getFavourites(userId)..getAllProducts(),
         ),
         BlocProvider<CartCubit>(
           create: (context) => CartCubit()..getCartProducts(),

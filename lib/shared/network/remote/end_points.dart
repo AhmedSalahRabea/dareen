@@ -14,6 +14,10 @@ const String UPDATEUSERDATA = 'client/edit/profile';
 const String GETCARTPRODUCTS = 'get/Product/From/Cart';
 const String ADDPRODUCTTOCART = 'add/new/cart';
 const String DELETEPRODUCTFROMCART = 'delete/product/cart';
+const String GETALLPRODUCTS = 'get/all/products';
+const String CHANGEPASSWORD = 'client/update/password';
+
+
 
 
 //user Data

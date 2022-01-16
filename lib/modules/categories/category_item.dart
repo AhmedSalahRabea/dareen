@@ -32,7 +32,7 @@ class CategoryItem extends StatelessWidget {
         onTap: () async {
           ShopCubit.get(context).getFavourites(userId);
 
-          ShopCubit.get(context).getCategoryProducts('${model.id}');
+          ShopCubit.get(context).getCategoryProducts(model.id);
 
           navigateTo(
               context: context,

@@ -2,6 +2,7 @@
 
 //import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
+import 'package:dareen_app/modules/change_password/change_password_screen.dart';
 
 import 'package:dareen_app/modules/register_screen/cubit/register_cubit.dart';
 import 'package:dareen_app/modules/settings/big_user_item.dart';
@@ -127,6 +128,23 @@ class SettingScreen extends StatelessWidget {
                         subtitle: 'للتعديل علي بياناتك الشخصية',
                         subtitleStyle: Theme.of(context).textTheme.subtitle2,
                       ),
+                      SettingsItem(
+                        onTap: () async {
+                          navigateTo(
+                              context: context, screen: ChangePasswordScreen());
+                        },
+                        icons: Icons.password,
+                        iconStyle: IconStyle(
+                          backgroundColor: Theme.of(context).primaryColor,
+                        ),
+                        title: 'تغيير كلمة المرور',
+                        titleStyle: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(color: Colors.black),
+                        subtitle: 'لتغيير كلمة السر الخاصة بكم',
+                        subtitleStyle: Theme.of(context).textTheme.subtitle2,
+                      ),
                     ],
                   ),
                   SettingsGroup(
@@ -162,21 +180,18 @@ class SettingScreen extends StatelessWidget {
                               MyOkTextButtonForDailog(
                                 okOrCancel: 'إلغاء',
                               ),
-                              BlocConsumer<RegisterCubit,RegisterState>(
-                                listener: (context, state) {
-                                  
-                                },
-                                builder:(context, state) {
-                                  return  MyTextButton(
-                                  text: 'تسجيل الخروج',
-                                  fontSize: 14,
-                                  onpressed: () {
-                                    BlocProvider.of<RegisterCubit>(context)
-                                        .signOut(context);
-                                  },
-                                );
-                                }
-                              ),
+                              BlocConsumer<RegisterCubit, RegisterState>(
+                                  listener: (context, state) {},
+                                  builder: (context, state) {
+                                    return MyTextButton(
+                                      text: 'تسجيل الخروج',
+                                      fontSize: 14,
+                                      onpressed: () {
+                                        BlocProvider.of<RegisterCubit>(context)
+                                            .signOut(context);
+                                      },
+                                    );
+                                  }),
                             ],
                           );
                         },

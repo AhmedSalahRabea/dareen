@@ -39,5 +39,12 @@ class ChangeIndexToMaychCartScreen extends ShopState {}
 //======when the user click back button from products screenr=====
 class MakeProductsModelEmpty extends ShopState {}
 
+//==== when get all products =====
+class GetAllProductsLoading extends ShopState {}
+
+class GetAllProductsSuccess extends ShopState {}
+
+class GetAllProductsError extends ShopState {}
+
 //======when change in bottom navigation bar=====
 class ShopChangeBottomNavBar extends ShopState {}

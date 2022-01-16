@@ -4,17 +4,17 @@ import 'package:dareen_app/data/models/add_delete_favourite.dart';
 import 'package:dareen_app/data/models/category_model.dart';
 import 'package:dareen_app/data/models/favourite_model.dart';
 import 'package:dareen_app/data/models/product_model.dart';
+import 'package:dareen_app/data/models/search_model.dart';
 import 'package:dareen_app/modules/cart/cart_screen.dart';
-import 'package:dareen_app/modules/cart/cubit/cart_cubit.dart';
 import 'package:dareen_app/modules/categories/categories_screen.dart';
 import 'package:dareen_app/modules/favourite/favourite_screen.dart';
 import 'package:dareen_app/modules/settings/setting_screen.dart';
 import 'package:dareen_app/shared/components/functions.dart';
-import 'package:dareen_app/shared/cubit/app_cubit.dart';
 import 'package:dareen_app/shared/network/remote/doi_helper.dart';
 import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 part 'shop_state.dart';
 
@@ -22,6 +22,14 @@ class ShopCubit extends Cubit<ShopState> {
   ShopCubit() : super(ShopInitial());
 
   static ShopCubit get(BuildContext? context) => BlocProvider.of(context!);
+
+  // //======bool to check internetConeection=======
+  // bool online = true;
+  // void checkInternet() async {
+  //   bool result = await InternetConnectionChecker().hasConnection;
+  //   online = result;
+  // }
+
   //========= method to get Catageories from api=====
   CategoriesModel? categoriesModel;
   void getCategoryData(BuildContext context) {
@@ -36,34 +44,63 @@ class ShopCubit extends Cubit<ShopState> {
       showMyAlertDialog(
           context: context,
           title: 'خطأ اثناء تحميل الاقسام',
-          content: error.toString());
+          content: 'يرجي التأكد من الإتصال بالإنترنت');
       emit(CategoriesGetFailed());
+    });
+  }
+
+  //====when get all products=====
+  List<ProductModel> allProducts = [];
+  SearchModel? searchModel;
+
+  void getAllProducts() {
+    allProducts = [];
+    emit(GetAllProductsLoading());
+    DioHelper.getData(
+      url: GETALLPRODUCTS,
+    ).then((value) {
+      searchModel = SearchModel.fromJson(value.data);
+      if (searchModel!.status!) {
+        searchModel!.data!.forEach((product) {
+          allProducts.add(product);
+        });
+        emit(GetAllProductsSuccess());
+      }
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetAllProductsError());
     });
   }
 
 //========== method to get the products into a particular category =======
   ProductsModel? productsModel;
   List<ProductModel> products = [];
-  void getCategoryProducts(String categoryId) {
+  void getCategoryProducts(int categoryId) {
     products = [];
-    emit(ProductsLoading());
-    DioHelper.getData(
-      url: CATEGORYPRODUCTS,
-      query: {
-        'category_id': categoryId,
-      },
-    ).then((value) {
-      productsModel = ProductsModel.fromJson(value.data);
-      productsModel!.data!.forEach((element) {
-        products.add(element);
-      });
-
-      emit(ProductsGetSuccess());
-    }).catchError((error) {
-      print(error.toString());
-      emit(ProductsGetError());
-    });
+    products = allProducts
+        .where((product) => product.categoryId == categoryId)
+        .toList();
+    emit(ProductsGetSuccess());
   }
+  // void getCategoryProducts(String categoryId) {
+  //   products = [];
+  //   emit(ProductsLoading());
+  //   DioHelper.getData(
+  //     url: CATEGORYPRODUCTS,
+  //     query: {
+  //       'category_id': categoryId,
+  //     },
+  //   ).then((value) {
+  //     productsModel = ProductsModel.fromJson(value.data);
+  //     productsModel!.data!.forEach((element) {
+  //       products.add(element);
+  //     });
+  //     emit(ProductsGetSuccess());
+  //   }).catchError((error) {
+  //     print(error.toString());
+  //     emit(ProductsGetError());
+  //   });
+  // }
 
 //========== method to get favourites =======
   late FavouritesModel? favouritesModel;

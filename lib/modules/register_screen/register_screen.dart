@@ -1,10 +1,14 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable, sized_box_for_whitespace, avoid_print
 
+import 'package:dareen_app/home/cubit/shop_cubit.dart';
+import 'package:dareen_app/home/home_screen.dart';
+import 'package:dareen_app/modules/cart/cubit/cart_cubit.dart';
 import 'package:dareen_app/modules/login/login_screen.dart';
 import 'package:dareen_app/modules/otp_screen/otp_screen.dart';
 
 import 'package:dareen_app/modules/register_screen/cubit/register_cubit.dart';
 import 'package:dareen_app/shared/components/functions.dart';
+import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:dareen_app/shared/widgets/my_default_button.dart';
 import 'package:dareen_app/shared/widgets/my_text_field.dart';
 import 'package:dareen_app/shared/widgets/my_textbutton.dart';
@@ -26,7 +30,7 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       // backgroundColor: Colors.white,
       body: BlocConsumer<RegisterCubit, RegisterState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is LoadingPhoneAuth) {
             return showProgressIndicator(context);
           }
@@ -53,6 +57,55 @@ class RegisterScreen extends StatelessWidget {
                 seconds: 5,
               ),
             ));
+          }
+
+          if (state is RegisterSuccess) {
+            if (state.loginModel.status) {
+              await saveUserDataInSharedPref(
+                token: state.loginModel.token!,
+                userId: state.loginModel.data!.id,
+                userName: state.loginModel.data!.name,
+                phoneNumber: state.loginModel.data!.phoneNumber,
+                userRegion: state.loginModel.data!.region,
+                userAddress: state.loginModel.data!.address,
+              ).then((value) {
+                userId = state.loginModel.data!.id;
+                navigateAndFinish(context: context, screen: HomeScreen());
+                nameController.clear();
+                phoneController.clear();
+                passwordController.clear();
+                rePasswordController.clear();
+                regionController.clear();
+                addressController.clear();
+                ShopCubit.get(context).getCategoryData(context);
+                ShopCubit.get(context).getAllProducts();
+                ShopCubit.get(context).getFavourites(userId);
+                CartCubit.get(context).getCartProducts();
+              }).catchError((error) {
+                print(error.toString());
+              });
+            } else {
+              showMyAlertDialog(
+                context: context,
+                title: 'خطأ أثناء التسجيل',
+                isBarrierDismissible: false,
+                content: state.loginModel.error![0],
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      navigateAndFinish(
+                          context: context, screen: LoginScreen());
+                    },
+                    child: const Text(
+                      'حسناً',
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              );
+            }
           }
         },
         builder: (context, state) {
@@ -127,7 +180,7 @@ class RegisterScreen extends StatelessWidget {
                           if (value.isEmpty) {
                             return 'من فضلك أدخل رفم سري صحيح';
                           } else if (value.length < 7) {
-                            return 'يجب ألا يقل الرقم السري سبع عن خانات';
+                            return 'يجب ألا يقل الرقم السري عن سبع خانات';
                           } else {
                             return null;
                           }

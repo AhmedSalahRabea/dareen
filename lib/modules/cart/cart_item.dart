@@ -1,8 +1,7 @@
-// ignore_for_file: override_on_non_overriding_member, prefer_const_constructors_in_immutables, use_key_in_widget_constructors
+// ignore_for_file: override_on_non_overriding_member, prefer_const_constructors_in_immutables, use_key_in_widget_constructors, avoid_print
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dareen_app/data/models/cart_model.dart';
-import 'package:dareen_app/data/models/product_model.dart';
 import 'package:dareen_app/modules/cart/cubit/cart_cubit.dart';
 import 'package:dareen_app/modules/product_details/product_details_screen.dart';
 import 'package:dareen_app/shared/components/functions.dart';

@@ -4,7 +4,6 @@ import 'package:dareen_app/data/models/user_data_model.dart';
 import 'package:dareen_app/home/cubit/shop_cubit.dart';
 import 'package:dareen_app/modules/login/login_screen.dart';
 import 'package:dareen_app/shared/components/functions.dart';
-import 'package:dareen_app/shared/network/local/cache_helper.dart';
 import 'package:dareen_app/shared/network/remote/doi_helper.dart';
 import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:dareen_app/shared/widgets/my_ok_text.dart';
@@ -46,41 +45,41 @@ class RegisterCubit extends Cubit<RegisterState> {
       },
     ).then((value) {
       loginModel = LoginModel.fromJson(value.data);
-      if (loginModel.status) {
-        //  token = loginModel.token;
-        saveUserDataInSharedPref(
-          token: loginModel.token!,
-          userId: loginModel.data!.id,
-          userName: loginModel.data!.name,
-          phoneNumber: loginModel.data!.phoneNumber,
-          userRegion: loginModel.data!.region,
-          userAddress: loginModel.data!.address,
-        );
-
-        print('new token from register=========$token');
         emit(RegisterSuccess(loginModel));
-      } else {
-        showMyAlertDialog(
-          context: context,
-          title: 'خطأ أثناء التسجيل',
-          isBarrierDismissible: false,
-          content: loginModel.error![0],
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                navigateAndFinish(context: context, screen: LoginScreen());
-              },
-              child: const Text(
-                'حسناً',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        );
 
-        emit(RegisterErrorfromPhoneOrEmailExisted());
-      }
+      // if (loginModel.status) {
+      //   //  token = loginModel.token;
+      //   saveUserDataInSharedPref(
+      //     token: loginModel.token!,
+      //     userId: loginModel.data!.id,
+      //     userName: loginModel.data!.name,
+      //     phoneNumber: loginModel.data!.phoneNumber,
+      //     userRegion: loginModel.data!.region,
+      //     userAddress: loginModel.data!.address,
+      //   );
+      //   print('new token from register=========$token');
+      //   emit(RegisterSuccess(loginModel));
+      // } else {
+      //   showMyAlertDialog(
+      //     context: context,
+      //     title: 'خطأ أثناء التسجيل',
+      //     isBarrierDismissible: false,
+      //     content: loginModel.error![0],
+      //     actions: [
+      //       TextButton(
+      //         onPressed: () {
+      //           Navigator.pop(context);
+      //           navigateAndFinish(context: context, screen: LoginScreen());
+      //         },
+      //         child: const Text(
+      //           'حسناً',
+      //           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+      //         ),
+      //       ),
+      //     ],
+      //   );
+      //   emit(RegisterErrorfromPhoneOrEmailExisted());
+      // }
     }).catchError((error) {
       showMyAlertDialog(
         context: context,
@@ -183,20 +182,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     navigateAndFinish(context: context, screen: LoginScreen());
    // emit(UserSignedOut());
   }
- // ===== delete user data when logout===
-// Future<void> deleteUserDataWhenLogout() async {
-//   await CacheHelper.removeDataFromSharedPrefrence(key: 'token');
-//   await CacheHelper.removeDataFromSharedPrefrence(key: 'userId');
-//   await CacheHelper.removeDataFromSharedPrefrence(key: 'userName');
-//   await CacheHelper.removeDataFromSharedPrefrence(key: 'phoneNumber');
-//   await CacheHelper.removeDataFromSharedPrefrence(key: 'userRegion');
-//   await CacheHelper.removeDataFromSharedPrefrence(key: 'userAddress');
-//   print(
-//       'all userData deleted and userId now is ${await CacheHelper.getDataFromSharedPrefrences(key: 'userId')}');
-//   print(
-//       'all userData deleted and token now is ${await CacheHelper.getDataFromSharedPrefrences(key: 'token')}');
-//       emit(UserDataDeletedWhenSignedOut());
-// }
+
 
   //الدالة اللي هتجيب بيانات المستخدم
   User getLoogedInUser() {

@@ -17,7 +17,9 @@ class SearchScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => SearchCubit(),
       child: BlocConsumer<SearchCubit, SearchState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+        
+        },
         builder: (context, state) {
           SearchCubit cubit = SearchCubit.get(context);
           return Directionality(
@@ -43,23 +45,23 @@ class SearchScreen extends StatelessWidget {
                         label: 'البحث',
                         prefix: Icons.search,
                         onsubmit: (String text) {
-                          cubit.searchProduct(text);
+                          cubit.addSearchedProductToSearchList(text,context);
                         },
                         onchange: (text) {
-                          cubit.searchProduct(text);
+                          cubit.addSearchedProductToSearchList(text,context);
                         },
                       ),
                       SizedBox(height: 20),
                       if (state is SearchLoading) LinearProgressIndicator(),
                       BuildCondition(
-                        condition: cubit.searchModel != null,
+                        condition: cubit.searchList.isNotEmpty,
                         builder: (context) => Expanded(
                           child: ListView.separated(
                             itemBuilder: (context, index) =>
                                 ProductOrFavouriteItem(
                                     model: cubit.searchList[index]),
                             separatorBuilder: (context, index) => MyDivider(),
-                            itemCount: cubit.searchModel!.data!.length,
+                            itemCount: cubit.searchList.length,
                           ),
                         ),
                         fallback: (context) => Center(

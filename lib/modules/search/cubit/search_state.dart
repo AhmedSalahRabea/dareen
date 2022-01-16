@@ -10,3 +10,7 @@ class SearchLoading extends SearchState {}
 class SearchSuccess extends SearchState {}
 
 class SearchError extends SearchState {}
+
+
+class SearchListUpdateState extends SearchState {}
+

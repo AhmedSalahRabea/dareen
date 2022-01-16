@@ -22,8 +22,8 @@ class ProductModel {
   final String image;
   final String? desc;
   final String? offer;
-  final int? price;
-  final int? newPrice;
+  final num? price;
+  final num? newPrice;
   final int categoryId;
   final String? createdAt;
   final String? updatedAt;

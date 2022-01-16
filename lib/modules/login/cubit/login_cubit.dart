@@ -1,11 +1,9 @@
 // ignore_for_file: avoid_print
 
+import 'package:dareen_app/data/models/change_password_model.dart';
 import 'package:dareen_app/data/models/user_data_model.dart';
 import 'package:dareen_app/home/cubit/shop_cubit.dart';
-import 'package:dareen_app/home/home_screen.dart';
-import 'package:dareen_app/modules/cart/cubit/cart_cubit.dart';
 import 'package:dareen_app/shared/components/functions.dart';
-import 'package:dareen_app/shared/cubit/app_cubit.dart';
 import 'package:dareen_app/shared/network/remote/doi_helper.dart';
 import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:dareen_app/shared/widgets/my_ok_text.dart';
@@ -24,10 +22,10 @@ class LoginCubit extends Cubit<LoginState> {
     required String phoneNumber,
     required String password,
     required BuildContext context,
-  }) {
+  }) async {
     ShopCubit.get(context).curretIndex = 0;
     emit(LoginLoading());
-    DioHelper.postData(
+    await DioHelper.postData(
       url: LOGIN,
       data: {
         'phoneNumber': phoneNumber,
@@ -35,38 +33,39 @@ class LoginCubit extends Cubit<LoginState> {
       },
     ).then((value) {
       loginModel = LoginModel.fromJson(value.data);
-      if (loginModel.status) {
-        //token = loginModel.token;
-        saveUserDataInSharedPref(
-          token: loginModel.token!,
-          userId: loginModel.data!.id,
-          userName: loginModel.data!.name,
-          phoneNumber: loginModel.data!.phoneNumber,
-          userRegion: loginModel.data!.region,
-          userAddress: loginModel.data!.address,
-        ).then((value) {
-          ShopCubit.get(context).getCategoryData(context);
-          ShopCubit.get(context).getFavourites(userId);
-          CartCubit.get(context).getCartProducts();
+      emit(LoginSuccess(loginModel));
+      // if (loginModel.status) {
+      //   //token = loginModel.token;
+      //   saveUserDataInSharedPref(
+      //     token: loginModel.token!,
+      //     userId: loginModel.data!.id,
+      //     userName: loginModel.data!.name,
+      //     phoneNumber: loginModel.data!.phoneNumber,
+      //     userRegion: loginModel.data!.region,
+      //     userAddress: loginModel.data!.address,
+      //   ).then((value) {
+      //     ShopCubit.get(context).getCategoryData(context);
+      //     ShopCubit.get(context).getFavourites(userId);
+      //     CartCubit.get(context).getCartProducts();
 
-          navigateAndFinish(context: context, screen: HomeScreen());
-          emit(LoginSuccess(loginModel));
-        });
-        // ShopCubit.get(context).getCategoryData(context);
-        // ShopCubit.get(context).getFavourites(userId);
-        // CartCubit.get(context).getCartProducts();
-        print('new token from login=========$token');
-      } else {
-        showMyAlertDialog(
-          context: context,
-          title: ' خطأ أثناء تسجيل الدخول',
-          content: loginModel.message!,
-          actions: [
-            MyOkTextButtonForDailog(),
-          ],
-        );
-        emit(LoginErrorOnEmailOrPassword());
-      }
+      //     navigateAndFinish(context: context, screen: HomeScreen());
+      //     emit(LoginSuccess(loginModel));
+      //   });
+      //   // ShopCubit.get(context).getCategoryData(context);
+      //   // ShopCubit.get(context).getFavourites(userId);
+      //   // CartCubit.get(context).getCartProducts();
+      //   print('new token from login=========$token');
+      // } else {
+      //   showMyAlertDialog(
+      //     context: context,
+      //     title: ' خطأ أثناء تسجيل الدخول',
+      //     content: loginModel.message!,
+      //     actions: [
+      //       MyOkTextButtonForDailog(),
+      //     ],
+      //   );
+      //   emit(LoginErrorOnEmailOrPassword());
+      // }
     }).catchError((error) {
       showMyAlertDialog(
         context: context,
@@ -82,10 +81,32 @@ class LoginCubit extends Cubit<LoginState> {
     });
   }
 
-  // Future<void> signOut(BuildContext context) async {
-  //   await FirebaseAuth.instance.signOut();
-  //   navigateAndFinish(context: context, screen: LoginScreen());
-  // }
+  //====== to change password =========
+  ChangePasswordModel? changePasswordModel;
+  void changeUserPassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    emit(ChangePasswordLoading());
+    await DioHelper.postData(
+      url: CHANGEPASSWORD,
+      data: {
+        'user_id': userId,
+        'old_password': oldPassword,
+        'new_password': newPassword,
+      },
+    ).then((value) {
+      changePasswordModel = ChangePasswordModel.fromJson(value.data);
+      if (changePasswordModel!.status!) {
+        emit(ChangePasswordSuccess());
+      } else {
+        emit(ChangePasswordFailedWrongPassword());
+      }
+    }).catchError((error) {
+      print(error.toString());
+      emit(ChangePasswordError());
+    });
+  }
 
   //to update phoneNumber
   // Future<void> updatePhoneNumber() async {

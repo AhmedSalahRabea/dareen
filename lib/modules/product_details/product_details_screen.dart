@@ -159,7 +159,8 @@ class ProductDetailsScreen extends StatelessWidget {
                       height: 50,
                       child: OutlinedButton.icon(
                         onPressed: () {
-                          CartCubit.get(context).addProductToCart(context: context,productId: model.id);
+                          CartCubit.get(context).addProductToCart(
+                              context: context, productId: model.id);
                         },
                         icon: const Icon(
                           Icons.shopping_cart_outlined,
@@ -174,7 +175,8 @@ class ProductDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         style: OutlinedButton.styleFrom(
-                          backgroundColor: Colors.deepOrange.withOpacity(.9),
+                          backgroundColor:
+                              Theme.of(context).primaryColor.withOpacity(1),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20)),
                         ),

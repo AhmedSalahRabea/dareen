@@ -2,8 +2,6 @@
 
 import 'package:dareen_app/data/models/add_product_to_cart_model.dart';
 import 'package:dareen_app/data/models/cart_model.dart';
-import 'package:dareen_app/data/models/product_model.dart';
-import 'package:dareen_app/home/cubit/shop_cubit.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/network/remote/doi_helper.dart';
 import 'package:dareen_app/shared/network/remote/end_points.dart';
@@ -138,18 +136,18 @@ class CartCubit extends Cubit<CartState> {
       },
     );
 
-    int quantity = 1;
-    void increaseQuantity() {
-      quantity += 1;
-      emit(IncreaseQuantity());
-    }
+    // int quantity = 1;
+    // void increaseQuantity() {
+    //   quantity += 1;
+    //   emit(IncreaseQuantity());
+    // }
 
-    void decreaseQuantity() {
-      if (quantity > 1) {
-        quantity -= 1;
-        emit(DecreaseQuantity());
-      }
-    }
+    // void decreaseQuantity() {
+    //   if (quantity > 1) {
+    //     quantity -= 1;
+    //     emit(DecreaseQuantity());
+    //   }
+    // }
   }
 
   Map<int, dynamic> cartDetails = {
@@ -161,7 +159,7 @@ class CartCubit extends Cubit<CartState> {
   double totalPrice = 0;
   void totalPriceFunction() {
     cartDetails.forEach((key, value) {
-     // totalPrice = totalPrice + (value['quantity'] * value['totalPrice']);
+      totalPrice = totalPrice  + (value['quantity']*value['totalPrice']) ;
     });
     emit(TotalPriceChanged());
   }
