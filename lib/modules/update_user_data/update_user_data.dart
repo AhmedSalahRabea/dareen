@@ -37,8 +37,11 @@ class UpdateUserDataScreen extends StatelessWidget {
               showMyAlertDialog(
                 context: context,
                 title: 'خطأ أثناء تحديث البيانات',
-                content:
-                    'حدث خطأ أثناء تحديث البيانات يرجي التأكد من الإتصال باللإنترنت وأعد المحاولة مرة أخري',
+                content: const Text(
+                  'حدث خطأ أثناء تحديث البيانات يرجي التأكد من الإتصال باللإنترنت وأعد المحاولة مرة أخري',
+                  textDirection: TextDirection.rtl,
+                  style: TextStyle(color: Colors.black, fontSize: 16),
+                ),
                 actions: [
                   MyOkTextButtonForDailog(),
                 ],
@@ -48,7 +51,11 @@ class UpdateUserDataScreen extends StatelessWidget {
               showMyAlertDialog(
                 context: context,
                 title: 'تحديث البيانات',
-                content: 'تم تحديث البيانات بنجاح',
+                content: const Text(
+                  'تم تحديث البيانات بنجاح',
+                  textDirection: TextDirection.rtl,
+                  style: TextStyle(color: Colors.black, fontSize: 16),
+                ),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -67,9 +74,12 @@ class UpdateUserDataScreen extends StatelessWidget {
           },
           builder: (context, state) {
             AppCubit cubit = AppCubit.get(context);
-            nameController.text = CacheHelper.getDataFromSharedPrefrences(key: 'userName');
-            regionController.text = CacheHelper.getDataFromSharedPrefrences(key: 'userRegion');
-            addressController.text = CacheHelper.getDataFromSharedPrefrences(key: 'userAddress');
+            nameController.text =
+                CacheHelper.getDataFromSharedPrefrences(key: 'userName');
+            regionController.text =
+                CacheHelper.getDataFromSharedPrefrences(key: 'userRegion');
+            addressController.text =
+                CacheHelper.getDataFromSharedPrefrences(key: 'userAddress');
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.only(
@@ -138,9 +148,9 @@ class UpdateUserDataScreen extends StatelessWidget {
                         const SizedBox(height: 20),
                         MyDefaultButton(
                           text: 'التحديث',
-                          function: ()  {
+                          function: () {
                             if (formKey.currentState!.validate()) {
-                               cubit.updateUserData(
+                              cubit.updateUserData(
                                 //uId: userId!,
                                 userName: nameController.text,
                                 userRegion: regionController.text,

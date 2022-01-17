@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print, non_constant_identifier_names
 
-
-import 'package:dareen_app/data/models/update_user_data_model.dart';
+import 'package:dareen_app/data/models/success_or_delete_model.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/network/local/cache_helper.dart';
 import 'package:dareen_app/shared/network/remote/doi_helper.dart';
@@ -42,7 +41,11 @@ class AppCubit extends Cubit<AppState> {
       showMyAlertDialog(
         context: context,
         title: 'خطأ أثناء الوصول إلي الواتساب',
-        content: 'حدث خطأ ربما يكون تطبيق الواتساب غير موجود علي هاتفك',
+        content: const Text(
+          'حدث خطأ ربما يكون تطبيق الواتساب غير موجود علي هاتفك',
+          textDirection: TextDirection.rtl,
+          style: TextStyle(color: Colors.black, fontSize: 16),
+        ),
       );
     }
   }
@@ -56,7 +59,11 @@ class AppCubit extends Cubit<AppState> {
       showMyAlertDialog(
         context: context,
         title: 'خطأ أثناء الوصول إلي الهاتف',
-        content: 'حدث خطأ أثناء الوصول برجاء المحاولة لاحقا',
+        content: const Text(
+          'حدث خطأ أثناء الوصول برجاء المحاولة لاحقا',
+          textDirection: TextDirection.rtl,
+          style: TextStyle(color: Colors.black, fontSize: 16),
+        ),
       );
     }
   }
@@ -90,7 +97,7 @@ class AppCubit extends Cubit<AppState> {
 //   }
 
 //====to update user Data =====
-  UpdateUserDataModel? updateUserDataModel;
+  SuccessOrFailedModel? updateUserDataModel;
   void updateUserData({
     //required int uId,
     required String userName,
@@ -107,9 +114,9 @@ class AppCubit extends Cubit<AppState> {
         'address': userAddress,
       },
     ).then((value) {
-      updateUserDataModel = UpdateUserDataModel.fromJson(value.data);
+      updateUserDataModel = SuccessOrFailedModel.fromJson(value.data);
       if (updateUserDataModel != null) {
-        if (updateUserDataModel!.status) {
+        if (updateUserDataModel!.status!) {
           saveUserDataInSharedPref(
             token: token!,
             userId: userId!,

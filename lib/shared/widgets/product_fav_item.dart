@@ -18,6 +18,7 @@ class ProductOrFavouriteItem extends StatelessWidget {
     return BlocConsumer<ShopCubit, ShopState>(
         listener: (context, state) {},
         builder: (context, state) {
+        //  ShopCubit cubit = ShopCubit.get(context);
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 20),
             child: InkWell(
@@ -34,13 +35,16 @@ class ProductOrFavouriteItem extends StatelessWidget {
                     Stack(
                       alignment: AlignmentDirectional.bottomStart,
                       children: [
-                        FadeInImage(
-                          height: 150,
-                          width: 120,
-                          placeholder: const AssetImage(
-                              'assets/images/imageloading.gif'),
-                          image: CachedNetworkImageProvider(model.image),
-                          fit: BoxFit.contain,
+                        Hero(
+                          tag: model.id,
+                          child: FadeInImage(
+                            height: 150,
+                            width: 120,
+                            placeholder: const AssetImage(
+                                'assets/images/imageloading.gif'),
+                            image: CachedNetworkImageProvider(model.image),
+                            fit: BoxFit.contain,
+                          ),
                         ),
                         if (model.newPrice != null && model.newPrice != 0)
                           Container(
@@ -60,7 +64,7 @@ class ProductOrFavouriteItem extends StatelessWidget {
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
                             model.name,
@@ -116,8 +120,8 @@ class ProductOrFavouriteItem extends StatelessWidget {
                               //   icon: Icon(
                               //     Icons.favorite_sharp,
                               //     size: 25,
-                              //     color:
-                              //         ShopCubit.get(context).likeButtonColor(model),
+                              //     color:cubit.productsInFavourites.containsKey(model.id) ?Colors.red :Colors.grey,
+                              //         //ShopCubit.get(context).likeButtonColor(model),
                               //   ),
                               // ),
                             ],

@@ -1,10 +1,10 @@
 // ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls
 
-import 'package:dareen_app/data/models/add_delete_favourite.dart';
 import 'package:dareen_app/data/models/category_model.dart';
 import 'package:dareen_app/data/models/favourite_model.dart';
 import 'package:dareen_app/data/models/product_model.dart';
 import 'package:dareen_app/data/models/search_model.dart';
+import 'package:dareen_app/data/models/success_or_delete_model.dart';
 import 'package:dareen_app/modules/cart/cart_screen.dart';
 import 'package:dareen_app/modules/categories/categories_screen.dart';
 import 'package:dareen_app/modules/favourite/favourite_screen.dart';
@@ -14,7 +14,6 @@ import 'package:dareen_app/shared/network/remote/doi_helper.dart';
 import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 part 'shop_state.dart';
 
@@ -22,13 +21,6 @@ class ShopCubit extends Cubit<ShopState> {
   ShopCubit() : super(ShopInitial());
 
   static ShopCubit get(BuildContext? context) => BlocProvider.of(context!);
-
-  // //======bool to check internetConeection=======
-  // bool online = true;
-  // void checkInternet() async {
-  //   bool result = await InternetConnectionChecker().hasConnection;
-  //   online = result;
-  // }
 
   //========= method to get Catageories from api=====
   CategoriesModel? categoriesModel;
@@ -42,9 +34,14 @@ class ShopCubit extends Cubit<ShopState> {
     }).catchError((error) {
       print(error.toString());
       showMyAlertDialog(
-          context: context,
-          title: 'خطأ اثناء تحميل الاقسام',
-          content: 'يرجي التأكد من الإتصال بالإنترنت');
+        context: context,
+        title: 'خطأ اثناء تحميل الاقسام',
+        content: const Text(
+          'يرجي التأكد من الإتصال بالإنترنت',
+          textDirection: TextDirection.rtl,
+          style: TextStyle(color: Colors.black, fontSize: 16),
+        ),
+      );
       emit(CategoriesGetFailed());
     });
   }
@@ -105,10 +102,14 @@ class ShopCubit extends Cubit<ShopState> {
 //========== method to get favourites =======
   late FavouritesModel? favouritesModel;
   List<ProductModel> favourites = [];
-  void getFavourites(int? userId) {
+  Map<int, bool> productsInFavourites = {};
+  //List<int> productsInFavourites = [];
+
+  void getFavourites(int? userId) async {
     favourites = [];
+    productsInFavourites = {};
     emit(FavouritesLoading());
-    DioHelper.getData(
+    await DioHelper.getData(
       url: FAVOURITES,
       query: {
         'user_id': userId,
@@ -119,6 +120,8 @@ class ShopCubit extends Cubit<ShopState> {
         if (favouritesModel!.data != null) {
           favouritesModel!.data!.forEach((element) {
             favourites.add(element.product);
+            productsInFavourites.putIfAbsent(element.product.id, () => true);
+            // print('=========updated list $productsInFavourites');
           });
         }
       }
@@ -131,27 +134,34 @@ class ShopCubit extends Cubit<ShopState> {
 
 //=====To add or delete product from favourites=====
   // bool isLiked = false;
-  AddOrDeleteProductFromFavouritesModel? model;
-  void addOrDeleteProductToFavourite({
+  SuccessOrFailedModel? model;
+  Future<void> addOrDeleteProductToFavourite({
     required int productId,
     required ProductModel productModel,
     required BuildContext context,
-  }) {
+  }) async {
     emit(AddOrDeleteFavouriteLoading());
-    DioHelper.postData(
+    await DioHelper.postData(
       url: ADDORDELETEFAVOURITE,
       data: {
         'user_id': userId,
         'product_id': productId,
       },
     ).then((value) {
-      model = AddOrDeleteProductFromFavouritesModel.fromJson(value.data);
-      if (model!.status) {
-        mySnackBar(context: context, content: model!.message);
+      model = SuccessOrFailedModel.fromJson(value.data);
+      if (model!.status!) {
+        mySnackBar(context: context, content: model!.message!);
+        if (productsInFavourites.containsKey(productId)) {
+          productsInFavourites.remove(productId);
+          // print('=========updated list $productsInFavourites');
+        } else {
+          productsInFavourites.putIfAbsent(productId, () => true);
+          print(productsInFavourites);
+        }
         emit(AddOrDeleteFavouriteSuccess());
-        print('now favourite status changed');
+        //  print('=========updated list $productsInFavourites');
       } else {
-        mySnackBar(context: context, content: model!.message);
+        mySnackBar(context: context, content: model!.message!);
         emit(AddOrDeleteFavouriteError());
       }
     }).catchError((error) {
@@ -159,7 +169,6 @@ class ShopCubit extends Cubit<ShopState> {
           context: context,
           content:
               'حدث خطأ اثناء إضافة أو حذف منتج من المفضلة يرجي التأكد من الإتصال بالإنترنت وأعد المحاولة ');
-
       print(error.toString());
       emit(AddOrDeleteFavouriteError());
     });

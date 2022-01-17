@@ -60,7 +60,7 @@ void showProgressIndicator(BuildContext context) {
 void showMyAlertDialog({
   required BuildContext context,
   required String title,
-  required String content,
+  required Widget content,
   bool isBarrierDismissible = true,
   List<Widget>? actions,
 }) {
@@ -70,16 +70,17 @@ void showMyAlertDialog({
     scrollable: true,
     actionsPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-    titleTextStyle: const TextStyle(
-      color: Colors.deepOrange,
+    titleTextStyle: TextStyle(
+      color: Theme.of(context).primaryColor,
       fontSize: 20,
       fontWeight: FontWeight.bold,
     ),
-    content: Text(
-      content,
-      textDirection: TextDirection.rtl,
-      style: const TextStyle(color: Colors.black, fontSize: 16),
-    ),
+    content: content,
+    //  Text(
+    //   content,
+    // textDirection: TextDirection.rtl,
+    // style: const TextStyle(color: Colors.black, fontSize: 16),
+    // ),
     title: Text(
       title,
       textDirection: TextDirection.rtl,
@@ -90,7 +91,7 @@ void showMyAlertDialog({
     context: context,
     builder: (context) => alertDialog,
     barrierDismissible: isBarrierDismissible,
-    barrierColor: Colors.amber.withOpacity(0.5),
+    barrierColor: Theme.of(context).primaryColor.withOpacity(.2),
   );
 }
 
@@ -104,13 +105,13 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> mySnackBar({
     backgroundColor: Colors.black,
     behavior: SnackBarBehavior.floating,
     duration: const Duration(
-      seconds: 3,
+      seconds: 1,
     ),
   ));
 }
 
-//====my bottpm sheet
-void myModalBottomSheet({
+//====my bottpm sheet for toktok
+void myModalBottomSheetForToktok({
   required BuildContext context,
 }) {
   showModalBottomSheet(
@@ -152,6 +153,45 @@ void myModalBottomSheet({
                 fontSize: 20,
               ),
             ],
+          ),
+        );
+      });
+}
+
+//====my bottpm sheet for confirm order
+void myModalBottomSheetForConfirmOrder({
+  required BuildContext context,
+}) {
+  showModalBottomSheet(
+      context: context,
+      elevation: 50,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
+      ),
+      builder: (context) {
+        return SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height / 1.4,
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              //controller: controller,
+              children: [
+                Image.asset(
+                  'assets/images/toktok.png',
+                  fit: BoxFit.contain,
+                  width: 150,
+                  height: MediaQuery.of(context).size.height / 7,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  'يمكنك الان طلب توكتوك بضغة زر واحدة',
+                  textDirection: TextDirection.rtl,
+                ),
+              ],
+            ),
           ),
         );
       });

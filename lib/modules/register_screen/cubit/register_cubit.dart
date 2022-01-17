@@ -84,8 +84,9 @@ class RegisterCubit extends Cubit<RegisterState> {
       showMyAlertDialog(
         context: context,
         title: 'خطأ أثناء التسجيل',
-        content:
-            'حدث خطأ غير متوقع أثناء التسجيل يرجي إدخال الكود بشكل صحيح أو التحقق من الإتصال بالإنترنت وأعدالمحاولة مرة أخري',
+        content:const Text(            'حدث خطأ غير متوقع أثناء التسجيل يرجي إدخال الكود بشكل صحيح أو التحقق من الإتصال بالإنترنت وأعدالمحاولة مرة أخري',
+     textDirection: TextDirection.rtl,
+      style:  TextStyle(color: Colors.black, fontSize: 16),),
         actions: [
           MyOkTextButtonForDailog(),
         ],

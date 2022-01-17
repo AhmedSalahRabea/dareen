@@ -23,6 +23,7 @@ class MyDefaultButton extends StatelessWidget {
     return Container(
       width: width,
       height: height,
+
       //padding: EdgeInsets.symmetric(vertical: 40),
       child: MaterialButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

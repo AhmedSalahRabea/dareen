@@ -35,14 +35,19 @@ class ProductDetailsScreen extends StatelessWidget {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                
                 children: [
-                  FadeInImage(
-                    height: mediaQueryHeight / 5,
-                    placeholder:
-                        const AssetImage('assets/images/imageloading.gif'),
-                    image: CachedNetworkImageProvider(model.image),
-                    width: double.infinity,
-                    fit: BoxFit.contain,
+                  Hero(
+                    tag: model.id,
+                    transitionOnUserGestures: false,
+                    child: FadeInImage(
+                      height: mediaQueryHeight / 5,
+                      placeholder:
+                          const AssetImage('assets/images/imageloading.gif'),
+                      image: CachedNetworkImageProvider(model.image),
+                      width: double.infinity,
+                      fit: BoxFit.contain,
+                    ),
                   ),
 
                   // Stack(alignment: AlignmentDirectional.bottomStart, children: [

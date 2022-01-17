@@ -3,119 +3,179 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:dareen_app/modules/cart/cart_item.dart';
 import 'package:dareen_app/modules/cart/cubit/cart_cubit.dart';
+import 'package:dareen_app/shared/components/functions.dart';
+import 'package:dareen_app/shared/widgets/my_default_button.dart';
+import 'package:dareen_app/shared/widgets/my_ok_text.dart';
+import 'package:dareen_app/shared/widgets/my_textbutton.dart';
 import 'package:dareen_app/shared/widgets/no_internet_or_noproducts.dart';
 import 'package:dareen_app/shared/widgets/empty_list.dart';
 import 'package:dareen_app/shared/widgets/my_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_offline/flutter_offline.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return OfflineBuilder(
-      connectivityBuilder: (
-        BuildContext context,
-        ConnectivityResult connectivity,
-        Widget child,
-      ) {
-        final bool connected = connectivity != ConnectivityResult.none;
-        if (connected) {
-          return BlocConsumer<CartCubit, CartState>(
-              listener: (context, state) {},
-              builder: (context, state) {
-                CartCubit cubit = CartCubit.get(context);
-                return Column(
-                  // alignment: AlignmentDirectional.bottomCenter,
-                  children: [
-                    BuildCondition(
-                      condition: cubit.cartProducts.isNotEmpty,
-                      builder: (context) => Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: Expanded(
-                          child: ListView.separated(
-                            itemBuilder: (_, index) {
-                              return CartItem(
-                                model: cubit.cartProducts[index],
-                              );
-                            },
-                            separatorBuilder: (contextm, index) => MyDivider(),
-                            itemCount: cubit.cartProducts.length,
-                          ),
-                        ),
+    var width = MediaQuery.of(context).size.width;
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: OfflineBuilder(
+        connectivityBuilder: (
+          BuildContext context,
+          ConnectivityResult connectivity,
+          Widget child,
+        ) {
+          final bool connected = connectivity != ConnectivityResult.none;
+          if (connected) {
+            return BlocConsumer<CartCubit, CartState>(
+                listener: (context, state) {
+              if (state is ConfirmOrderSuccess) {
+                CartCubit.get(context).getCartProducts();
+              }
+              if (state is ConfirmOrderSuccess) {
+                showMyAlertDialog(
+                  context: context,
+                  title: 'تم تأكيد الطلب بنجاح',
+                  content: const Icon(
+                    FontAwesomeIcons.checkDouble,
+                    color: Colors.green,
+                    size: 50,
+                  ),
+                  actions: [MyOkTextButtonForDailog()],
+                );
+              }
+            }, builder: (context, state) {
+              CartCubit cubit = CartCubit.get(context);
+              return Column(
+                // alignment: AlignmentDirectional.bottomCenter,
+                children: [
+                  BuildCondition(
+                    condition: cubit.cartProducts.isNotEmpty,
+                    builder: (context) => Expanded(
+                      child: ListView.separated(
+                        itemBuilder: (_, index) {
+                          return CartItem(
+                            model: cubit.cartProducts[index],
+                          );
+                        },
+                        separatorBuilder: (contextm, index) => MyDivider(),
+                        itemCount: cubit.cartProducts.length,
                       ),
-                      fallback:
-                          // (state is GetCartSuccess || state is DeleteProductFromCartSuccess) && cubit.cartProducts.isEmpty
-                          state is CartEmptyState && cubit.cartProducts.isEmpty
-                              ? (context) => Center(
-                                    child: EmptyList(
-                                      image: 'assets/images/emptyCart2.png',
-                                      text: 'لا يوجد لديك منتجات في السلة',
-                                    ),
-                                  )
-                              : (context) => const Center(
-                                      child: Padding(
-                                    padding: EdgeInsets.only(top: 100.0),
-                                    child: CircularProgressIndicator(),
-                                  )),
                     ),
-                    if (state is! GetCartLoading &&
-                        cubit.cartProducts.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: 50,
-                          child: OutlinedButton(
-                            onPressed: () {
-                              //CartCubit.get(context).addProductToCart(product: model);
-                            },
-                            // icon: const Icon(
-                            //   Icons.online_prediction_sharp,
-                            //   color: Colors.white,
-                            // ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Text(
-                                  'أطلب',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                    fallback:
+                        state is CartEmptyState && cubit.cartProducts.isEmpty
+                            ? (context) => Center(
+                                  child: EmptyList(
+                                    image: 'assets/images/emptyCart2.png',
+                                    text: 'لا يوجد لديك منتجات في السلة',
                                   ),
-                                ),
-                                Text(
-                                  '120',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                                )
+                            : (context) => const Center(
+                                    child: Padding(
+                                  padding: EdgeInsets.only(top: 100.0),
+                                  child: CircularProgressIndicator(),
+                                )),
+                  ),
+                  if (state is! GetCartLoading && cubit.cartProducts.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: OutlinedButton(
+                          onPressed: () {
+                            showMyAlertDialog(
+                              context: context,
+                              isBarrierDismissible: false,
+                              title: 'تأكيد الطلب',
+                              content: Column(
+                                children: const [
+                                  Icon(
+                                    FontAwesomeIcons.check,
+                                    color: Colors.green,
+                                    size: 50,
                                   ),
+                                  SizedBox(height: 20),
+                                  Text(
+                                    'هل أنت متأكد من شراء المنتجات الان',
+                                    textDirection: TextDirection.rtl,
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              actions: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    MyOkTextButtonForDailog(
+                                      okOrCancel: 'إلغاء',
+                                    ),
+                                    Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: MyDefaultButton(
+                                          text: 'تأكيد',
+                                          width: width / 4,
+                                          function: () {
+                                            cubit
+                                                .confirmOrder(
+                                                    cartId: cubit.cartProducts
+                                                        .elementAt(0)
+                                                        .cartId)
+                                                .then((value) =>
+                                                    Navigator.pop(context));
+                                          }),
+                                    ),
+                                  ],
                                 ),
                               ],
-                            ),
-                            style: OutlinedButton.styleFrom(
-                              backgroundColor: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(.9),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                            ),
+                            );
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: const [
+                              Text(
+                                'أطلب',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                '120',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).primaryColor.withOpacity(.9),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
                           ),
                         ),
                       ),
-                  ],
-                );
-              });
-        } else {
-          return NoInterNetOrNoProducts(
-            icon: Icons.signal_wifi_connected_no_internet_4,
-            text: 'يرجي فحص الإتصال بالإنترنت',
-          );
-        }
-      },
-      child: const CircularProgressIndicator(),
+                    ),
+                ],
+              );
+            });
+          } else {
+            return NoInterNetOrNoProducts(
+              icon: Icons.signal_wifi_connected_no_internet_4,
+              text: 'يرجي فحص الإتصال بالإنترنت',
+            );
+          }
+        },
+        child: const CircularProgressIndicator(),
+      ),
     );
   }
 }

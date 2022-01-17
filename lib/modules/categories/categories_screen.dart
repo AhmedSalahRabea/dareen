@@ -5,7 +5,6 @@ import 'package:dareen_app/home/cubit/shop_cubit.dart';
 import 'package:dareen_app/modules/categories/category_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_offline/flutter_offline.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class CategoriesScreen extends StatelessWidget {

@@ -16,6 +16,7 @@ const String ADDPRODUCTTOCART = 'add/new/cart';
 const String DELETEPRODUCTFROMCART = 'delete/product/cart';
 const String GETALLPRODUCTS = 'get/all/products';
 const String CHANGEPASSWORD = 'client/update/password';
+const String CONFIRMORDER = 'confirm/cart';
 
 
 

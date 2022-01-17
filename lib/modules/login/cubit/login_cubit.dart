@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:dareen_app/data/models/change_password_model.dart';
+import 'package:dareen_app/data/models/success_or_delete_model.dart';
 import 'package:dareen_app/data/models/user_data_model.dart';
 import 'package:dareen_app/home/cubit/shop_cubit.dart';
 import 'package:dareen_app/shared/components/functions.dart';
@@ -71,7 +71,8 @@ class LoginCubit extends Cubit<LoginState> {
         context: context,
         title: ' خطأ أثناء تسجيل الدخول',
         content:
-            'حدث خطأ ما أثناء تسجيل الدخول برجاء التأكد من الإتصال بالإنترنت وأعد المحاولة مرة أخري',
+          const  Text('حدث خطأ ما أثناء تسجيل الدخول برجاء التأكد من الإتصال بالإنترنت وأعد المحاولة مرة أخري',     textDirection: TextDirection.rtl,
+      style:  TextStyle(color: Colors.black, fontSize: 16),),
         actions: [
           MyOkTextButtonForDailog(),
         ],
@@ -82,7 +83,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   //====== to change password =========
-  ChangePasswordModel? changePasswordModel;
+  SuccessOrFailedModel? changePasswordModel;
   void changeUserPassword({
     required String oldPassword,
     required String newPassword,
@@ -96,7 +97,7 @@ class LoginCubit extends Cubit<LoginState> {
         'new_password': newPassword,
       },
     ).then((value) {
-      changePasswordModel = ChangePasswordModel.fromJson(value.data);
+      changePasswordModel = SuccessOrFailedModel.fromJson(value.data);
       if (changePasswordModel!.status!) {
         emit(ChangePasswordSuccess());
       } else {

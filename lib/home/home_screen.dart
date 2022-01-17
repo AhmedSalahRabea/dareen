@@ -80,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                 visible: ShopCubit.get(context).isFloatingActionButtonShown,
                 child: FloatingActionButton(
                   onPressed: () {
-                    myModalBottomSheet(context: context);
+                    myModalBottomSheetForToktok(context: context);
                   },
                   backgroundColor: Colors.transparent,
                   elevation: 0,

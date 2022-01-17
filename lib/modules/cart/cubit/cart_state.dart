@@ -28,6 +28,13 @@ class DeleteProductFromCartSuccess extends CartState {}
 
 class DeleteProductFromCartError extends CartState {}
 
+//===states when confirm the order
+class ConfirmOrderLoading extends CartState {}
+
+class ConfirmOrderSuccess extends CartState {}
+
+class ConfirmOrderError extends CartState {}
+
 //======== increase and decrease quantity =======
 class IncreaseQuantity extends CartState {}
 

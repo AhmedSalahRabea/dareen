@@ -175,7 +175,12 @@ class SettingScreen extends StatelessWidget {
                           showMyAlertDialog(
                             context: context,
                             title: 'تسجيل الخروج',
-                            content: 'هل تريد تسجيل الخروج من تطبيق دارين',
+                            content: const Text(
+                              'هل تريد تسجيل الخروج من تطبيق دارين',
+                              textDirection: TextDirection.rtl,
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                            ),
                             actions: [
                               MyOkTextButtonForDailog(
                                 okOrCancel: 'إلغاء',

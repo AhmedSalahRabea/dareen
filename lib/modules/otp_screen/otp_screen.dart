@@ -55,14 +55,17 @@ class OtpScreen extends StatelessWidget {
 
         String erroMsg = state.error;
         showMyAlertDialog(
-        context: context,
-        title: 'خطأ أثناء التسجيل',
-        content:
+          context: context,
+          title: 'خطأ أثناء التسجيل',
+          content: const Text(
             'حدث خطأ غير متوقع أثناء التسجيل يرجي إدخال الكود بشكل صحيح أو التحقق من الإتصال بالإنترنت وأعدالمحاولة مرة أخري',
-        actions: [
-          MyOkTextButtonForDailog(),
-        ],
-      );
+        textDirection: TextDirection.rtl,
+      style:  TextStyle(color: Colors.black, fontSize: 16),      
+          ),
+          actions: [
+            MyOkTextButtonForDailog(),
+          ],
+        );
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(erroMsg),
           backgroundColor: Colors.black,
@@ -71,8 +74,7 @@ class OtpScreen extends StatelessWidget {
           ),
         ));
       }
-    },
-     builder: (context, state) {
+    }, builder: (context, state) {
       RegisterCubit cubit = RegisterCubit.get(context);
       return SafeArea(
         child: Scaffold(

@@ -12,21 +12,21 @@ class MyLikeButton extends StatelessWidget {
   MyLikeButton({required this.model});
   @override
   Widget build(BuildContext context) {
-    bool isLiked = ShopCubit.get(context).loveButtonColorForPackage(model);
     return BlocConsumer<ShopCubit, ShopState>(
       listener: (context, state) {},
       builder: (context, state) {
+        ShopCubit cubit = ShopCubit.get(context);
         return LikeButton(
-          size: 25,
-          isLiked: isLiked,
+          isLiked: cubit.productsInFavourites.containsKey(model.id),
           circleColor: CircleColor(
-              start: Theme.of(context).primaryColor,
-              end: const Color(0xff0099cc)),
+            start: Theme.of(context).primaryColor,
+            end: const Color(0xff0099cc),
+          ),
           bubblesColor: BubblesColor(
             dotPrimaryColor: Theme.of(context).primaryColor,
-            dotSecondaryColor: const Color(0xff0099cc),
+            dotSecondaryColor: const Color.fromRGBO(255, 0, 0, 1),
           ),
-          bubblesSize: 60,
+          bubblesSize: 80,
           likeBuilder: (bool isLiked) {
             return Icon(
               Icons.favorite,
@@ -39,7 +39,7 @@ class MyLikeButton extends StatelessWidget {
           circleSize: 25,
 
           onTap: (bool isLiked) async {
-            ShopCubit.get(context).addOrDeleteProductToFavourite(
+            await ShopCubit.get(context).addOrDeleteProductToFavourite(
               productId: model.id,
               productModel: model,
               context: context,

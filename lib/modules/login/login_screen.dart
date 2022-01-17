@@ -61,7 +61,11 @@ class LoginScreen extends StatelessWidget {
             showMyAlertDialog(
               context: context,
               title: ' خطأ أثناء تسجيل الدخول',
-              content: state.loginModel.message!,
+              content: Text(
+                state.loginModel.message!,
+                textDirection: TextDirection.rtl,
+                style: const TextStyle(color: Colors.black, fontSize: 16),
+              ),
               actions: [
                 MyOkTextButtonForDailog(),
               ],

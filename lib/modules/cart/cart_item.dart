@@ -144,16 +144,17 @@ class _CartItemState extends State<CartItem> {
                                     //  cubit.increaseQuantity();
                                     setState(() {
                                       quantity += 1;
-                                      cubit.cartDetails.addAll({
-                                        widget.model.productModel.id: {
-                                          'quantity': quantity,
-                                          'totalPrice':
-                                              '${(widget.model.productModel.newPrice ?? widget.model.productModel.price)! * quantity}',
+                                      cubit.producIdAndQuantityMap.addAll({
+                                        widget.model.productModel.id:
+                                         {
+                                          'product_id': widget.model.productModel.id,
+                                          'qty':quantity,    
                                         },
                                       });
-                                   ///   cubit.totalPriceFunction();
+
+                                      ///   cubit.totalPriceFunction();
                                     });
-                                    print(cubit.cartDetails);
+                                    print(cubit.producIdAndQuantityMap);
                                   },
                                   icon: Icon(
                                     Icons.add_circle,
@@ -169,16 +170,17 @@ class _CartItemState extends State<CartItem> {
                                   if (quantity > 1) {
                                     setState(() {
                                       quantity -= 1;
-                                      cubit.cartDetails.addAll({
-                                        widget.model.productModel.id: {
-                                          'quantity': quantity,
-                                          'totalPrice':
-                                              '${(widget.model.productModel.newPrice ?? widget.model.productModel.price)! * quantity}',
+                                    cubit.producIdAndQuantityMap.addAll({
+                                      widget.model.productModel.id :
+                                         {
+                                          'product_id': widget.model.productModel.id,
+                                          'qty':quantity,
+                                              
                                         },
                                       });
                                     });
                                   }
-                                  print(cubit.cartDetails);
+                                  print(cubit.producIdAndQuantityMap);
                                 },
                                 icon: Icon(
                                   Icons.remove_circle,
@@ -187,8 +189,8 @@ class _CartItemState extends State<CartItem> {
                               ),
                               const Spacer(),
                               Text(
-                              //  '${cubit.totalPrice}',
-                                 '${(widget.model.productModel.newPrice ?? widget.model.productModel.price)! * quantity}',
+                                //  '${cubit.totalPrice}',
+                                '${(widget.model.productModel.newPrice ?? widget.model.productModel.price)! * quantity}',
                               ),
                             ],
                           ),
