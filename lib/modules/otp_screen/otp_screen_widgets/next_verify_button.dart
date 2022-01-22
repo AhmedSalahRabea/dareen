@@ -22,7 +22,7 @@ class NextOrVerifyButton extends StatelessWidget {
           ),
         ),
         style: ElevatedButton.styleFrom(
-          primary: Colors.deepOrange,
+          primary: Theme.of(context).primaryColor,
           minimumSize: const Size(80, 50),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
           elevation: 10,

@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:dareen_app/data/models/success_or_delete_model.dart';
+import 'package:dareen_app/data/models/success_or_failed_model.dart';
 import 'package:dareen_app/data/models/user_data_model.dart';
 import 'package:dareen_app/home/cubit/shop_cubit.dart';
 import 'package:dareen_app/shared/components/functions.dart';
@@ -74,7 +74,7 @@ class LoginCubit extends Cubit<LoginState> {
           const  Text('حدث خطأ ما أثناء تسجيل الدخول برجاء التأكد من الإتصال بالإنترنت وأعد المحاولة مرة أخري',     textDirection: TextDirection.rtl,
       style:  TextStyle(color: Colors.black, fontSize: 16),),
         actions: [
-          MyOkTextButtonForDailog(),
+         const MyOkTextButtonForDailog(),
         ],
       );
       print(error.toString());

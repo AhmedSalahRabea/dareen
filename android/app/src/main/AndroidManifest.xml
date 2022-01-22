@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dareen_app">
+    <uses-permission android:name="android.permission.INTERNET"/>
   <queries>
   <!-- If your app opens https URLs -->
   <intent>
@@ -23,7 +24,7 @@
   </intent>
 </queries>
    <application
-        android:label="dareen_app"
+        android:label="Dareen"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">

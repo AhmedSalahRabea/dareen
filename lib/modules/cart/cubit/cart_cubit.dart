@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls, avoid_print
 
 import 'package:dareen_app/data/models/cart_model.dart';
-import 'package:dareen_app/data/models/success_or_delete_model.dart';
+import 'package:dareen_app/data/models/success_or_failed_model.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/network/remote/doi_helper.dart';
 import 'package:dareen_app/shared/network/remote/end_points.dart';
@@ -17,10 +17,17 @@ class CartCubit extends Cubit<CartState> {
 //====== TO get cart items ==========
   CartModel? cartModel;
   List<CartItemData> cartProducts = [];
+  //this map to collect data which api need it
   Map<int, Map<String, int>> producIdAndQuantityMap = {};
+  //this map to save all total price for each product in the cart then sum them
+  Map<int, num> totalPriceForAllProducts = {};
+  //this variable
+  late num totalPriceForAllProductsInTheCart;
   void getCartProducts() async {
     cartProducts = [];
     producIdAndQuantityMap = {};
+    totalPriceForAllProducts = {};
+    totalPriceForAllProductsInTheCart = 0;
     emit(GetCartLoading());
     await DioHelper.getData(
       url: GETCARTPRODUCTS,
@@ -39,16 +46,11 @@ class CartCubit extends Cubit<CartState> {
                 'qty': element.quantity,
               }
             });
-            print('now ============ $producIdAndQuantityMap');
-
-            // cartDetails.addAll({
-            //   element.productModel.id: {
-            //     'quantity': element.quantity,
-            //     'totalPrice':
-            //         '${(element.productModel.newPrice ?? element.productModel.price)! * element.quantity}',
-            //   },
-            // });
-            // print('now ============ $cartDetails');
+            totalPriceForAllProducts.addAll({
+              element.productModel.id:
+                  element.productModel.newPrice ?? element.productModel.price!,
+            });
+            totalPriceFunction();
             emit(GetCartSuccess());
           });
         }
@@ -60,10 +62,6 @@ class CartCubit extends Cubit<CartState> {
       emit(GetCartError());
     });
   }
-
-  //=== the total of price to all products ====
-  // int get totalPrice =>
-  //     cartProducts.fold(0, (previousValue, element) => previousValue +element.productModel.newPrice!);
 
 //====== to add product to cart ========
   SuccessOrFailedModel? addProductToCartModel;
@@ -170,11 +168,13 @@ class CartCubit extends Cubit<CartState> {
     });
   }
 
-  double totalPrice = 0;
+//this method to update the tota; price for all products in the cart
   void totalPriceFunction() {
-    // producIdAndQuantityList.forEach((element) {
-
-    // });
+    totalPriceForAllProductsInTheCart = totalPriceForAllProducts.values
+        .toList()
+        .fold(0, (previousValue, element) => previousValue + element);
+    // print(
+    //     'totalPriceForAllProductsInTheCart $totalPriceForAllProductsInTheCart');
     emit(TotalPriceChanged());
   }
 }

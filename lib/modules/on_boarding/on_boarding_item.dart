@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, must_be_immutable, prefer_const_constructors
+// ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 
@@ -15,42 +15,44 @@ class BoardingModel {
 
 class OnBoardingItem extends StatelessWidget {
   final BoardingModel model;
-  OnBoardingItem({required this.model});
+const  OnBoardingItem({required this.model});
   @override
   Widget build(BuildContext context) {
-    return Column(
-      // crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Image(
-            image: AssetImage(model.image),
-          ),
+    var height = MediaQuery.of(context).size.height;
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: SingleChildScrollView(
+        child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image(
+              image: AssetImage(model.image),
+              height: height / 2.5,
+            ),
+            SizedBox(height: height / 70),
+            Text(
+              model.title,
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+            SizedBox(height: height / 70),
+            Padding(
+              padding: EdgeInsets.all(height / 70),
+              child: Text(
+                model.body,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 4,
+                softWrap: true,
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ),
+            //  SizedBox(height: 20),
+          ],
         ),
-        Text(
-          model.title,
-          textAlign: TextAlign.right,
-          textDirection: TextDirection.rtl,
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.deepOrange,
-          ),
-        ),
-        SizedBox(height: 15),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            model.body,
-            textAlign: TextAlign.right,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 3,
-            softWrap: true,
-            textDirection: TextDirection.rtl,
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
-        ),
-        SizedBox(height: 20),
-      ],
+      ),
     );
   }
 }

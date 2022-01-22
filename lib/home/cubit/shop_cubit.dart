@@ -4,7 +4,7 @@ import 'package:dareen_app/data/models/category_model.dart';
 import 'package:dareen_app/data/models/favourite_model.dart';
 import 'package:dareen_app/data/models/product_model.dart';
 import 'package:dareen_app/data/models/search_model.dart';
-import 'package:dareen_app/data/models/success_or_delete_model.dart';
+import 'package:dareen_app/data/models/success_or_failed_model.dart';
 import 'package:dareen_app/modules/cart/cart_screen.dart';
 import 'package:dareen_app/modules/categories/categories_screen.dart';
 import 'package:dareen_app/modules/favourite/favourite_screen.dart';
@@ -175,33 +175,33 @@ class ShopCubit extends Cubit<ShopState> {
   }
 
 // ====to determine the like button color===
-  Color loveButtonColor = Colors.grey;
-  Color likeButtonColor(ProductModel model) {
-    for (var product in favourites) {
-      if (product.id == model.id) {
-        loveButtonColor = Colors.red;
-        return Colors.red;
-      }
-    }
-    loveButtonColor = Colors.grey;
-    return Colors.grey;
-  }
+  // Color loveButtonColor = Colors.grey;
+  // Color likeButtonColor(ProductModel model) {
+  //   for (var product in favourites) {
+  //     if (product.id == model.id) {
+  //       loveButtonColor = Colors.red;
+  //       return Colors.red;
+  //     }
+  //   }
+  //   loveButtonColor = Colors.grey;
+  //   return Colors.grey;
+  // }
 
-  bool isLiked = false;
-  bool loveButtonColorForPackage(ProductModel model) {
-    for (var product in favourites) {
-      if (product.id == model.id) {
-        isLiked = true;
-        return true;
-      }
-    }
-    isLiked = false;
+  // bool isLiked = false;
+  // bool loveButtonColorForPackage(ProductModel model) {
+  //   for (var product in favourites) {
+  //     if (product.id == model.id) {
+  //       isLiked = true;
+  //       return true;
+  //     }
+  //   }
+  //   isLiked = false;
 
-    return false;
-  }
+  //   return false;
+  // }
 
   //=======
-  void changeIndexToMaychCartScreen(BuildContext context) {
+  void changeIndexToMychCartScreen(BuildContext context) {
     curretIndex = 2;
     isFloatingActionButtonShown = false;
     emit(ChangeIndexToMaychCartScreen());

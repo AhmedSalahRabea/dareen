@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print, non_constant_identifier_names
 
-import 'package:dareen_app/data/models/success_or_delete_model.dart';
+import 'package:dareen_app/data/models/success_or_failed_model.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/network/local/cache_helper.dart';
 import 'package:dareen_app/shared/network/remote/doi_helper.dart';

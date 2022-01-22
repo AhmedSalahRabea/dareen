@@ -19,7 +19,7 @@ class ProductsModel {
 class ProductModel {
   final int id;
   final String name;
-  final String image;
+  final List<dynamic> images;
   final String? desc;
   final String? offer;
   final num? price;
@@ -31,7 +31,7 @@ class ProductModel {
   ProductModel({
     required this.id,
     required this.name,
-    required this.image,
+    required this.images,
     this.desc,
     this.offer,
     this.price,
@@ -45,7 +45,7 @@ class ProductModel {
     return ProductModel(
       id: jaonData['id'],
       name: jaonData['name'],
-      image: jaonData['image'],
+      images: jaonData['image'],
       desc: jaonData['desc'],
       offer: jaonData['offer'],
       price: jaonData['price'],

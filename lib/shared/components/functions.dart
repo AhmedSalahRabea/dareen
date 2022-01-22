@@ -1,7 +1,7 @@
 import 'package:dareen_app/shared/widgets/contacts.dart';
 import 'package:dareen_app/shared/widgets/my_ok_text.dart';
 import 'package:flutter/material.dart';
-import 'package:tbib_toast/tbib_toast.dart';
+//import 'package:tbib_toast/tbib_toast.dart';
 
 //this method to navigate between screens
 void navigateTo({required context, required screen}) {
@@ -24,30 +24,30 @@ void navigateAndFinish({required context, required screen}) {
 }
 
 //my toast
-void buildToast({
-  required String? message,
-  required BuildContext context,
-  Color color = Colors.green,
-  int position = 1,
-}) {
-  return Toast.show(
-    message ?? '',
-    context,
-    duration: Toast.lengthLong,
-    gravity: position,
-    backgroundColor: color,
-    backgroundRadius: 25,
-  );
-}
+// void buildToast({
+//   required String? message,
+//   required BuildContext context,
+//   Color color = Colors.green,
+//   int position = 1,
+// }) {
+//   return Toast.show(
+//     message ?? '',
+//     context,
+//     duration: Toast.lengthLong,
+//     gravity: position,
+//     backgroundColor: color,
+//     backgroundRadius: 25,
+//   );
+// }
 
 //alert dialog loke progress indicator for any loading screen
 void showProgressIndicator(BuildContext context) {
-  AlertDialog alertDialog = const AlertDialog(
+  AlertDialog alertDialog = AlertDialog(
     backgroundColor: Colors.transparent,
     elevation: 0,
     content: Center(
         child: CircularProgressIndicator(
-      valueColor: AlwaysStoppedAnimation<Color>(Colors.deepOrange),
+      valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
     )),
   );
   showDialog(
@@ -76,11 +76,6 @@ void showMyAlertDialog({
       fontWeight: FontWeight.bold,
     ),
     content: content,
-    //  Text(
-    //   content,
-    // textDirection: TextDirection.rtl,
-    // style: const TextStyle(color: Colors.black, fontSize: 16),
-    // ),
     title: Text(
       title,
       textDirection: TextDirection.rtl,
@@ -91,7 +86,7 @@ void showMyAlertDialog({
     context: context,
     builder: (context) => alertDialog,
     barrierDismissible: isBarrierDismissible,
-    barrierColor: Theme.of(context).primaryColor.withOpacity(.2),
+    barrierColor: Theme.of(context).primaryColor.withOpacity(.3),
   );
 }
 
@@ -122,11 +117,11 @@ void myModalBottomSheetForToktok({
       ),
       builder: (context) {
         return Container(
-          height: MediaQuery.of(context).size.height / 1.4,
-          padding: const EdgeInsets.all(20),
+          height: MediaQuery.of(context).size.height / 2,
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            //controller: controller,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Image.asset(
                 'assets/images/toktok.png',
@@ -134,21 +129,20 @@ void myModalBottomSheetForToktok({
                 width: 150,
                 height: MediaQuery.of(context).size.height / 7,
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
+              Text(
                 'يمكنك الان طلب توكتوك بضغة زر واحدة',
                 textDirection: TextDirection.rtl,
+                style: Theme.of(context).textTheme.bodyText2,
               ),
               const Directionality(
                 textDirection: TextDirection.rtl,
                 child: ContactsWidget(
                   whatsappString: 'اطلب توكتوك من خلال الواتساب',
                   callString: 'اتصل بنا مباشرةً لطلب التوكتوك',
+                  screenHeightDivideNumber: 22,
                 ),
               ),
-              MyOkTextButtonForDailog(
+              const MyOkTextButtonForDailog(
                 okOrCancel: 'إلغاء',
                 fontSize: 20,
               ),
@@ -159,40 +153,40 @@ void myModalBottomSheetForToktok({
 }
 
 //====my bottpm sheet for confirm order
-void myModalBottomSheetForConfirmOrder({
-  required BuildContext context,
-}) {
-  showModalBottomSheet(
-      context: context,
-      elevation: 50,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
-      ),
-      builder: (context) {
-        return SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height / 1.4,
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              //controller: controller,
-              children: [
-                Image.asset(
-                  'assets/images/toktok.png',
-                  fit: BoxFit.contain,
-                  width: 150,
-                  height: MediaQuery.of(context).size.height / 7,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'يمكنك الان طلب توكتوك بضغة زر واحدة',
-                  textDirection: TextDirection.rtl,
-                ),
-              ],
-            ),
-          ),
-        );
-      });
-}
+// void myModalBottomSheetForConfirmOrder({
+//   required BuildContext context,
+// }) {
+//   showModalBottomSheet(
+//       context: context,
+//       elevation: 50,
+//       shape: const RoundedRectangleBorder(
+//         borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
+//       ),
+//       builder: (context) {
+//         return SingleChildScrollView(
+//           child: Container(
+//             height: MediaQuery.of(context).size.height / 1.4,
+//             padding: const EdgeInsets.all(20),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               //controller: controller,
+//               children: [
+//                 Image.asset(
+//                   'assets/images/toktok.png',
+//                   fit: BoxFit.contain,
+//                   width: 150,
+//                   height: MediaQuery.of(context).size.height / 7,
+//                 ),
+//                 const SizedBox(
+//                   height: 20,
+//                 ),
+//                 const Text(
+//                   'يمكنك الان طلب توكتوك بضغة زر واحدة',
+//                   textDirection: TextDirection.rtl,
+//                 ),
+//               ],
+//             ),
+//           ),
+//         );
+//       });
+// }

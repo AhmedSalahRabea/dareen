@@ -18,7 +18,7 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var mediaQueryHeight = MediaQuery.of(context).size.height;
+   // var mediaQueryHeight = MediaQuery.of(context).size.height;
 
     return Container(
       width: double.infinity,

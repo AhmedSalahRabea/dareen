@@ -43,7 +43,7 @@ class UpdateUserDataScreen extends StatelessWidget {
                   style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
                 actions: [
-                  MyOkTextButtonForDailog(),
+                 const MyOkTextButtonForDailog(),
                 ],
               );
             }

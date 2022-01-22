@@ -6,7 +6,7 @@ class MyOkTextButtonForDailog extends StatelessWidget {
   final String okOrCancel;
   final double fontSize;
 
-  MyOkTextButtonForDailog({this.okOrCancel = 'حسناً', this.fontSize = 15});
+  const MyOkTextButtonForDailog({this.okOrCancel = 'حسناً', this.fontSize = 15});
   @override
   Widget build(BuildContext context) {
     return TextButton(

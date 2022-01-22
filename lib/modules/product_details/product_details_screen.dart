@@ -6,6 +6,7 @@ import 'package:dareen_app/modules/cart/cubit/cart_cubit.dart';
 import 'package:dareen_app/shared/widgets/my_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final ProductModel model;
@@ -35,53 +36,56 @@ class ProductDetailsScreen extends StatelessWidget {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                
                 children: [
-                  Hero(
-                    tag: model.id,
-                    transitionOnUserGestures: false,
-                    child: FadeInImage(
-                      height: mediaQueryHeight / 5,
-                      placeholder:
-                          const AssetImage('assets/images/imageloading.gif'),
-                      image: CachedNetworkImageProvider(model.image),
-                      width: double.infinity,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-
-                  // Stack(alignment: AlignmentDirectional.bottomStart, children: [
-                  //   SizedBox(
+                  // Hero(
+                  //   tag: model.id,
+                  //   transitionOnUserGestures: false,
+                  //   child: FadeInImage(
                   //     height: mediaQueryHeight / 5,
-                  //     child: PageView.builder(
-                  //       itemBuilder: (context, index) => ClipRRect(
-                  //         borderRadius: BorderRadius.circular(50),
-                  //         child: FadeInImage(
-                  //           height: double.infinity,
-                  //           placeholder: const AssetImage(
-                  //               'assets/images/imageloading.gif'),
-                  //           image: CachedNetworkImageProvider(images[index]),
-                  //           width: double.infinity,
-                  //           fit: BoxFit.contain,
-                  //         ),
-                  //       ),
-                  //       itemCount: images.length,
-                  //       physics: const BouncingScrollPhysics(),
-                  //       controller: boardController,
-                  //     ),
+                  //     placeholder:
+                  //         const AssetImage('assets/images/imageloading.gif'),
+                  //     image: CachedNetworkImageProvider(model.image),
+                  //     width: double.infinity,
+                  //     fit: BoxFit.contain,
                   //   ),
-                  //   SmoothPageIndicator(
-                  //     controller: boardController,
-                  //     count: images.length,
-                  //     effect: const ExpandingDotsEffect(
-                  //       dotColor: Colors.grey,
-                  //       dotHeight: 10,
-                  //       activeDotColor: Colors.deepOrange,
-                  //       radius: 10,
-                  //       dotWidth: 15,
-                  //     ),
-                  //   ),
-                  // ]),
+                  // ),
+
+                  Stack(alignment: AlignmentDirectional.bottomStart, children: [
+                    SizedBox(
+                      height: mediaQueryHeight / 5,
+                      child: PageView.builder(
+                        itemBuilder: (context, index) => ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Hero(
+                            tag: model.id,
+                            child: FadeInImage(
+                              height: double.infinity,
+                              placeholder: const AssetImage(
+                                  'assets/images/imageloading.gif'),
+                              image: CachedNetworkImageProvider(
+                                  model.images[index]),
+                              width: double.infinity,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                        itemCount: model.images.length,
+                        physics: const BouncingScrollPhysics(),
+                        controller: boardController,
+                      ),
+                    ),
+                    SmoothPageIndicator(
+                      controller: boardController,
+                      count: model.images.length,
+                      effect: ExpandingDotsEffect(
+                        dotColor: Colors.grey,
+                        dotHeight: 10,
+                        activeDotColor: Theme.of(context).primaryColor,
+                        radius: 10,
+                        dotWidth: 15,
+                      ),
+                    ),
+                  ]),
                   const SizedBox(height: 20),
                   Center(
                     child: Text(
@@ -91,7 +95,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
-                  MyDivider(),
+                 const MyDivider(),
                   Row(
                     children: [
                       Text(
@@ -112,7 +116,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     ],
                   ),
                   if (model.newPrice != null && model.newPrice != 0)
-                    MyDivider(),
+                  const  MyDivider(),
                   if (model.newPrice != null && model.newPrice != 0)
                     Row(
                       children: [
@@ -130,7 +134,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                  MyDivider(),
+                const  MyDivider(),
                   Text(
                     'وصف المنتج',
                     style: Theme.of(context).textTheme.bodyText2,

@@ -18,17 +18,17 @@ class CartItem extends StatefulWidget {
 
 class _CartItemState extends State<CartItem> {
   int quantity = 1;
+
   @override
   Widget build(BuildContext context) {
     var mediaQueryHeight = MediaQuery.of(context).size.height;
     var mediaQueryWidth = MediaQuery.of(context).size.width;
-
     return BlocConsumer<CartCubit, CartState>(
         listener: (context, state) {},
         builder: (context, state) {
           CartCubit cubit = CartCubit.get(context);
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
             child: InkWell(
               onTap: () {
                 navigateTo(
@@ -38,7 +38,8 @@ class _CartItemState extends State<CartItem> {
                 );
               },
               child: SizedBox(
-                height: mediaQueryHeight / 6,
+                height: 130,
+                // height: mediaQueryHeight / 6,
                 child: Row(
                   children: [
                     Stack(
@@ -50,7 +51,7 @@ class _CartItemState extends State<CartItem> {
                           placeholder: const AssetImage(
                               'assets/images/imageloading.gif'),
                           image: CachedNetworkImageProvider(
-                              widget.model.productModel.image),
+                              widget.model.productModel.images[0]),
                           fit: BoxFit.contain,
                         ),
                         if (widget.model.productModel.newPrice != null &&
@@ -141,20 +142,26 @@ class _CartItemState extends State<CartItem> {
                             children: [
                               IconButton(
                                   onPressed: () {
-                                    //  cubit.increaseQuantity();
                                     setState(() {
                                       quantity += 1;
+                                      //to add the new quantatity to the map which passed to api
                                       cubit.producIdAndQuantityMap.addAll({
-                                        widget.model.productModel.id:
-                                         {
-                                          'product_id': widget.model.productModel.id,
-                                          'qty':quantity,    
+                                        widget.model.productModel.id: {
+                                          'product_id':
+                                              widget.model.productModel.id,
+                                          'qty': quantity,
                                         },
                                       });
-
-                                      ///   cubit.totalPriceFunction();
                                     });
-                                    print(cubit.producIdAndQuantityMap);
+                                    // print(cubit.producIdAndQuantityMap);
+                                    //to update the total price value
+                                    cubit.totalPriceForAllProducts.addAll({
+                                      widget.model.productModel.id:
+                                          widget.model.totalPrice * quantity,
+                                    });
+                                    // print(
+                                    //     '========= now ${cubit.totalPriceForAllProducts} ');
+                                    cubit.totalPriceFunction();
                                   },
                                   icon: Icon(
                                     Icons.add_circle,
@@ -170,17 +177,25 @@ class _CartItemState extends State<CartItem> {
                                   if (quantity > 1) {
                                     setState(() {
                                       quantity -= 1;
-                                    cubit.producIdAndQuantityMap.addAll({
-                                      widget.model.productModel.id :
-                                         {
-                                          'product_id': widget.model.productModel.id,
-                                          'qty':quantity,
-                                              
+                                      cubit.producIdAndQuantityMap.addAll({
+                                        widget.model.productModel.id: {
+                                          'product_id':
+                                              widget.model.productModel.id,
+                                          'qty': quantity,
                                         },
                                       });
                                     });
+                                    //to update the total price value
+                                    cubit.totalPriceForAllProducts.addAll({
+                                      widget.model.productModel.id:
+                                          widget.model.totalPrice * quantity,
+                                    });
                                   }
-                                  print(cubit.producIdAndQuantityMap);
+                                  // print(
+                                  //     '========= now ${cubit.totalPriceForAllProducts} ');
+                                  cubit.totalPriceFunction();
+
+                                  // print(cubit.producIdAndQuantityMap);
                                 },
                                 icon: Icon(
                                   Icons.remove_circle,
@@ -190,7 +205,7 @@ class _CartItemState extends State<CartItem> {
                               const Spacer(),
                               Text(
                                 //  '${cubit.totalPrice}',
-                                '${(widget.model.productModel.newPrice ?? widget.model.productModel.price)! * quantity}',
+                                '${widget.model.totalPrice * quantity}',
                               ),
                             ],
                           ),

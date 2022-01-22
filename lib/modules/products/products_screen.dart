@@ -16,63 +16,54 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ShopCubit, ShopState>(listener: (context, state) {
-      // if (state is ProductsGetSuccess) {
-      //   if (ShopCubit.get(context).products.isEmpty) {
-      //     return showMyAlertDialog(
-      //       context: context,
-      //       title: 'قسم $categoryName',
-      //       // isBarrierDismissible: false,
-      //       content: 'لا يوجد منتجات في هذا القسم يرجي زيارته قريباً ',
-      //       actions: [
-      //         MyDefaultButton(
-      //             text: 'حسناً',
-      //             function: () {
-      //               navigateTo(context: context, screen: HomeScreen());
-      //             }),
-      //       ],
-      //     );
-      //   }
-      // }
-    }, builder: (context, state) {
-      ShopCubit cubit = ShopCubit.get(context);
-      return Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(categoryName),
-          ),
-          body: Stack(
-            alignment: AlignmentDirectional.bottomCenter,
-            children: [
-              BuildCondition(
-                condition: cubit.products.isNotEmpty,
-                builder: (context) {
-                  return ListView.separated(
-                    itemBuilder: (_, index) {
-                      return ProductOrFavouriteItem(
-                        model: cubit.products[index],
+    return BlocConsumer<ShopCubit, ShopState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          ShopCubit cubit = ShopCubit.get(context);
+          return Directionality(
+            textDirection: TextDirection.rtl,
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(categoryName),
+              ),
+              body: Stack(
+                alignment: AlignmentDirectional.bottomCenter,
+                children: [
+                  BuildCondition(
+                    condition: cubit.products.isNotEmpty,
+                    builder: (context) {
+                      return ListView.separated(
+                        itemBuilder: (_, index) {
+                          return ProductOrFavouriteItem(
+                            model: cubit.products[index],
+                          );
+                        },
+                        separatorBuilder: (contextm, index) =>
+                            const MyDivider(),
+                        itemCount: cubit.products.length,
+                        physics: const BouncingScrollPhysics(),
                       );
                     },
-                    separatorBuilder: (contextm, index) => MyDivider(),
-                    itemCount: cubit.products.length,
-                  );
-                },
-                fallback: (context) => EmptyList(
-                    image: 'assets/images/emptyCart.png',
-                    text: 'لا يوجد منتجات في هذا القسم'),
+                    fallback: (context) => EmptyList(
+                        image: 'assets/images/emptyCart.png',
+                        text: 'لا يوجد منتجات في هذا القسم'),
+                  ),
+                  if (categoryName == 'صيدلية' || categoryName == 'pharmacy')
+                    const Padding(
+                      padding: EdgeInsets.only(
+                          bottom: 20, top: 0, right: 20, left: 20),
+                      child: ContactsWidget(
+                        whatsappString: 'لإرسال الروشتة عبر الواتساب',
+                        callString: 'للإتصال بنا مباشرةً',
+                        screenHeightDivideNumber: 20,
+                      ),
+                    ),
+                ],
               ),
-              if (categoryName == 'صيدلية' || categoryName == 'pharmacy')
-                const ContactsWidget(
-                  whatsappString: 'لإرسال الروشتة عبر الواتساب',
-                  callString: 'للإتصال بنا مباشرةً',
-                ),
-            ],
-          ),
-        ),
-      );
+            ),
+          );
 
-      //    fallback: (context) => const Center(child: CircularProgressIndicator()),
-    });
+          //    fallback: (context) => const Center(child: CircularProgressIndicator()),
+        });
   }
 }

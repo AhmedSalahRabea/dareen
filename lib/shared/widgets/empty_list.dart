@@ -12,14 +12,16 @@ class EmptyList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Image.asset(
-          image,
-          height: MediaQuery.of(context).size.height / 2,
-        ),
-        Text(text),
-      ],
+    return Center(
+      child: Column(
+        children: [
+          Image.asset(
+            image,
+            height: MediaQuery.of(context).size.height / 2,
+          ),
+          Text(text),
+        ],
+      ),
     );
   }
 }

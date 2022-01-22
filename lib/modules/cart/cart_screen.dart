@@ -1,12 +1,12 @@
 // ignore_for_file: override_on_non_overriding_member, use_key_in_widget_constructors
 
+
 import 'package:buildcondition/buildcondition.dart';
 import 'package:dareen_app/modules/cart/cart_item.dart';
 import 'package:dareen_app/modules/cart/cubit/cart_cubit.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/widgets/my_default_button.dart';
 import 'package:dareen_app/shared/widgets/my_ok_text.dart';
-import 'package:dareen_app/shared/widgets/my_textbutton.dart';
 import 'package:dareen_app/shared/widgets/no_internet_or_noproducts.dart';
 import 'package:dareen_app/shared/widgets/empty_list.dart';
 import 'package:dareen_app/shared/widgets/my_divider.dart';
@@ -34,6 +34,10 @@ class CartScreen extends StatelessWidget {
               if (state is ConfirmOrderSuccess) {
                 CartCubit.get(context).getCartProducts();
               }
+              if (state is ConfirmOrderLoading) {
+                Navigator.pop(context);
+                showProgressIndicator(context);
+              }
               if (state is ConfirmOrderSuccess) {
                 showMyAlertDialog(
                   context: context,
@@ -43,11 +47,16 @@ class CartScreen extends StatelessWidget {
                     color: Colors.green,
                     size: 50,
                   ),
-                  actions: [MyOkTextButtonForDailog()],
+                  actions: [
+                  const  MyOkTextButtonForDailog(
+                      fontSize: 20,
+                    )
+                  ],
                 );
               }
             }, builder: (context, state) {
               CartCubit cubit = CartCubit.get(context);
+
               return Column(
                 // alignment: AlignmentDirectional.bottomCenter,
                 children: [
@@ -60,7 +69,7 @@ class CartScreen extends StatelessWidget {
                             model: cubit.cartProducts[index],
                           );
                         },
-                        separatorBuilder: (contextm, index) => MyDivider(),
+                        separatorBuilder: (contextm, index) =>const MyDivider(),
                         itemCount: cubit.cartProducts.length,
                       ),
                     ),
@@ -91,18 +100,28 @@ class CartScreen extends StatelessWidget {
                               isBarrierDismissible: false,
                               title: 'تأكيد الطلب',
                               content: Column(
-                                children: const [
-                                  Icon(
+                                children: [
+                                  const Icon(
                                     FontAwesomeIcons.check,
                                     color: Colors.green,
                                     size: 50,
                                   ),
-                                  SizedBox(height: 20),
+                                  const SizedBox(height: 20),
+                                  // const Text(
+                                  //   'هل أنت متأكد من شراء المنتجات الان',
+                                  //   textDirection: TextDirection.rtl,
+                                  //   style: TextStyle(
+                                  //       color: Colors.black, fontSize: 16),
+                                  // ),
                                   Text(
-                                    'هل أنت متأكد من شراء المنتجات الان',
+                                    'قيمة المنتجات  ${cubit.totalPriceForAllProductsInTheCart} جنيه ',
                                     textDirection: TextDirection.rtl,
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 16),
+                                    style: const TextStyle(
+                                        color: Colors.black, fontSize: 18),
+                                  ),
+                                  const Text(
+                                    'مصاريف التوصيل +',
+                                    style: TextStyle(color: Colors.black),
                                   ),
                                 ],
                               ),
@@ -111,7 +130,7 @@ class CartScreen extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    MyOkTextButtonForDailog(
+                                    const MyOkTextButtonForDailog(
                                       okOrCancel: 'إلغاء',
                                     ),
                                     Directionality(
@@ -136,8 +155,8 @@ class CartScreen extends StatelessWidget {
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: const [
-                              Text(
+                            children: [
+                              const Text(
                                 'أطلب',
                                 style: TextStyle(
                                   fontSize: 20,
@@ -146,8 +165,8 @@ class CartScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '120',
-                                style: TextStyle(
+                                '${cubit.totalPriceForAllProductsInTheCart} جنيه',
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,

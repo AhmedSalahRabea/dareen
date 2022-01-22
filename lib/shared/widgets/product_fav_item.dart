@@ -42,7 +42,7 @@ class ProductOrFavouriteItem extends StatelessWidget {
                             width: 120,
                             placeholder: const AssetImage(
                                 'assets/images/imageloading.gif'),
-                            image: CachedNetworkImageProvider(model.image),
+                            image: CachedNetworkImageProvider(model.images[0]),
                             fit: BoxFit.contain,
                           ),
                         ),

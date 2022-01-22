@@ -2,6 +2,7 @@
 
 //import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
+import 'package:dareen_app/modules/about/about.dart';
 import 'package:dareen_app/modules/change_password/change_password_screen.dart';
 
 import 'package:dareen_app/modules/register_screen/cubit/register_cubit.dart';
@@ -150,7 +151,9 @@ class SettingScreen extends StatelessWidget {
                   SettingsGroup(
                     items: [
                       SettingsItem(
-                        onTap: () {},
+                        onTap: () {
+                          navigateTo(context: context, screen: AboutScreen());
+                        },
                         icons: Icons.info_rounded,
                         iconStyle: IconStyle(
                           backgroundColor: Theme.of(context).primaryColor,
@@ -182,7 +185,7 @@ class SettingScreen extends StatelessWidget {
                                   TextStyle(color: Colors.black, fontSize: 16),
                             ),
                             actions: [
-                              MyOkTextButtonForDailog(
+                            const  MyOkTextButtonForDailog(
                                 okOrCancel: 'إلغاء',
                               ),
                               BlocConsumer<RegisterCubit, RegisterState>(

@@ -27,6 +27,7 @@ class HomeScreen extends StatelessWidget {
               ),
               centerTitle: true,
               leadingWidth: 100,
+              
               leading: BlocConsumer<CartCubit, CartState>(
                   listener: (context, state) {
                 if (state is AddOrDeleteFavouriteSuccess) {
@@ -37,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                     CartCubit.get(context).cartProducts.length;
                 return TextButton.icon(
                   onPressed: () {
-                    cubit.changeIndexToMaychCartScreen(context);
+                    cubit.changeIndexToMychCartScreen(context);
                     CartCubit.get(context).getCartProducts();
                   },
                   icon: const Icon(Icons.shopping_cart),
@@ -72,8 +73,6 @@ class HomeScreen extends StatelessWidget {
               iconSize: 27,
               type: BottomNavigationBarType.fixed,
             ),
-            // floatingActionButtonLocation:
-            //     FloatingActionButtonLocation.miniCenterFloat,
             floatingActionButton: Directionality(
               textDirection: TextDirection.ltr,
               child: Visibility(
@@ -82,16 +81,10 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () {
                     myModalBottomSheetForToktok(context: context);
                   },
+                  heroTag: 'floatingActionButtonHeroTag',
                   backgroundColor: Colors.transparent,
                   elevation: 0,
-                  splashColor: Colors.deepOrange,
-                  // extendedTextStyle: Theme.of(context).textTheme.bodyText1,
-                  // extendedIconLabelSpacing: 5,
-                  // extendedPadding: const EdgeInsets.only(right: 5, left: 10),
                   tooltip: 'اضغط هنا لطلب توكتوك',
-                  foregroundColor: Colors.deepOrange,
-                  // label: const Text('لطلب توكتوك'),
-                  //icon: Icon(Icons.cake_rounded),
                   child: Image.asset(
                     'assets/images/toktok.png',
                     width: 60,

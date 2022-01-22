@@ -37,7 +37,7 @@ class FavouriteScreen extends StatelessWidget {
                       model: cubit.favourites[index],
                     );
                   },
-                  separatorBuilder: (contextm, index) => MyDivider(),
+                  separatorBuilder: (contextm, index) =>const MyDivider(),
                   itemCount: cubit.favourites.length,
                 ),
               ),

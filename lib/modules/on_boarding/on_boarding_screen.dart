@@ -35,10 +35,12 @@ class OnBoardingScreen extends StatelessWidget {
   // OnBoardingScreen({required this.isOnBoardingSeen});
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        toolbarHeight: 100,
+        toolbarHeight: 70,
         backgroundColor: Colors.white,
         actions: [
           Padding(
@@ -46,8 +48,6 @@ class OnBoardingScreen extends StatelessWidget {
             child: MyTextButton(
               text: 'تخطي',
               onpressed: () {
-                // BlocProvider.of<AppCubit>(context)
-                //     .onboardingSeen(isOnBoardingSeen);
                 navigateTo(context: context, screen: LoginScreen());
               },
             ),
@@ -55,7 +55,7 @@ class OnBoardingScreen extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
         child: Column(
           children: [
             Expanded(
@@ -63,7 +63,7 @@ class OnBoardingScreen extends StatelessWidget {
                 itemBuilder: (context, index) =>
                     OnBoardingItem(model: boarding[index]),
                 itemCount: boarding.length,
-                physics:const BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 controller: boardController,
                 onPageChanged: (index) {
                   if (index == boarding.length - 1) {
@@ -74,16 +74,16 @@ class OnBoardingScreen extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(height: 40),
+            //  SizedBox(height: 0),
             Row(
               children: [
                 SmoothPageIndicator(
                   controller: boardController,
                   count: boarding.length,
-                  effect:const ExpandingDotsEffect(
+                  effect: ExpandingDotsEffect(
                     dotColor: Colors.grey,
-                    dotHeight: 20,
-                    activeDotColor: Colors.deepOrange,
+                    dotHeight: height / 40,
+                    activeDotColor: Theme.of(context).primaryColor,
                     radius: 10,
                     dotWidth: 20,
                   ),
@@ -93,8 +93,6 @@ class OnBoardingScreen extends StatelessWidget {
                   onPressed: () {
                     if (isLast) {
                       navigateTo(context: context, screen: LoginScreen());
-                      // BlocProvider.of<AppCubit>(context)
-                      //     .onboardingSeen(isOnBoardingSeen);
                     } else {
                       boardController.nextPage(
                           duration: Duration(milliseconds: 2000),

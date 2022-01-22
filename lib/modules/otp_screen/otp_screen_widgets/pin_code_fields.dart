@@ -26,10 +26,10 @@ class PinCodeFields extends StatelessWidget {
           fieldHeight: 50,
           fieldWidth: 40,
           borderWidth: 1.0,
-          activeColor: Colors.deepOrange,
-          inactiveColor: Colors.deepOrange,
+          activeColor: Theme.of(context).primaryColor,
+          inactiveColor: Theme.of(context).primaryColor,
           inactiveFillColor: Colors.white,
-          activeFillColor: Colors.deepOrange,
+          activeFillColor: Theme.of(context).primaryColor,
           selectedColor: Colors.blue,
           selectedFillColor: Colors.white,
         ),
@@ -40,7 +40,7 @@ class PinCodeFields extends StatelessWidget {
         textStyle: const TextStyle(color: Colors.white),
         onCompleted: (code) {
           BlocProvider.of<RegisterCubit>(context).otpCode = code;
-          BlocProvider.of<RegisterCubit>(context).changeVerifyButtonEnabled();
+           BlocProvider.of<RegisterCubit>(context).changeVerifyButtonEnabled();
 
           print("Completed");
         },

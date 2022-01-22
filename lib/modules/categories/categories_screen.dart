@@ -29,9 +29,11 @@ class CategoriesScreen extends StatelessWidget {
             builder: (context) => Directionality(
               textDirection: TextDirection.rtl,
               child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 3 / 3.5,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisExtent: 250,
+                  //  maxCrossAxisExtent: 200,
+                  //   childAspectRatio: 3 / 1,
                   crossAxisSpacing: 3,
                   mainAxisSpacing: 0.5,
                 ),

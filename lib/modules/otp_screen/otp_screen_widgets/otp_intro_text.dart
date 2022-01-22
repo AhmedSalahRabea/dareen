@@ -10,14 +10,14 @@ class OtpIntroText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection:TextDirection.rtl ,
+      textDirection: TextDirection.rtl,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'قم بتأكيد رقم الهاتف الخاص بك',
             style: TextStyle(
-              color: Colors.deepOrange,
+              color: Theme.of(context).primaryColor,
               fontSize: 25,
               fontWeight: FontWeight.bold,
             ),

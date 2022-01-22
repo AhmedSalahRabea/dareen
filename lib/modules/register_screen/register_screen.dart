@@ -84,12 +84,12 @@ class RegisterScreen extends StatelessWidget {
               }).catchError((error) {
                 print(error.toString());
               });
-            } else {
+            } else if (state.loginModel.status == false) {
               showMyAlertDialog(
                 context: context,
                 title: 'خطأ أثناء التسجيل',
                 isBarrierDismissible: false,
-                content: state.loginModel.error![0],
+                content: Text('${state.loginModel.error![0]}',textDirection:TextDirection.rtl ,),
                 actions: [
                   TextButton(
                     onPressed: () {

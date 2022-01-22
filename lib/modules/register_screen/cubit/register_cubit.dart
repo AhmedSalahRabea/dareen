@@ -45,7 +45,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       },
     ).then((value) {
       loginModel = LoginModel.fromJson(value.data);
-        emit(RegisterSuccess(loginModel));
+      emit(RegisterSuccess(loginModel));
 
       // if (loginModel.status) {
       //   //  token = loginModel.token;
@@ -84,11 +84,13 @@ class RegisterCubit extends Cubit<RegisterState> {
       showMyAlertDialog(
         context: context,
         title: 'خطأ أثناء التسجيل',
-        content:const Text(            'حدث خطأ غير متوقع أثناء التسجيل يرجي إدخال الكود بشكل صحيح أو التحقق من الإتصال بالإنترنت وأعدالمحاولة مرة أخري',
-     textDirection: TextDirection.rtl,
-      style:  TextStyle(color: Colors.black, fontSize: 16),),
+        content: const Text(
+          'حدث خطأ غير متوقع أثناء التسجيل يرجي إدخال الكود بشكل صحيح أو التحقق من الإتصال بالإنترنت وأعدالمحاولة مرة أخري',
+          textDirection: TextDirection.rtl,
+          style: TextStyle(color: Colors.black, fontSize: 16),
+        ),
         actions: [
-          MyOkTextButtonForDailog(),
+        const  MyOkTextButtonForDailog(),
         ],
       );
       print(error.toString());
@@ -178,12 +180,14 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   //دالة تسجيل الخروج
   Future<void> signOut(BuildContext context) async {
-    await FirebaseAuth.instance.signOut().then((value) => emit(UserSignedOut()));
-    await deleteUserDataWhenLogout().then((value) => emit(UserDataDeletedWhenSignedOut()));
+    await FirebaseAuth.instance
+        .signOut()
+        .then((value) => emit(UserSignedOut()));
+    await deleteUserDataWhenLogout()
+        .then((value) => emit(UserDataDeletedWhenSignedOut()));
     navigateAndFinish(context: context, screen: LoginScreen());
-   // emit(UserSignedOut());
+    // emit(UserSignedOut());
   }
-
 
   //الدالة اللي هتجيب بيانات المستخدم
   User getLoogedInUser() {

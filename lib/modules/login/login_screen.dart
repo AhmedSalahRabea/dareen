@@ -51,8 +51,6 @@ class LoginScreen extends StatelessWidget {
               ShopCubit.get(context).getAllProducts();
               ShopCubit.get(context).getFavourites(userId);
               CartCubit.get(context).getCartProducts();
-              ShopCubit.get(context).getAllProducts();
-
               navigateAndFinish(context: context, screen: HomeScreen());
             }).catchError((error) {
               print(error.toString());
@@ -111,7 +109,8 @@ class LoginScreen extends StatelessWidget {
                                 vertical: 14,
                               ),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.deepOrange),
+                                border: Border.all(
+                                    color: Theme.of(context).primaryColor),
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Text(
@@ -212,12 +211,15 @@ class LoginScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text('لا يوجد لديك حساب ؟ ',
-                              style: Theme.of(context).textTheme.bodyText1!
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(fontSize: 16)
                               // .copyWith(color: Colors.black),
                               ),
                           MyTextButton(
                             text: 'إنشاء حساب جديد ',
-                            fontSize: 16,
+                            fontSize: 14,
                             onpressed: () {
                               navigateAndFinish(
                                   context: context, screen: RegisterScreen());

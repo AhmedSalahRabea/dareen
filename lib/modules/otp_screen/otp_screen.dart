@@ -1,6 +1,5 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, avoid_print, non_constant_identifier_names
 
-import 'package:dareen_app/home/home_screen.dart';
 import 'package:dareen_app/modules/otp_screen/otp_screen_widgets/otp_intro_text.dart';
 import 'package:dareen_app/modules/otp_screen/otp_screen_widgets/pin_code_fields.dart';
 import 'package:dareen_app/modules/otp_screen/otp_screen_widgets/next_verify_button.dart';
@@ -45,25 +44,19 @@ class OtpScreen extends StatelessWidget {
           context: context,
         );
       }
-      if (state is RegisterSuccess) {
-        Navigator.pop(context);
-        // ignore: prefer_const_constructors
-        navigateAndFinish(context: context, screen: HomeScreen());
-      }
+    
       if (state is ErrorOnPhoneAuth) {
-        // Navigator.pop(context);
-
         String erroMsg = state.error;
         showMyAlertDialog(
           context: context,
           title: 'خطأ أثناء التسجيل',
           content: const Text(
             'حدث خطأ غير متوقع أثناء التسجيل يرجي إدخال الكود بشكل صحيح أو التحقق من الإتصال بالإنترنت وأعدالمحاولة مرة أخري',
-        textDirection: TextDirection.rtl,
-      style:  TextStyle(color: Colors.black, fontSize: 16),      
+            textDirection: TextDirection.rtl,
+            style: TextStyle(color: Colors.black, fontSize: 16),
           ),
           actions: [
-            MyOkTextButtonForDailog(),
+          const  MyOkTextButtonForDailog(),
           ],
         );
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -89,24 +82,24 @@ class OtpScreen extends StatelessWidget {
                   const SizedBox(height: 88),
                   PinCodeFields(),
                   const SizedBox(height: 60),
-                  if (cubit.isVerifyButtonEnabled)
-                    NextOrVerifyButton(
-                      function: () {
-                        showProgressIndicator(context);
-                        try {
-                          cubit.submitOTP(
-                            cubit.otpCode!,
-                          );
-                        } catch (e) {
-                          mySnackBar(
-                            content:
-                                'حدث خطأ أثناء التسجيل برجاء المحاولة مرة أخري ',
-                            context: context,
-                          );
-                        }
-                      },
-                      buttonName: 'تأكيد',
-                    ),
+                    if (cubit.isVerifyButtonEnabled)
+                  NextOrVerifyButton(
+                    function: () {
+                      showProgressIndicator(context);
+                      try {
+                        cubit.submitOTP(
+                          cubit.otpCode!,
+                        );
+                      } catch (e) {
+                        mySnackBar(
+                          content:
+                              'حدث خطأ أثناء التسجيل برجاء المحاولة مرة أخري ',
+                          context: context,
+                        );
+                      }
+                    },
+                    buttonName: 'تأكيد',
+                  ),
                   if (!cubit.isVerifyButtonEnabled)
                     NextOrVerifyButton(
                       function: null,

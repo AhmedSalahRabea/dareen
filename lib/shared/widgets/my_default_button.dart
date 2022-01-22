@@ -11,8 +11,8 @@ class MyDefaultButton extends StatelessWidget {
   final double height;
   MyDefaultButton({
     this.width = double.infinity,
-    this.backgroundColor =const Color(0xff0097A7),
-    this.fontSize = 18,
+    this.backgroundColor = const Color(0xff0097A7),
+    this.fontSize = 15,
     this.height = 45,
     required this.text,
     required this.function,
