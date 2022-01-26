@@ -12,6 +12,7 @@ import 'package:dareen_app/shared/widgets/my_default_button.dart';
 import 'package:dareen_app/shared/widgets/my_ok_text.dart';
 import 'package:dareen_app/shared/widgets/my_text_field.dart';
 import 'package:dareen_app/shared/widgets/my_textbutton.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -192,14 +193,17 @@ class LoginScreen extends StatelessWidget {
                         condition: state is! LoginLoading,
                         builder: (context) => MyDefaultButton(
                           text: 'تسجيل الدخول',
-                          function: () {
+                          function: () async {
                             if (formKey.currentState!.validate()) {
                               FocusScope.of(context).unfocus();
-                              cubit.userLogin(
+                              await cubit.userLogin(
                                 phoneNumber: phoneController.text,
                                 password: passwordController.text,
                                 context: context,
                               );
+                              //to subscribe to all users topic
+                              await FirebaseMessaging.instance
+                                  .subscribeToTopic('allUsers');
                             }
                           },
                         ),

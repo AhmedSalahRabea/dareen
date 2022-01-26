@@ -4,6 +4,7 @@ import 'package:dareen_app/modules/login/login_screen.dart';
 import 'package:dareen_app/modules/on_boarding/on_boarding_item.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/widgets/my_textbutton.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -47,7 +48,9 @@ class OnBoardingScreen extends StatelessWidget {
             padding: const EdgeInsets.only(right: 20.0),
             child: MyTextButton(
               text: 'تخطي',
-              onpressed: () {
+              onpressed: () async {
+                //to subscribe to all users topic
+                await FirebaseMessaging.instance.subscribeToTopic('allUsers');
                 navigateTo(context: context, screen: LoginScreen());
               },
             ),
@@ -90,7 +93,10 @@ class OnBoardingScreen extends StatelessWidget {
                 ),
                 Spacer(),
                 FloatingActionButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    //to subscribe to all users topic
+                    await FirebaseMessaging.instance
+                        .subscribeToTopic('allUsers');
                     if (isLast) {
                       navigateTo(context: context, screen: LoginScreen());
                     } else {

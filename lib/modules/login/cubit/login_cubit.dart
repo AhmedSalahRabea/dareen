@@ -18,7 +18,7 @@ class LoginCubit extends Cubit<LoginState> {
   //=========this method uses when user press on login button to login==========
   //an object from my loginModel class to use it inside the method
   late LoginModel loginModel;
-  void userLogin({
+  Future<void> userLogin({
     required String phoneNumber,
     required String password,
     required BuildContext context,

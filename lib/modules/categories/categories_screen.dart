@@ -23,15 +23,18 @@ class CategoriesScreen extends StatelessWidget {
         listener: (context, state) async {},
         builder: (context, state) {
           ShopCubit cubit = ShopCubit.get(context);
+          var mediaQueryHeight = MediaQuery.of(context).size.height;
+
           return BuildCondition(
             condition:
                 cubit.categoriesModel != null && cubit.allProducts.isNotEmpty,
             builder: (context) => Directionality(
               textDirection: TextDirection.rtl,
               child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisExtent: 250,
+                  mainAxisExtent: mediaQueryHeight / 3.7,
+
                   //  maxCrossAxisExtent: 200,
                   //   childAspectRatio: 3 / 1,
                   crossAxisSpacing: 3,

@@ -18,7 +18,7 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   // var mediaQueryHeight = MediaQuery.of(context).size.height;
+    var mediaQueryHeight = MediaQuery.of(context).size.height;
 
     return Container(
       width: double.infinity,
@@ -31,9 +31,7 @@ class CategoryItem extends StatelessWidget {
       child: InkWell(
         onTap: () async {
           ShopCubit.get(context).getFavourites(userId);
-
           ShopCubit.get(context).getCategoryProducts(model.id);
-
           navigateTo(
               context: context,
               screen: ProductsScreen(
@@ -44,16 +42,17 @@ class CategoryItem extends StatelessWidget {
           child: FadeInImage(
             image: CachedNetworkImageProvider(model.image),
             placeholder: const AssetImage('assets/images/imageloading.gif'),
+            fit: BoxFit.contain,
           ),
           footer: Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            height: 45,
+            // padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            height: mediaQueryHeight / 20,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(10),
               color: Theme.of(context).primaryColor,
             ),
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.center,
             child: Text(
               model.name,
               style: const TextStyle(

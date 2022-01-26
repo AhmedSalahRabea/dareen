@@ -1,6 +1,5 @@
 // ignore_for_file: override_on_non_overriding_member, use_key_in_widget_constructors
 
-
 import 'package:buildcondition/buildcondition.dart';
 import 'package:dareen_app/modules/cart/cart_item.dart';
 import 'package:dareen_app/modules/cart/cubit/cart_cubit.dart';
@@ -48,7 +47,7 @@ class CartScreen extends StatelessWidget {
                     size: 50,
                   ),
                   actions: [
-                  const  MyOkTextButtonForDailog(
+                    const MyOkTextButtonForDailog(
                       fontSize: 20,
                     )
                   ],
@@ -69,7 +68,8 @@ class CartScreen extends StatelessWidget {
                             model: cubit.cartProducts[index],
                           );
                         },
-                        separatorBuilder: (contextm, index) =>const MyDivider(),
+                        separatorBuilder: (contextm, index) =>
+                            const MyDivider(),
                         itemCount: cubit.cartProducts.length,
                       ),
                     ),
@@ -139,11 +139,18 @@ class CartScreen extends StatelessWidget {
                                           text: 'تأكيد',
                                           width: width / 4,
                                           function: () {
+                                            print(
+                                                '==== ${cubit.producIdAndQuantityMap.values.toList()}');
                                             cubit
                                                 .confirmOrder(
-                                                    cartId: cubit.cartProducts
-                                                        .elementAt(0)
-                                                        .cartId)
+                                                  cartId: cubit.cartProducts
+                                                      .elementAt(0)
+                                                      .cartId,
+                                                  productIdAndQuantity: cubit
+                                                      .producIdAndQuantityMap
+                                                      .values
+                                                      .toList(),
+                                                )
                                                 .then((value) =>
                                                     Navigator.pop(context));
                                           }),

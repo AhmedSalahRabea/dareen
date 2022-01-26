@@ -18,7 +18,7 @@ class CartCubit extends Cubit<CartState> {
   CartModel? cartModel;
   List<CartItemData> cartProducts = [];
   //this map to collect data which api need it
-  Map<int, Map<String, int>> producIdAndQuantityMap = {};
+  Map<int, Map<String,int>> producIdAndQuantityMap = {};
   //this map to save all total price for each product in the cart then sum them
   Map<int, num> totalPriceForAllProducts = {};
   //this variable
@@ -69,7 +69,6 @@ class CartCubit extends Cubit<CartState> {
     required int productId,
     required BuildContext context,
   }) async {
-    // getCartProducts();
     emit(AddProductToCartLoading());
     if (cartProducts.any((element) {
           if (element.productModel.id != productId) {
@@ -93,12 +92,14 @@ class CartCubit extends Cubit<CartState> {
       ).then((value) {
         addProductToCartModel = SuccessOrFailedModel.fromJson(value.data);
         if (addProductToCartModel!.status!) {
-          getCartProducts();
           mySnackBar(
               context: context,
               content: 'تم إضافة المنتج إلي عربة التسوق الخاصة بكم ');
-
+          getCartProducts();
           emit(AddProductToCartSuccess());
+        } else {
+          mySnackBar(context: context, content: 'المنتج موجود في السلة بالفعل');
+          emit(AddProductToCartError());
         }
       }).catchError(
         (error) {
@@ -106,9 +107,6 @@ class CartCubit extends Cubit<CartState> {
           emit(AddProductToCartError());
         },
       );
-    } else {
-      mySnackBar(context: context, content: 'المنتج موجود في السلة بالفعل');
-      emit(AddProductToCartError());
     }
   }
 
@@ -146,14 +144,16 @@ class CartCubit extends Cubit<CartState> {
   SuccessOrFailedModel? confirmOrderModel;
   Future<void> confirmOrder({
     required int cartId,
+    required List<Map<String,int>> productIdAndQuantity,
   }) async {
     emit(ConfirmOrderLoading());
+   // print('===========${producIdAndQuantityMap.values.toList()}');
     await DioHelper.postData(
       url: CONFIRMORDER,
       data: {
         'cart_id': cartId,
         'user_id': userId,
-        'products ': [producIdAndQuantityMap.values.toList()],
+        'products': productIdAndQuantity,
       },
     ).then((value) {
       confirmOrderModel = SuccessOrFailedModel.fromJson(value.data);

@@ -11,5 +11,7 @@ class UpdateUserDataLoading extends AppState{}
 class UpdateUserDataSuccess extends AppState{}
 class UpdateUserDataError extends AppState{}
 
+class GoToProductDetailsScreen extends AppState{}
+
 
 

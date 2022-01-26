@@ -139,7 +139,7 @@ void myModalBottomSheetForToktok({
                 child: ContactsWidget(
                   whatsappString: 'اطلب توكتوك من خلال الواتساب',
                   callString: 'اتصل بنا مباشرةً لطلب التوكتوك',
-                  screenHeightDivideNumber: 22,
+                  screenHeightDivideNumber: 18,
                 ),
               ),
               const MyOkTextButtonForDailog(

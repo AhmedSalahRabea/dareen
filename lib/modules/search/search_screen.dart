@@ -17,9 +17,7 @@ class SearchScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => SearchCubit(),
       child: BlocConsumer<SearchCubit, SearchState>(
-        listener: (context, state) {
-        
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           SearchCubit cubit = SearchCubit.get(context);
           return Directionality(
@@ -30,11 +28,11 @@ class SearchScreen extends StatelessWidget {
               ),
               body: Form(
                 key: formKey,
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      MyTextFormField(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: MyTextFormField(
                         controller: textController,
                         type: TextInputType.text,
                         validate: (value) {
@@ -45,39 +43,39 @@ class SearchScreen extends StatelessWidget {
                         label: 'البحث',
                         prefix: Icons.search,
                         onsubmit: (String text) {
-                          cubit.addSearchedProductToSearchList(text,context);
+                          cubit.addSearchedProductToSearchList(text, context);
                         },
                         onchange: (text) {
-                          cubit.addSearchedProductToSearchList(text,context);
+                          cubit.addSearchedProductToSearchList(text, context);
                         },
                       ),
-                      SizedBox(height: 20),
-                      if (state is SearchLoading) LinearProgressIndicator(),
-                      BuildCondition(
-                        condition: cubit.searchList.isNotEmpty,
-                        builder: (context) => Expanded(
-                          child: ListView.separated(
-                            itemBuilder: (context, index) =>
-                                ProductOrFavouriteItem(
-                                    model: cubit.searchList[index]),
-                            separatorBuilder: (context, index) => MyDivider(),
-                            itemCount: cubit.searchList.length,
-                          ),
-                        ),
-                        fallback: (context) => Center(
-                          child: Column(
-                            children: [
-                              SizedBox(height: 20),
-                              Text(
-                                'من فضلك أدخل اسم المنتج الذي تريد البحث عنه',
-                                style: Theme.of(context).textTheme.subtitle1,
-                              ),
-                            ],
-                          ),
+                    ),
+                    SizedBox(height: 20),
+                    if (state is SearchLoading) LinearProgressIndicator(),
+                    BuildCondition(
+                      condition: cubit.searchList.isNotEmpty,
+                      builder: (context) => Expanded(
+                        child: ListView.separated(
+                          itemBuilder: (context, index) =>
+                              ProductOrFavouriteItem(
+                                  model: cubit.searchList[index]),
+                          separatorBuilder: (context, index) => MyDivider(),
+                          itemCount: cubit.searchList.length,
                         ),
                       ),
-                    ],
-                  ),
+                      fallback: (context) => Center(
+                        child: Column(
+                          children: [
+                            SizedBox(height: 20),
+                            Text(
+                              'من فضلك أدخل اسم المنتج الذي تريد البحث عنه',
+                              style: Theme.of(context).textTheme.subtitle1,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

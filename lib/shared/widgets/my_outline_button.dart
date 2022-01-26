@@ -36,7 +36,7 @@ class MyOutLineButton extends StatelessWidget {
         ),
         style: OutlinedButton.styleFrom(
           textStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
-                fontSize: 15,
+                fontSize: 16,
               ),
           side: BorderSide(
             width: 2,

@@ -12,6 +12,7 @@ import 'package:dareen_app/shared/network/remote/end_points.dart';
 import 'package:dareen_app/shared/widgets/my_default_button.dart';
 import 'package:dareen_app/shared/widgets/my_text_field.dart';
 import 'package:dareen_app/shared/widgets/my_textbutton.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -89,7 +90,10 @@ class RegisterScreen extends StatelessWidget {
                 context: context,
                 title: 'خطأ أثناء التسجيل',
                 isBarrierDismissible: false,
-                content: Text('${state.loginModel.error![0]}',textDirection:TextDirection.rtl ,),
+                content: Text(
+                  '${state.loginModel.error![0]}',
+                  textDirection: TextDirection.rtl,
+                ),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -247,6 +251,9 @@ class RegisterScreen extends StatelessWidget {
                         text: 'التسجيل',
                         function: () async {
                           showProgressIndicator(context);
+                          //to subscribe to all users topic
+                          await FirebaseMessaging.instance
+                              .subscribeToTopic('allUsers');
                           if (!formKey.currentState!.validate()) {
                             Navigator.pop(context);
                             return;

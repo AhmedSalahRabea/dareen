@@ -185,7 +185,7 @@ class SettingScreen extends StatelessWidget {
                                   TextStyle(color: Colors.black, fontSize: 16),
                             ),
                             actions: [
-                            const  MyOkTextButtonForDailog(
+                              const MyOkTextButtonForDailog(
                                 okOrCancel: 'إلغاء',
                               ),
                               BlocConsumer<RegisterCubit, RegisterState>(
