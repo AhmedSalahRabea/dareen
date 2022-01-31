@@ -7,11 +7,8 @@ import 'package:dareen_app/home/home_screen.dart';
 import 'package:dareen_app/modules/cart/cubit/cart_cubit.dart';
 import 'package:dareen_app/modules/login/cubit/login_cubit.dart';
 import 'package:dareen_app/modules/on_boarding/on_boarding_screen.dart';
-import 'package:dareen_app/modules/product_details/product_details_screen.dart';
 import 'package:dareen_app/modules/register_screen/cubit/register_cubit.dart';
-import 'package:dareen_app/modules/settings/setting_screen.dart';
 import 'package:dareen_app/shared/bloc_bserver/bloc_observer.dart';
-import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/cubit/app_cubit.dart';
 import 'package:dareen_app/shared/network/local/cache_helper.dart';
 import 'package:dareen_app/shared/network/remote/doi_helper.dart';
@@ -21,6 +18,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 
 //this method help me to recieve notifications when app is terminated
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -48,14 +46,11 @@ void main() async {
     print('========== when app opened in background');
 
     // if (event.data['productId'] != null) {
-    //   navigateTo(
-    //       context: context,
-    //       screen: ProductDetailsScreen(
-    //           model: ShopCubit.get(context).allProducts.firstWhere(
-    //               (element) => element.id == event.data['productId'])));
+    //   print('=========== before');
+    //   NotificationServices(productId:int.parse(event.data['productId']) );
+    //   print('=========== after');
     // }
     print(event.data.toString());
-    //  print(event.notification);
   });
   //to recieve notifications when app is terminated or tottaky closed
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
@@ -93,9 +88,8 @@ class MyApp extends StatelessWidget {
           create: (context) => LoginCubit(),
         ),
         BlocProvider<AppCubit>(
-            create: (context) => AppCubit()
-              ..changeAppMode(fromShared: isLight)
-              // ..recieveNotifications(context)
+            create: (context) => AppCubit()..changeAppMode(fromShared: isLight)
+            // ..recieveNotifications(context)
             // ..homeScreen(isOnBoardingSeen),
             ),
         BlocProvider<ShopCubit>(
@@ -112,13 +106,16 @@ class MyApp extends StatelessWidget {
           listener: (context, state) {},
           builder: (context, state) {
             AppCubit cubit = AppCubit.get(context);
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Flutter Demo',
-              theme: MyTheme.myLightThemeMode,
-              darkTheme: MyTheme.myDarkThemeMode,
-              themeMode: cubit.isLight ? ThemeMode.light : ThemeMode.dark,
-              home: userId != null ? HomeScreen() : OnBoardingScreen(),
+            //sizer package to make responsive ui and text
+            return Sizer(
+              builder: (context, orientation, deviceType) => MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Flutter Demo',
+                theme: MyTheme.myLightThemeMode,
+                darkTheme: MyTheme.myDarkThemeMode,
+                themeMode: cubit.isLight ? ThemeMode.light : ThemeMode.dark,
+                home: userId != null ? HomeScreen() : OnBoardingScreen(),
+              ),
             );
           }),
     );

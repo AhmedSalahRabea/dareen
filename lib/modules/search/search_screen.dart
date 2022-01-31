@@ -7,6 +7,7 @@ import 'package:dareen_app/shared/widgets/my_text_field.dart';
 import 'package:dareen_app/shared/widgets/product_fav_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 
 class SearchScreen extends StatelessWidget {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -24,7 +25,13 @@ class SearchScreen extends StatelessWidget {
             textDirection: TextDirection.rtl,
             child: Scaffold(
               appBar: AppBar(
-                title: const Text('البحث'),
+                title: Text(
+                  'البحث',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 16.sp),
+                ),
               ),
               body: Form(
                 key: formKey,
@@ -50,7 +57,7 @@ class SearchScreen extends StatelessWidget {
                         },
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 1.h),
                     if (state is SearchLoading) LinearProgressIndicator(),
                     BuildCondition(
                       condition: cubit.searchList.isNotEmpty,
@@ -66,10 +73,12 @@ class SearchScreen extends StatelessWidget {
                       fallback: (context) => Center(
                         child: Column(
                           children: [
-                            SizedBox(height: 20),
                             Text(
                               'من فضلك أدخل اسم المنتج الذي تريد البحث عنه',
-                              style: Theme.of(context).textTheme.subtitle1,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .copyWith(fontSize: 12.sp),
                             ),
                           ],
                         ),

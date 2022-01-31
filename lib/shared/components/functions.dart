@@ -1,6 +1,10 @@
-import 'package:dareen_app/shared/widgets/contacts.dart';
-import 'package:dareen_app/shared/widgets/my_ok_text.dart';
+import '../widgets/contacts.dart';
+import '../widgets/my_ok_text.dart';
+import 'package:sizer/sizer.dart';
+
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
+
 //import 'package:tbib_toast/tbib_toast.dart';
 
 //this method to navigate between screens
@@ -40,7 +44,7 @@ void navigateAndFinish({required context, required screen}) {
 //   );
 // }
 
-//alert dialog loke progress indicator for any loading screen
+//alert dialog like progress indicator for any loading screen
 void showProgressIndicator(BuildContext context) {
   AlertDialog alertDialog = AlertDialog(
     backgroundColor: Colors.transparent,
@@ -56,7 +60,7 @@ void showProgressIndicator(BuildContext context) {
   );
 }
 
-//alert dialog loke progress indicator for any loading screen
+//to show alert dialog
 void showMyAlertDialog({
   required BuildContext context,
   required String title,
@@ -70,16 +74,13 @@ void showMyAlertDialog({
     scrollable: true,
     actionsPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-    titleTextStyle: TextStyle(
-      color: Theme.of(context).primaryColor,
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-    ),
-    content: content,
     title: Text(
       title,
       textDirection: TextDirection.rtl,
     ),
+    titleTextStyle:
+        Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 16.sp),
+    content: content,
     actions: actions,
   );
   showDialog(
@@ -132,7 +133,10 @@ void myModalBottomSheetForToktok({
               Text(
                 'يمكنك الان طلب توكتوك بضغة زر واحدة',
                 textDirection: TextDirection.rtl,
-                style: Theme.of(context).textTheme.bodyText2,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2!
+                    .copyWith(fontSize: 11.7.sp),
               ),
               const Directionality(
                 textDirection: TextDirection.rtl,
@@ -142,9 +146,9 @@ void myModalBottomSheetForToktok({
                   screenHeightDivideNumber: 18,
                 ),
               ),
-              const MyOkTextButtonForDailog(
+              MyOkTextButtonForDailog(
                 okOrCancel: 'إلغاء',
-                fontSize: 20,
+                fontSize: 16.sp,
               ),
             ],
           ),

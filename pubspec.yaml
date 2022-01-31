@@ -54,6 +54,8 @@ dependencies:
   flutter_offline: ^2.0.0
   liquid_pull_to_refresh: ^3.0.1
   firebase_messaging: ^11.2.5
+  google_fonts: ^2.2.0
+  sizer: ^2.0.15
 
 dev_dependencies:
   flutter_test:

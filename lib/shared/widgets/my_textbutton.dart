@@ -1,17 +1,19 @@
 // ignore_for_file: override_on_non_overriding_member, use_key_in_widget_constructors, prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 
 class MyTextButton extends StatelessWidget {
   final String text;
   final VoidCallback onpressed;
   final double fontSize;
   final Color color;
-   MyTextButton({
+  MyTextButton({
     required this.text,
     required this.onpressed,
     this.fontSize = 20,
-    this.color =const Color(0xff0097A7),
+    this.color = const Color(0xff0097A7),
   });
 
   @override
@@ -20,10 +22,10 @@ class MyTextButton extends StatelessWidget {
       onPressed: onpressed,
       child: Text(
         text,
-        style: TextStyle(
-          fontSize: fontSize,
+        style: GoogleFonts.tajawal(
+          fontSize: fontSize.sp,
           fontWeight: FontWeight.bold,
-          color:color ,
+          color: color,
         ),
       ),
     );

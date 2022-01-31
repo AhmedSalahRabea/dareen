@@ -17,6 +17,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:sizer/sizer.dart';
+
 class LoginScreen extends StatelessWidget {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -48,6 +50,7 @@ class LoginScreen extends StatelessWidget {
               navigateAndFinish(context: context, screen: HomeScreen());
               phoneController.clear();
               passwordController.clear();
+              CartCubit.get(context).cartProducts = [];
               ShopCubit.get(context).getCategoryData(context);
               ShopCubit.get(context).getAllProducts();
               ShopCubit.get(context).getFavourites(userId);
@@ -77,9 +80,6 @@ class LoginScreen extends StatelessWidget {
         return Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
-            //appBar: AppBar(),
-            //  backgroundColor: Colors.white,
-
             body: SingleChildScrollView(
               reverse: true,
               child: Padding(
@@ -91,42 +91,41 @@ class LoginScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                          height: 250,
+                          height: 35.h,
                           width: double.infinity,
                           child: Image.asset('assets/images/login/dareen.jpg')),
                       Text(
                         'قم بتسجيل الدخول لتستمتع بجميع خدمات تطبيق دارين',
                         maxLines: 3,
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                            fontSize: 11.sp, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 3.h),
                       Row(
                         children: [
                           Expanded(
                             flex: 1,
                             child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 14,
-                              ),
+                              height: 5.h,
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                    color: Theme.of(context).primaryColor),
+                                  color: Theme.of(context).primaryColor,
+                                ),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: Text(
-                                generateCountryFlag() + ' +2',
-                                textAlign: TextAlign.left,
-                                style: Theme.of(context).textTheme.bodyText1,
-                                //  const TextStyle(
-                                //   fontSize: 18,
-                                //   letterSpacing: 2.0,
-                                //   color: Colors.black,
-                                // ),
+                              child: Center(
+                                child: Text(
+                                  generateCountryFlag() + ' +2',
+                                  textAlign: TextAlign.left,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(fontSize: 14.sp),
+                                ),
                               ),
                             ),
                           ),
-                          const SizedBox(width: 10),
+                          SizedBox(width: 2.w),
                           Expanded(
                             flex: 3,
                             child: MyTextFormField(
@@ -152,7 +151,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 30),
+                      SizedBox(height: 3.h),
                       MyTextFormField(
                         controller: passwordController,
                         type: TextInputType.visiblePassword,
@@ -174,7 +173,7 @@ class LoginScreen extends StatelessWidget {
                           cubit.changePasswordVisibilty();
                         },
                       ),
-                      const SizedBox(height: 30),
+                      SizedBox(height: 5.h),
                       // MyTextButton(
                       //   text: 'هل نسيت كلمة السر ؟',
                       //   onpressed: () {
@@ -210,7 +209,7 @@ class LoginScreen extends StatelessWidget {
                         fallback: (context) =>
                             Center(child: CircularProgressIndicator()),
                       ),
-                      const SizedBox(height: 15),
+                      SizedBox(height: 3.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -218,12 +217,12 @@ class LoginScreen extends StatelessWidget {
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!
-                                  .copyWith(fontSize: 16)
+                                  .copyWith(fontSize: 10.sp)
                               // .copyWith(color: Colors.black),
                               ),
                           MyTextButton(
                             text: 'إنشاء حساب جديد ',
-                            fontSize: 14,
+                            fontSize: 8.sp,
                             onpressed: () {
                               navigateAndFinish(
                                   context: context, screen: RegisterScreen());

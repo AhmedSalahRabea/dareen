@@ -8,6 +8,7 @@ import 'package:dareen_app/shared/widgets/my_default_button.dart';
 import 'package:dareen_app/shared/widgets/my_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
@@ -26,13 +27,13 @@ class ChangePasswordScreen extends StatelessWidget {
               context: context, content: 'كلمة المرور التي أدخلتها غير صحيحة');
         }
         if (state is ChangePasswordSuccess) {
-          mySnackBar(
-              context: context, content: 'تم تغير كلمة السر بنجاح');
+          mySnackBar(context: context, content: 'تم تغير كلمة السر بنجاح');
           navigateAndFinish(context: context, screen: HomeScreen());
         }
-         if (state is ChangePasswordError) {
+        if (state is ChangePasswordError) {
           mySnackBar(
-              context: context, content: 'تأكد من الإتصال بالإنترنت و أعد المحاولة مرة أخري');
+              context: context,
+              content: 'تأكد من الإتصال بالإنترنت و أعد المحاولة مرة أخري');
         }
       },
       builder: (context, state) {
@@ -41,7 +42,13 @@ class ChangePasswordScreen extends StatelessWidget {
           textDirection: TextDirection.rtl,
           child: Scaffold(
             appBar: AppBar(
-              title: const Text('تغيير كلمة المرور'),
+              title: Text(
+                'تغيير كلمة المرور',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(fontSize: 14.sp),
+              ),
             ),
             body: SingleChildScrollView(
               padding: const EdgeInsets.all(20.0),
@@ -68,7 +75,7 @@ class ChangePasswordScreen extends StatelessWidget {
                       type: TextInputType.visiblePassword,
                       validate: (value) {
                         if (value.isEmpty) {
-                          return 'من فضلك أدخل رفم سري صحيح';
+                          return 'من فضلك أدخل رقم سري صحيح';
                         } else {
                           return null;
                         }
@@ -87,7 +94,7 @@ class ChangePasswordScreen extends StatelessWidget {
                       type: TextInputType.visiblePassword,
                       validate: (value) {
                         if (value.isEmpty) {
-                          return 'من فضلك أدخل رفم سري صحيح';
+                          return 'من فضلك أدخل رقم سري صحيح';
                         } else if (value.length < 7) {
                           return 'يجب ألا يقل الرقم السري عن سبع خانات';
                         } else {
@@ -110,7 +117,7 @@ class ChangePasswordScreen extends StatelessWidget {
                         if (newPasswordController.text !=
                                 reNewPasswordController.text ||
                             value.isEmpty) {
-                          return 'من فضلك أدخل رفم مطابق للرقم السري الجديد';
+                          return 'من فضلك أدخل رقم مطابق للرقم السري الجديد';
                         } else {
                           return null;
                         }

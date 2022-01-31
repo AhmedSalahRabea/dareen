@@ -7,6 +7,8 @@ import 'package:dareen_app/modules/product_details/product_details_screen.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 
 class CartItem extends StatefulWidget {
   final CartItemData model;
@@ -21,14 +23,14 @@ class _CartItemState extends State<CartItem> {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQueryHeight = MediaQuery.of(context).size.height;
-    var mediaQueryWidth = MediaQuery.of(context).size.width;
+    // var mediaQueryHeight = MediaQuery.of(context).size.height;
+    // var mediaQueryWidth = MediaQuery.of(context).size.width;
     return BlocConsumer<CartCubit, CartState>(
         listener: (context, state) {},
         builder: (context, state) {
           CartCubit cubit = CartCubit.get(context);
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 5.w),
             child: InkWell(
               onTap: () {
                 navigateTo(
@@ -38,7 +40,7 @@ class _CartItemState extends State<CartItem> {
                 );
               },
               child: SizedBox(
-                height: 130,
+                height: 15.6.h,
                 // height: mediaQueryHeight / 6,
                 child: Row(
                   children: [
@@ -46,8 +48,8 @@ class _CartItemState extends State<CartItem> {
                       alignment: AlignmentDirectional.bottomStart,
                       children: [
                         FadeInImage(
-                          height: mediaQueryHeight / 7,
-                          width: mediaQueryWidth / 4,
+                          height: 15.h,
+                          width: 20.w,
                           placeholder: const AssetImage(
                               'assets/images/imageloading.gif'),
                           image: CachedNetworkImageProvider(
@@ -69,7 +71,7 @@ class _CartItemState extends State<CartItem> {
                           ),
                       ],
                     ),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 5.w),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,10 +81,13 @@ class _CartItemState extends State<CartItem> {
                             widget.model.productModel.name,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(fontSize: 14.sp),
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               if (widget.model.productModel.newPrice != null &&
                                   widget.model.productModel.newPrice != 0)
@@ -92,8 +97,9 @@ class _CartItemState extends State<CartItem> {
                                       .textTheme
                                       .bodyText1!
                                       .copyWith(
-                                          color: Theme.of(context).primaryColor,
-                                          fontSize: 15),
+                                        color: Theme.of(context).primaryColor,
+                                        fontSize: 15.sp,
+                                      ),
                                 ),
                               if (widget.model.productModel.newPrice == null ||
                                   widget.model.productModel.newPrice == 0)
@@ -103,21 +109,20 @@ class _CartItemState extends State<CartItem> {
                                       .textTheme
                                       .bodyText1!
                                       .copyWith(
-                                          color: Theme.of(context).primaryColor,
-                                          fontSize: 15),
+                                        color: Theme.of(context).primaryColor,
+                                        fontSize: 15.sp,
+                                      ),
                                 ),
                               if (widget.model.productModel.newPrice != 0 &&
                                   widget.model.productModel.newPrice != null)
                                 Text(
                                   '${widget.model.productModel.price.toString()} جــ',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        decoration: TextDecoration.lineThrough,
-                                      ),
+                                  style: GoogleFonts.tajawal(
+                                    color: Colors.grey,
+                                    fontSize: 14.sp,
+                                    decoration: TextDecoration.lineThrough,
+                                    decorationThickness: 2.sp,
+                                  ),
                                 ),
                               IconButton(
                                 onPressed: () {
@@ -127,13 +132,12 @@ class _CartItemState extends State<CartItem> {
                                     cartId: widget.model.cartId,
                                     productId: widget.model.productModel.id,
                                   );
-                                  // if (state is DeleteProductFromCartError)
-                                  //   cubit.cartProducts.add(model);
                                 },
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.delete,
                                   size: 25,
-                                  color: Colors.red,
+                                  color: Theme.of(context).primaryColor,
+                                  // color: Colors.red,
                                 ),
                               ),
                             ],
@@ -169,11 +173,13 @@ class _CartItemState extends State<CartItem> {
                                   )),
                               Text(
                                 '$quantity',
-                                style: Theme.of(context).textTheme.bodyText1,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(fontSize: 14.sp),
                               ),
                               IconButton(
                                 onPressed: () {
-                                  // cubit.decreaseQuantity();
                                   if (quantity > 1) {
                                     setState(() {
                                       quantity -= 1;
@@ -202,10 +208,14 @@ class _CartItemState extends State<CartItem> {
                                   color: Theme.of(context).primaryColor,
                                 ),
                               ),
-                              const Spacer(),
+                              SizedBox(width: 25.w),
                               Text(
                                 //  '${cubit.totalPrice}',
                                 '${widget.model.totalPrice * quantity}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(fontSize: 14.sp),
                               ),
                             ],
                           ),

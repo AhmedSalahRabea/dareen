@@ -2,6 +2,7 @@
 
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class BigUserItem extends StatelessWidget {
   double? cardRadius;
@@ -61,7 +62,6 @@ class BigUserItem extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Padding(
-                            
                             padding: const EdgeInsets.only(right: 10),
                             child: BuildCondition(
                               condition:
@@ -74,24 +74,30 @@ class BigUserItem extends StatelessWidget {
                                     userName!,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(
+                                          fontSize: 14.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                   ),
-                                  const SizedBox(height: 5),
+                                  SizedBox(height: 1.h),
                                   Text(
                                     phoneNumber!,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(
+                                          fontSize: 14.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                   ),
-                                  //   const SizedBox(height: 5),
+                                  // SizedBox(height: 1.h),
                                   // Text(
-                                  //   address,
+                                  //   address!,
                                   //   maxLines: 2,
                                   //   overflow: TextOverflow.ellipsis,
                                   //   style: const TextStyle(

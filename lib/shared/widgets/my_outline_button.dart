@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class MyOutLineButton extends StatelessWidget {
   final String text;
@@ -31,19 +32,19 @@ class MyOutLineButton extends StatelessWidget {
         ),
         label: Text(
           text,
-          style:
-              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                fontSize: 11.sp,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
         ),
         style: OutlinedButton.styleFrom(
-          textStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
-                fontSize: 16,
-              ),
+          shape: const StadiumBorder(),
           side: BorderSide(
             width: 2,
             color: Theme.of(context).primaryColor,
-            style: BorderStyle.none,
           ),
-          backgroundColor: Theme.of(context).primaryColor.withOpacity(.6),
+          backgroundColor: Theme.of(context).primaryColor.withOpacity(1),
         ),
       ),
     );

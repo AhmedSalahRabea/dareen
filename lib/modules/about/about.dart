@@ -1,6 +1,8 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 
 class AboutScreen extends StatelessWidget {
   static const String line1 =
@@ -21,29 +23,53 @@ class AboutScreen extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('حول'),
+          title: Text(
+            'حول',
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1!
+                .copyWith(fontSize: 16.sp),
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ListView(
             children: [
-              const Text('حول تطبيق دارين :'),
-              const SizedBox(height: 20),
-              DefaultTextStyle(
+              Text(
+                'حول تطبيق دارين :',
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: 15, height: 1.6),
-                child: const Text(line1),
+                    .bodyText2!
+                    .copyWith(fontSize: 16.sp),
               ),
-              const SizedBox(height: 20),
-              const Text('سياسة البيانات:'),
-              const SizedBox(height: 20),
+              SizedBox(height: 2.h),
               DefaultTextStyle(
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: 15,
+                      height: 1.6,
+                    ),
+                child: Text(
+                  line1,
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        fontSize: 12.sp,
+                        height: 1.5.sp,
+                      ),
+                ),
+              ),
+              SizedBox(height: 3.h),
+              Text(
+                'سياسة البيانات:',
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: 16, height: 1.6),
+                    .bodyText2!
+                    .copyWith(fontSize: 16.sp),
+              ),
+              SizedBox(height: 2.h),
+              DefaultTextStyle(
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: 12.sp,
+                      height: 1.5.sp,
+                    ),
                 textAlign: TextAlign.start,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,

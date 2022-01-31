@@ -6,18 +6,13 @@ import 'package:dareen_app/modules/cart/cubit/cart_cubit.dart';
 import 'package:dareen_app/shared/widgets/my_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:sizer/sizer.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final ProductModel model;
   PageController boardController = PageController();
-
-  // List<String> images = [
-  //   'https://janatonline.com/Content/Images/Products/al-osra-white-sugar-1-kg-68614-600.jpg',
-  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwGax5b22_luSu4fweyIoY48wuPiTvFdTvpw&usqp=CAU',
-  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREUI2PCiLkcnUijT5fR4m5FOy5RvL2mXjFcA&usqp=CAU',
-  // ];
-
   ProductDetailsScreen({required this.model});
   @override
   Widget build(BuildContext context) {
@@ -27,46 +22,38 @@ class ProductDetailsScreen extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBar(title: const Text('Dareen')),
+        appBar: AppBar(
+          title: Text(
+            'تفاصيل المنتج',
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1!
+                .copyWith(fontSize: 15.sp),
+          ),
+        ),
         body: Padding(
           padding:
-              const EdgeInsets.only(right: 30, top: 5, bottom: 30, left: 30),
+              EdgeInsets.only(right: 5.w, top: 1.h, bottom: 3.h, left: 5.w),
           child: Stack(
             alignment: AlignmentDirectional.bottomStart,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Hero(
-                  //   tag: model.id,
-                  //   transitionOnUserGestures: false,
-                  //   child: FadeInImage(
-                  //     height: mediaQueryHeight / 5,
-                  //     placeholder:
-                  //         const AssetImage('assets/images/imageloading.gif'),
-                  //     image: CachedNetworkImageProvider(model.image),
-                  //     width: double.infinity,
-                  //     fit: BoxFit.contain,
-                  //   ),
-                  // ),
-
                   Stack(alignment: AlignmentDirectional.bottomStart, children: [
                     SizedBox(
                       height: mediaQueryHeight / 5,
                       child: PageView.builder(
                         itemBuilder: (context, index) => ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          child: Hero(
-                            tag: model.id,
-                            child: FadeInImage(
-                              height: double.infinity,
-                              placeholder: const AssetImage(
-                                  'assets/images/imageloading.gif'),
-                              image: CachedNetworkImageProvider(
-                                  model.images[index]),
-                              width: double.infinity,
-                              fit: BoxFit.contain,
-                            ),
+                          child: FadeInImage(
+                            height: double.infinity,
+                            placeholder: const AssetImage(
+                                'assets/images/imageloading.gif'),
+                            image:
+                                CachedNetworkImageProvider(model.images[index]),
+                            width: double.infinity,
+                            fit: BoxFit.contain,
                           ),
                         ),
                         itemCount: model.images.length,
@@ -86,58 +73,81 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   ]),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 3.h),
                   Center(
                     child: Text(
                       model.name,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 16.sp),
                     ),
                   ),
-                 const MyDivider(),
+                  SizedBox(height: 3.h),
+                  // const MyDivider(),
                   Row(
                     children: [
                       Text(
                         'السعر',
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(fontSize: 16.sp),
                       ),
-                      SizedBox(width: mediaQueryWidth / 2),
+                      const Spacer(),
+                      // SizedBox(width: 50.w),
                       if (model.newPrice != null && model.newPrice != 0)
                         Text(
                           '${model.newPrice} جــ',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(fontSize: 16.sp),
                         ),
                       if (model.newPrice == null || model.newPrice == 0)
                         Text(
                           '${model.price} جــ',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(fontSize: 16.sp),
                         ),
                     ],
                   ),
                   if (model.newPrice != null && model.newPrice != 0)
-                  const  MyDivider(),
+                    const MyDivider(),
                   if (model.newPrice != null && model.newPrice != 0)
                     Row(
                       children: [
                         Text(
                           'السعر قبل الخصم',
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(fontSize: 15.sp),
                         ),
-                        SizedBox(width: mediaQueryWidth / 4),
+                        const Spacer(),
+                        //   SizedBox(width: 25.w),
                         Text(
                           '${model.price} جــ',
                           style:
                               Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: 14.sp,
                                     decoration: TextDecoration.lineThrough,
+                                    decorationThickness: 5.h,
                                   ),
                         ),
                       ],
                     ),
-                const  MyDivider(),
+                  const MyDivider(),
                   Text(
                     'وصف المنتج',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2!
+                        .copyWith(fontSize: 16.sp),
                   ),
                   if (model.desc != null) const SizedBox(height: 10),
                   if (model.desc != null)
@@ -147,7 +157,10 @@ class ProductDetailsScreen extends StatelessWidget {
                           children: [
                             Text(
                               model.desc!,
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(fontSize: 14.sp),
                             ),
                           ],
                         ),
@@ -156,7 +169,10 @@ class ProductDetailsScreen extends StatelessWidget {
                   if (model.desc == null)
                     Text(
                       'لا يوجد وصف لهذا المنتج',
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 16.sp),
                     ),
                 ],
               ),
@@ -165,7 +181,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   builder: (context, state) {
                     return SizedBox(
                       width: double.infinity,
-                      height: 50,
+                      height: 7.h,
                       child: OutlinedButton.icon(
                         onPressed: () {
                           CartCubit.get(context).addProductToCart(
@@ -175,10 +191,10 @@ class ProductDetailsScreen extends StatelessWidget {
                           Icons.shopping_cart_outlined,
                           color: Colors.white,
                         ),
-                        label: const Text(
+                        label: Text(
                           'أضف إلي عربة التسوق',
-                          style: TextStyle(
-                            fontSize: 20,
+                          style: GoogleFonts.tajawal(
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),

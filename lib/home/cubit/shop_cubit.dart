@@ -12,8 +12,8 @@ import 'package:dareen_app/modules/settings/setting_screen.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/network/remote/doi_helper.dart';
 import 'package:dareen_app/shared/network/remote/end_points.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'shop_state.dart';
 
@@ -174,41 +174,22 @@ class ShopCubit extends Cubit<ShopState> {
     });
   }
 
-// ====to determine the like button color===
-  // Color loveButtonColor = Colors.grey;
-  // Color likeButtonColor(ProductModel model) {
-  //   for (var product in favourites) {
-  //     if (product.id == model.id) {
-  //       loveButtonColor = Colors.red;
-  //       return Colors.red;
-  //     }
-  //   }
-  //   loveButtonColor = Colors.grey;
-  //   return Colors.grey;
-  // }
-
-  // bool isLiked = false;
-  // bool loveButtonColorForPackage(ProductModel model) {
-  //   for (var product in favourites) {
-  //     if (product.id == model.id) {
-  //       isLiked = true;
-  //       return true;
-  //     }
-  //   }
-  //   isLiked = false;
-
-  //   return false;
-  // }
-
-  //=======
+//====to hide floating action button in cart screen
+  bool isFloatingActionButtonShown = true;
+  //======= to change index of bottom nav bar and hide FAB =====
   void changeIndexToMychCartScreen(BuildContext context) {
     curretIndex = 2;
     isFloatingActionButtonShown = false;
     emit(ChangeIndexToMaychCartScreen());
   }
 
-//====to hide floating action button in cart screen
-  bool isFloatingActionButtonShown = true;
+  // ======= to toggle between list and grid view in product screen ====
+  bool isListView = true;
+  void toggleBetweenListAndGridView() {
+    isListView = !isListView;
+    emit(ProductScreenViewChanged());
+  }
+
   //========Bottom navigation bar logic==========
   int curretIndex = 0;
   void changeBottomNavIndex(int index) {

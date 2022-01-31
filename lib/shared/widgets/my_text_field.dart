@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class MyTextFormField extends StatelessWidget {
   final TextEditingController controller;
@@ -55,10 +56,11 @@ class MyTextFormField extends StatelessWidget {
       // expands: isDetailedAddress ?true:false,
       maxLines: isDetailedAddress ? 3 : 1,
       autofillHints: autofillHints,
+      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 12.sp),
       decoration: InputDecoration(
         labelText: label,
         labelStyle:
-            Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15),
+            Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 12.sp),
         prefixIcon: Icon(
           prefix,
           color: Theme.of(context).primaryColor,

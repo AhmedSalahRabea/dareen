@@ -1,15 +1,11 @@
 // ignore_for_file: avoid_print, non_constant_identifier_names
 
-import 'dart:async';
 
 import 'package:dareen_app/data/models/success_or_failed_model.dart';
-import 'package:dareen_app/home/cubit/shop_cubit.dart';
-import 'package:dareen_app/modules/product_details/product_details_screen.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:dareen_app/shared/network/local/cache_helper.dart';
 import 'package:dareen_app/shared/network/remote/doi_helper.dart';
 import 'package:dareen_app/shared/network/remote/end_points.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';

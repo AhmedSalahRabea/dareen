@@ -2,13 +2,17 @@
 
 import 'package:buildcondition/buildcondition.dart';
 import 'package:dareen_app/home/cubit/shop_cubit.dart';
+import 'package:dareen_app/modules/search/search_screen.dart';
+import 'package:dareen_app/shared/components/functions.dart';
 
 import 'package:dareen_app/shared/widgets/contacts.dart';
 import 'package:dareen_app/shared/widgets/empty_list.dart';
 import 'package:dareen_app/shared/widgets/my_divider.dart';
 import 'package:dareen_app/shared/widgets/product_fav_item.dart';
+import 'package:dareen_app/shared/widgets/product_item_for_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 
 class ProductsScreen extends StatelessWidget {
   final String categoryName;
@@ -24,7 +28,36 @@ class ProductsScreen extends StatelessWidget {
             textDirection: TextDirection.rtl,
             child: Scaffold(
               appBar: AppBar(
-                title: Text(categoryName),
+                title: Text(
+                  categoryName,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 14.sp),
+                ),
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      cubit.toggleBetweenListAndGridView();
+                    },
+                    icon: cubit.isListView
+                        ? const Icon(Icons.apps)
+                        : const Icon(Icons.view_list),
+                    color: const Color(0xff0097A7),
+                    iconSize: 30,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: IconButton(
+                      onPressed: () {
+                        navigateTo(context: context, screen: SearchScreen());
+                      },
+                      icon: const Icon(Icons.search),
+                      color: const Color(0xff0097A7),
+                      iconSize: 30,
+                    ),
+                  ),
+                ],
               ),
               body: Stack(
                 alignment: AlignmentDirectional.bottomCenter,
@@ -32,20 +65,39 @@ class ProductsScreen extends StatelessWidget {
                   BuildCondition(
                     condition: cubit.products.isNotEmpty,
                     builder: (context) {
-                      return ListView.separated(
-                        itemBuilder: (_, index) {
-                          return ProductOrFavouriteItem(
-                            model: cubit.products[index],
-                          );
-                        },
-                        separatorBuilder: (contextm, index) =>
-                            const MyDivider(),
-                        itemCount: cubit.products.length,
-                        physics: const BouncingScrollPhysics(),
-                      );
+                      return cubit.isListView
+                          ? ListView.separated(
+                              itemBuilder: (_, index) {
+                                return ProductOrFavouriteItem(
+                                  model: cubit.products[index],
+                                );
+                              },
+                              separatorBuilder: (contextm, index) =>
+                                  const MyDivider(),
+                              itemCount: cubit.products.length,
+                              physics: const BouncingScrollPhysics(),
+                            )
+                          : GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 80.w,
+                                mainAxisExtent: 23.h,
+                                crossAxisSpacing: 0,
+                                mainAxisSpacing: 0.h,
+                                childAspectRatio: 3 / 2,
+                              ),
+                              itemCount: cubit.products.length,
+                              physics: const BouncingScrollPhysics(),
+                              padding: EdgeInsets.zero,
+                              itemBuilder: (context, index) {
+                                return ProductOrFavouriteItemForGridView(
+                                  model: cubit.products[index],
+                                );
+                              },
+                            );
                     },
                     fallback: (context) => EmptyList(
-                        image: 'assets/images/emptyCart.png',
+                        image: 'assets/images/emptyCart2.png',
                         text: 'لا يوجد منتجات في هذا القسم'),
                   ),
                   if (categoryName == 'صيدلية' || categoryName == 'pharmacy')

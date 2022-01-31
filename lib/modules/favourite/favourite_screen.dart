@@ -9,6 +9,7 @@ import 'package:dareen_app/shared/widgets/product_fav_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_offline/flutter_offline.dart';
+import 'package:sizer/sizer.dart';
 
 class FavouriteScreen extends StatelessWidget {
   @override
@@ -37,7 +38,7 @@ class FavouriteScreen extends StatelessWidget {
                       model: cubit.favourites[index],
                     );
                   },
-                  separatorBuilder: (contextm, index) =>const MyDivider(),
+                  separatorBuilder: (contextm, index) => const MyDivider(),
                   itemCount: cubit.favourites.length,
                 ),
               ),

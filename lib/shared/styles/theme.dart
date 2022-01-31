@@ -3,6 +3,8 @@
 import 'package:dareen_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 
 class MyTheme {
   static ThemeData myLightThemeMode = ThemeData(
@@ -17,9 +19,9 @@ class MyTheme {
       backgroundColor: Colors.white,
       elevation: 0.0,
       iconTheme: IconThemeData(color: Colors.black),
-      titleTextStyle: TextStyle(
+      titleTextStyle: GoogleFonts.tajawal(
         color: Colors.black,
-        fontSize: 22,
+        fontSize: 22.sp,
         fontWeight: FontWeight.bold,
       ),
       // backwardsCompatibility: true,
@@ -34,31 +36,39 @@ class MyTheme {
       elevation: 20.0,
       backgroundColor: Colors.white,
       unselectedItemColor: Colors.grey,
+      selectedLabelStyle: GoogleFonts.tajawal(
+        color: Color(0xff0097A7),
+      ),
+      unselectedLabelStyle: GoogleFonts.tajawal(
+        color: Colors.grey,
+      ),
     ),
     textTheme: TextTheme(
-      bodyText1: TextStyle(
-        fontSize: 18,
+      bodyText1: GoogleFonts.tajawal(
+        fontSize: 18.sp,
         fontWeight: FontWeight.w600,
         color: Colors.black,
       ),
       //for head lines in product details screen
-      bodyText2: TextStyle(
-        fontSize: 20,
+      bodyText2: GoogleFonts.tajawal(
+        fontSize: 16.sp,
         fontWeight: FontWeight.bold,
         color: Color(0xff0097A7),
       ),
       //for text form fields
-      subtitle1: TextStyle(
-        fontSize: 16,
+      subtitle1: GoogleFonts.tajawal(
+        fontSize: 16.sp,
         color: Colors.black,
       ),
+
       //for subtitles in settings screen
-      subtitle2: TextStyle(
-        fontSize: 14,
+      subtitle2: GoogleFonts.tajawal(
+        fontSize: 12.sp,
         color: Colors.grey,
       ),
-      headline1: TextStyle(
-        fontSize: 25,
+
+      headline1: GoogleFonts.tajawal(
+        fontSize: 25.sp,
         fontWeight: FontWeight.bold,
         color: Colors.black,
       ),
@@ -80,12 +90,12 @@ class MyTheme {
       ),
       titleTextStyle: TextStyle(
         color: Colors.white,
-        fontSize: 22,
+        fontSize: 22.sp,
         fontWeight: FontWeight.bold,
       ),
       // backwardsCompatibility: true,
       systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Color(0xff121212),
+        statusBarColor: Color(0xff333739),
         statusBarIconBrightness: Brightness.light,
       ),
     ),
@@ -95,31 +105,41 @@ class MyTheme {
       elevation: 20.0,
       backgroundColor: Color(0xff333739),
       unselectedItemColor: Colors.grey,
+      selectedLabelStyle: GoogleFonts.tajawal(
+        color: Color(0xff0097A7),
+      ),
+      unselectedLabelStyle: GoogleFonts.tajawal(
+        color: Colors.grey,
+      ),
     ),
     textTheme: TextTheme(
-      bodyText1: TextStyle(
-        fontSize: 18,
+      bodyText1: GoogleFonts.tajawal(
+        fontSize: 18.sp,
         fontWeight: FontWeight.w600,
         color: Colors.white,
       ),
+
       //for head lines in product details screen
-      bodyText2: TextStyle(
-        fontSize: 20,
+      bodyText2: GoogleFonts.tajawal(
+        fontSize: 16.sp,
         fontWeight: FontWeight.bold,
         color: Color(0xff0097A7),
       ),
+
       //for text form fields
-      subtitle1: TextStyle(
-        fontSize: 16,
+      subtitle1: GoogleFonts.tajawal(
+        fontSize: 16.sp,
         color: Colors.white,
       ),
+
       //for subtitles in settings screen
-      subtitle2: TextStyle(
-        fontSize: 14,
+      subtitle2: GoogleFonts.tajawal(
+        fontSize: 12.sp,
         color: Colors.grey,
       ),
-      headline1: TextStyle(
-        fontSize: 25,
+
+      headline1: GoogleFonts.tajawal(
+        fontSize: 25.sp,
         fontWeight: FontWeight.bold,
         color: Colors.white,
       ),

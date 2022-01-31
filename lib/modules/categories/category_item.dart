@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 
 import 'package:dareen_app/data/models/category_model.dart';
 import 'package:dareen_app/shared/components/functions.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 
 class CategoryItem extends StatelessWidget {
   final CategoryModel model;
@@ -46,7 +48,6 @@ class CategoryItem extends StatelessWidget {
           ),
           footer: Container(
             width: double.infinity,
-            // padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             height: mediaQueryHeight / 20,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -55,11 +56,10 @@ class CategoryItem extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               model.name,
-              style: const TextStyle(
-                height: 1.3,
-                fontSize: 18,
+              style: GoogleFonts.tajawal(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
+                fontSize: 12.sp,
               ),
               overflow: TextOverflow.ellipsis,
               maxLines: 2,

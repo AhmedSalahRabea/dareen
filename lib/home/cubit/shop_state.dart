@@ -46,5 +46,8 @@ class GetAllProductsSuccess extends ShopState {}
 
 class GetAllProductsError extends ShopState {}
 
+  // ======= to toggle between list and grid view in product screen ====
+class ProductScreenViewChanged extends ShopState {}
+
 //======when change in bottom navigation bar=====
 class ShopChangeBottomNavBar extends ShopState {}

@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
+
 
 class EmptyList extends StatelessWidget {
   final String image;
@@ -19,7 +21,7 @@ class EmptyList extends StatelessWidget {
             image,
             height: MediaQuery.of(context).size.height / 2,
           ),
-          Text(text),
+          Text(text,style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 14.sp),),
         ],
       ),
     );

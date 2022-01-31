@@ -1,6 +1,7 @@
 // ignore_for_file: override_on_non_overriding_member, unused_local_variable, prefer_const_constructors_in_immutables, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyOkTextButtonForDailog extends StatelessWidget {
   final String okOrCancel;
@@ -15,7 +16,7 @@ class MyOkTextButtonForDailog extends StatelessWidget {
       },
       child: Text(
         okOrCancel,
-        style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
+        style: GoogleFonts.tajawal(fontSize: fontSize, fontWeight: FontWeight.bold,),
       ),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:dareen_app/data/models/product_model.dart';
+import 'product_model.dart';
 
 class SearchModel {
   List<ProductModel>? data = [];

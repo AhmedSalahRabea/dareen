@@ -3,7 +3,6 @@
 import 'package:dareen_app/modules/register_screen/cubit/register_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class PinCodeFields extends StatelessWidget {

@@ -10,20 +10,15 @@ import 'package:dareen_app/shared/widgets/my_ok_text.dart';
 import 'package:dareen_app/shared/widgets/my_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 
 class UpdateUserDataScreen extends StatelessWidget {
-  // final String userName;
-  // final String userRegion;
-  // final String userAddress;
-
   //form fields controller
   TextEditingController nameController = TextEditingController();
   TextEditingController regionController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   //form key
   var formKey = GlobalKey<FormState>();
-
-  // UpdateUserDataScreen({required this.userName,required this.userRegion,required this.userAddress});
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -37,13 +32,13 @@ class UpdateUserDataScreen extends StatelessWidget {
               showMyAlertDialog(
                 context: context,
                 title: 'خطأ أثناء تحديث البيانات',
-                content: const Text(
+                content: Text(
                   'حدث خطأ أثناء تحديث البيانات يرجي التأكد من الإتصال باللإنترنت وأعد المحاولة مرة أخري',
                   textDirection: TextDirection.rtl,
-                  style: TextStyle(color: Colors.black, fontSize: 16),
+                  style: TextStyle(color: Colors.black, fontSize: 12.sp),
                 ),
                 actions: [
-                 const MyOkTextButtonForDailog(),
+                  const MyOkTextButtonForDailog(),
                 ],
               );
             }
@@ -51,10 +46,10 @@ class UpdateUserDataScreen extends StatelessWidget {
               showMyAlertDialog(
                 context: context,
                 title: 'تحديث البيانات',
-                content: const Text(
+                content: Text(
                   'تم تحديث البيانات بنجاح',
                   textDirection: TextDirection.rtl,
-                  style: TextStyle(color: Colors.black, fontSize: 16),
+                  style: TextStyle(color: Colors.black, fontSize: 12.sp),
                 ),
                 actions: [
                   TextButton(
@@ -62,10 +57,10 @@ class UpdateUserDataScreen extends StatelessWidget {
                       ShopCubit.get(context).curretIndex = 0;
                       navigateTo(context: context, screen: HomeScreen());
                     },
-                    child: const Text(
+                    child: Text(
                       'حسناً',
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 12.sp, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -92,15 +87,15 @@ class UpdateUserDataScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 220,
+                          height: 30.h,
                           width: double.infinity,
                           child: Image.asset('assets/images/login/dareen.jpg'),
                         ),
-                        const SizedBox(height: 30),
+                        SizedBox(height: 5.h),
                         if (state is UpdateUserDataLoading)
                           const LinearProgressIndicator(),
                         if (state is UpdateUserDataLoading)
-                          const SizedBox(height: 30),
+                          SizedBox(height: 5.h),
                         MyTextFormField(
                           controller: nameController,
                           type: TextInputType.name,

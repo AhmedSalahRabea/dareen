@@ -1,6 +1,9 @@
 // ignore_for_file: override_on_non_overriding_member, prefer_const_constructors_in_immutables, use_key_in_widget_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
+
 
 class MyDefaultButton extends StatelessWidget {
   final double width;
@@ -30,10 +33,10 @@ class MyDefaultButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Text(
           text,
-          style: TextStyle(
+          style: GoogleFonts.tajawal(
             color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: fontSize,
+            fontSize: fontSize.sp,
           ),
         ),
         onPressed: function,

@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class BoardingModel {
   final String image;
@@ -15,7 +16,7 @@ class BoardingModel {
 
 class OnBoardingItem extends StatelessWidget {
   final BoardingModel model;
-const  OnBoardingItem({required this.model});
+  const OnBoardingItem({required this.model});
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -32,11 +33,10 @@ const  OnBoardingItem({required this.model});
             SizedBox(height: height / 70),
             Text(
               model.title,
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText2!
+                  .copyWith(fontSize: 18.sp),
             ),
             SizedBox(height: height / 70),
             Padding(
@@ -46,7 +46,10 @@ const  OnBoardingItem({required this.model});
                 overflow: TextOverflow.ellipsis,
                 maxLines: 4,
                 softWrap: true,
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(fontSize: 16.sp),
               ),
             ),
             //  SizedBox(height: 20),

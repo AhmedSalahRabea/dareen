@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sizer/sizer.dart';
 
 class CartScreen extends StatelessWidget {
   @override
@@ -92,7 +93,7 @@ class CartScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(20.0),
                       child: SizedBox(
                         width: double.infinity,
-                        height: 50,
+                        height: 6.h,
                         child: OutlinedButton(
                           onPressed: () {
                             showMyAlertDialog(
@@ -106,22 +107,17 @@ class CartScreen extends StatelessWidget {
                                     color: Colors.green,
                                     size: 50,
                                   ),
-                                  const SizedBox(height: 20),
-                                  // const Text(
-                                  //   'هل أنت متأكد من شراء المنتجات الان',
-                                  //   textDirection: TextDirection.rtl,
-                                  //   style: TextStyle(
-                                  //       color: Colors.black, fontSize: 16),
-                                  // ),
+                                  SizedBox(height: 2.h),
                                   Text(
                                     'قيمة المنتجات  ${cubit.totalPriceForAllProductsInTheCart} جنيه ',
                                     textDirection: TextDirection.rtl,
-                                    style: const TextStyle(
-                                        color: Colors.black, fontSize: 18),
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 15.sp),
                                   ),
-                                  const Text(
+                                  Text(
                                     'مصاريف التوصيل +',
-                                    style: TextStyle(color: Colors.black),
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 15.sp),
                                   ),
                                 ],
                               ),
@@ -139,8 +135,8 @@ class CartScreen extends StatelessWidget {
                                           text: 'تأكيد',
                                           width: width / 4,
                                           function: () {
-                                            print(
-                                                '==== ${cubit.producIdAndQuantityMap.values.toList()}');
+                                            // print(
+                                            //     '==== ${cubit.producIdAndQuantityMap.values.toList()}');
                                             cubit
                                                 .confirmOrder(
                                                   cartId: cubit.cartProducts
@@ -163,21 +159,25 @@ class CartScreen extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              const Text(
+                              Text(
                                 'أطلب',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                      fontSize: 15.sp,
+                                      color: Colors.white,
+                                    ),
                               ),
                               Text(
                                 '${cubit.totalPriceForAllProductsInTheCart} جنيه',
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                      fontSize: 15.sp,
+                                      color: Colors.white,
+                                    ),
                               ),
                             ],
                           ),

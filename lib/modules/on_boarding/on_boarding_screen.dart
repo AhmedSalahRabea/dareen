@@ -31,27 +31,26 @@ class OnBoardingScreen extends StatelessWidget {
           'من خلال تطبيق دارين تقدر تطلب أي حاجة ف اي وقت ومن أكتر من مكان وتجيلك لغاية البيت في دقايق ',
     ),
   ];
-  // final bool? isOnBoardingSeen;
 
-  // OnBoardingScreen({required this.isOnBoardingSeen});
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       appBar: AppBar(
         toolbarHeight: 70,
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: MyTextButton(
               text: 'تخطي',
+              fontSize: 14,
               onpressed: () async {
+                navigateTo(context: context, screen: LoginScreen());
                 //to subscribe to all users topic
                 await FirebaseMessaging.instance.subscribeToTopic('allUsers');
-                navigateTo(context: context, screen: LoginScreen());
               },
             ),
           ),
@@ -94,11 +93,11 @@ class OnBoardingScreen extends StatelessWidget {
                 Spacer(),
                 FloatingActionButton(
                   onPressed: () async {
-                    //to subscribe to all users topic
-                    await FirebaseMessaging.instance
-                        .subscribeToTopic('allUsers');
                     if (isLast) {
                       navigateTo(context: context, screen: LoginScreen());
+                      //to subscribe to all users topic
+                      await FirebaseMessaging.instance
+                          .subscribeToTopic('allUsers');
                     } else {
                       boardController.nextPage(
                           duration: Duration(milliseconds: 2000),

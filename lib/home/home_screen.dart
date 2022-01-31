@@ -6,6 +6,8 @@ import 'package:dareen_app/modules/search/search_screen.dart';
 import 'package:dareen_app/shared/components/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -20,14 +22,13 @@ class HomeScreen extends StatelessWidget {
             appBar: AppBar(
               title: Text(
                 'Dareen',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: 27),
+                style: GoogleFonts.pacifico(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 25,
+                ),
               ),
               centerTitle: true,
               leadingWidth: 100,
-              
               leading: BlocConsumer<CartCubit, CartState>(
                   listener: (context, state) {
                 if (state is AddOrDeleteFavouriteSuccess) {
@@ -70,7 +71,9 @@ class HomeScreen extends StatelessWidget {
                   ShopCubit.get(context).isFloatingActionButtonShown = false;
                 }
               },
-              iconSize: 27,
+              iconSize: 25,
+              selectedFontSize: 10.sp,
+              unselectedFontSize: 8.sp,
               type: BottomNavigationBarType.fixed,
             ),
             floatingActionButton: Directionality(

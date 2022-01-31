@@ -8,8 +8,9 @@ import 'package:like_button/like_button.dart';
 
 class MyLikeButton extends StatelessWidget {
   final ProductModel model;
+  final double iconSize;
 
-  MyLikeButton({required this.model});
+  MyLikeButton({required this.model, this.iconSize = 25});
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopState>(
@@ -31,7 +32,7 @@ class MyLikeButton extends StatelessWidget {
             return Icon(
               Icons.favorite,
               color: isLiked ? Theme.of(context).primaryColor : Colors.grey,
-              size: 30,
+              size: iconSize,
             );
           },
 

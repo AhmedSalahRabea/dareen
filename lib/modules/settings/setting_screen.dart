@@ -4,7 +4,6 @@
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:dareen_app/modules/about/about.dart';
 import 'package:dareen_app/modules/change_password/change_password_screen.dart';
-
 import 'package:dareen_app/modules/register_screen/cubit/register_cubit.dart';
 import 'package:dareen_app/modules/settings/big_user_item.dart';
 import 'package:dareen_app/modules/update_user_data/update_user_data.dart';
@@ -16,6 +15,7 @@ import 'package:dareen_app/shared/widgets/my_textbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sizer/sizer.dart';
 
 class SettingScreen extends StatelessWidget {
   @override
@@ -52,12 +52,16 @@ class SettingScreen extends StatelessWidget {
                           backgroundColor: Theme.of(context).primaryColor,
                         ),
                         title: 'الوضع الساطع',
-                        titleStyle: Theme.of(context)
-                            .textTheme
-                            .bodyText1!
-                            .copyWith(color: Colors.black),
+                        titleStyle:
+                            Theme.of(context).textTheme.bodyText1!.copyWith(
+                                  color: Colors.black,
+                                  fontSize: 13.sp,
+                                ),
                         subtitle: " للتحويل بين الوضع الليلي والساطع ",
-                        subtitleStyle: Theme.of(context).textTheme.subtitle2,
+                        subtitleStyle: Theme.of(context)
+                            .textTheme
+                            .subtitle2!
+                            .copyWith(fontSize: 10.sp),
                         trailing: Switch.adaptive(
                           value: cubit.isLight,
                           onChanged: (value) {
@@ -70,8 +74,10 @@ class SettingScreen extends StatelessWidget {
                   SettingsGroup(
                     settingsGroupTitle: 'اتصل بنا',
                     iconItemSize: 37,
-                    settingsGroupTitleStyle:
-                        Theme.of(context).textTheme.headline1,
+                    settingsGroupTitleStyle: Theme.of(context)
+                        .textTheme
+                        .headline1!
+                        .copyWith(fontSize: 14.sp),
                     items: [
                       SettingsItem(
                         onTap: () {
@@ -80,11 +86,14 @@ class SettingScreen extends StatelessWidget {
                         icons: Icons.call_rounded,
                         title: "عبر الموبايل",
                         subtitle: 'للإتصال علي 01018388182 ',
-                        subtitleStyle: Theme.of(context).textTheme.subtitle2,
+                        subtitleStyle:
+                            Theme.of(context).textTheme.subtitle2!.copyWith(
+                                  fontSize: 10.sp,
+                                ),
                         titleStyle: Theme.of(context)
                             .textTheme
                             .bodyText1!
-                            .copyWith(color: Colors.black),
+                            .copyWith(color: Colors.black, fontSize: 13.sp),
                         iconStyle: IconStyle(
                           iconsColor: Theme.of(context).primaryColor,
                           backgroundColor: Colors.white,
@@ -97,11 +106,14 @@ class SettingScreen extends StatelessWidget {
                           icons: FontAwesomeIcons.whatsappSquare,
                           title: "واتساب",
                           subtitle: 'للتواصل معنا عبر الواتساب',
-                          subtitleStyle: Theme.of(context).textTheme.subtitle2,
+                          subtitleStyle:
+                              Theme.of(context).textTheme.subtitle2!.copyWith(
+                                    fontSize: 10.sp,
+                                  ),
                           titleStyle: Theme.of(context)
                               .textTheme
                               .bodyText1!
-                              .copyWith(color: Colors.black),
+                              .copyWith(color: Colors.black, fontSize: 13.sp),
                           iconStyle: IconStyle(
                             iconsColor: Colors.green,
                             withBackground: true,
@@ -125,9 +137,12 @@ class SettingScreen extends StatelessWidget {
                         titleStyle: Theme.of(context)
                             .textTheme
                             .bodyText1!
-                            .copyWith(color: Colors.black),
+                            .copyWith(color: Colors.black, fontSize: 13.sp),
                         subtitle: 'للتعديل علي بياناتك الشخصية',
-                        subtitleStyle: Theme.of(context).textTheme.subtitle2,
+                        subtitleStyle:
+                            Theme.of(context).textTheme.subtitle2!.copyWith(
+                                  fontSize: 10.sp,
+                                ),
                       ),
                       SettingsItem(
                         onTap: () async {
@@ -142,9 +157,12 @@ class SettingScreen extends StatelessWidget {
                         titleStyle: Theme.of(context)
                             .textTheme
                             .bodyText1!
-                            .copyWith(color: Colors.black),
+                            .copyWith(color: Colors.black, fontSize: 13.sp),
                         subtitle: 'لتغيير كلمة السر الخاصة بكم',
-                        subtitleStyle: Theme.of(context).textTheme.subtitle2,
+                        subtitleStyle:
+                            Theme.of(context).textTheme.subtitle2!.copyWith(
+                                  fontSize: 10.sp,
+                                ),
                       ),
                     ],
                   ),
@@ -162,9 +180,12 @@ class SettingScreen extends StatelessWidget {
                         titleStyle: Theme.of(context)
                             .textTheme
                             .bodyText1!
-                            .copyWith(color: Colors.black),
+                            .copyWith(color: Colors.black, fontSize: 13.sp),
                         subtitle: "معلومات عن شركة دارين",
-                        subtitleStyle: Theme.of(context).textTheme.subtitle2,
+                        subtitleStyle:
+                            Theme.of(context).textTheme.subtitle2!.copyWith(
+                                  fontSize: 10.sp,
+                                ),
                       ),
                     ],
                   ),
@@ -178,11 +199,14 @@ class SettingScreen extends StatelessWidget {
                           showMyAlertDialog(
                             context: context,
                             title: 'تسجيل الخروج',
-                            content: const Text(
+                            content: Text(
                               'هل تريد تسجيل الخروج من تطبيق دارين',
                               textDirection: TextDirection.rtl,
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 16),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                      fontSize: 12.sp, color: Colors.black),
                             ),
                             actions: [
                               const MyOkTextButtonForDailog(
@@ -208,9 +232,12 @@ class SettingScreen extends StatelessWidget {
                         titleStyle: Theme.of(context)
                             .textTheme
                             .bodyText1!
-                            .copyWith(color: Colors.black),
+                            .copyWith(color: Colors.black, fontSize: 13.sp),
                         subtitle: 'اذا كنت تريد تسجيل الخروج',
-                        subtitleStyle: Theme.of(context).textTheme.subtitle2,
+                        subtitleStyle:
+                            Theme.of(context).textTheme.subtitle2!.copyWith(
+                                  fontSize: 10.sp,
+                                ),
                       ),
                     ],
                   ),

@@ -18,7 +18,7 @@ class CartCubit extends Cubit<CartState> {
   CartModel? cartModel;
   List<CartItemData> cartProducts = [];
   //this map to collect data which api need it
-  Map<int, Map<String,int>> producIdAndQuantityMap = {};
+  Map<int, Map<String, int>> producIdAndQuantityMap = {};
   //this map to save all total price for each product in the cart then sum them
   Map<int, num> totalPriceForAllProducts = {};
   //this variable
@@ -98,7 +98,9 @@ class CartCubit extends Cubit<CartState> {
           getCartProducts();
           emit(AddProductToCartSuccess());
         } else {
-          mySnackBar(context: context, content: 'المنتج موجود في السلة بالفعل');
+          mySnackBar(
+              context: context,
+              content: addProductToCartModel!.message.toString());
           emit(AddProductToCartError());
         }
       }).catchError(
@@ -107,6 +109,9 @@ class CartCubit extends Cubit<CartState> {
           emit(AddProductToCartError());
         },
       );
+    } else {
+      mySnackBar(context: context, content: 'المنتج موجود في السلة بالفعل');
+      emit(AddProductToCartError());
     }
   }
 
@@ -144,10 +149,10 @@ class CartCubit extends Cubit<CartState> {
   SuccessOrFailedModel? confirmOrderModel;
   Future<void> confirmOrder({
     required int cartId,
-    required List<Map<String,int>> productIdAndQuantity,
+    required List<Map<String, int>> productIdAndQuantity,
   }) async {
     emit(ConfirmOrderLoading());
-   // print('===========${producIdAndQuantityMap.values.toList()}');
+    // print('===========${producIdAndQuantityMap.values.toList()}');
     await DioHelper.postData(
       url: CONFIRMORDER,
       data: {

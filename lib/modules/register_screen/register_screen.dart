@@ -15,6 +15,7 @@ import 'package:dareen_app/shared/widgets/my_textbutton.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 
 class RegisterScreen extends StatelessWidget {
   //form fields controller
@@ -78,6 +79,7 @@ class RegisterScreen extends StatelessWidget {
                 rePasswordController.clear();
                 regionController.clear();
                 addressController.clear();
+                CartCubit.get(context).cartProducts = [];
                 ShopCubit.get(context).getCategoryData(context);
                 ShopCubit.get(context).getAllProducts();
                 ShopCubit.get(context).getFavourites(userId);
@@ -125,7 +127,7 @@ class RegisterScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 220,
+                        height: 20.h,
                         width: double.infinity,
                         child: Image.asset('assets/images/login/dareen.jpg'),
                       ),
@@ -135,10 +137,11 @@ class RegisterScreen extends StatelessWidget {
                         textAlign: TextAlign.right,
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               color: Colors.grey,
-                              // fontSize: 18,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.bold,
                             ),
                       ),
-                      const SizedBox(height: 12),
+                      SizedBox(height: 3.h),
                       MyTextFormField(
                         controller: nameController,
                         type: TextInputType.name,
@@ -154,7 +157,7 @@ class RegisterScreen extends StatelessWidget {
                         label: 'الإسم بالكامل',
                         prefix: Icons.person,
                       ),
-                      const SizedBox(height: 20), // Text(
+                      SizedBox(height: 2.h), // Text(
                       MyTextFormField(
                         controller: phoneController,
                         type: TextInputType.phone,
@@ -176,13 +179,13 @@ class RegisterScreen extends StatelessWidget {
                         label: 'رقم الهاتف',
                         prefix: Icons.phone,
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 2.h),
                       MyTextFormField(
                         controller: passwordController,
                         type: TextInputType.visiblePassword,
                         validate: (value) {
                           if (value.isEmpty) {
-                            return 'من فضلك أدخل رفم سري صحيح';
+                            return 'من فضلك أدخل رقم سري صحيح';
                           } else if (value.length < 7) {
                             return 'يجب ألا يقل الرقم السري عن سبع خانات';
                           } else {
@@ -197,14 +200,14 @@ class RegisterScreen extends StatelessWidget {
                           cubit.changePasswordVisibilty();
                         },
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 2.h),
                       MyTextFormField(
                         controller: rePasswordController,
                         type: TextInputType.visiblePassword,
                         validate: (value) {
                           if (passwordController.text !=
                               rePasswordController.text) {
-                            return 'من فضلك أدخل رفم سري صحيح';
+                            return 'من فضلك أدخل رقم سري صحيح';
                           } else {
                             return null;
                           }
@@ -217,7 +220,7 @@ class RegisterScreen extends StatelessWidget {
                           cubit.changePasswordVisibilty();
                         },
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 2.h),
                       MyTextFormField(
                         controller: regionController,
                         type: TextInputType.text,
@@ -231,7 +234,7 @@ class RegisterScreen extends StatelessWidget {
                         label: 'المنطقة',
                         prefix: Icons.location_city,
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 2.h),
                       MyTextFormField(
                         controller: addressController,
                         type: TextInputType.text,
@@ -246,7 +249,7 @@ class RegisterScreen extends StatelessWidget {
                         prefix: Icons.cottage,
                         isDetailedAddress: true,
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 3.h),
                       MyDefaultButton(
                         text: 'التسجيل',
                         function: () async {
@@ -264,18 +267,21 @@ class RegisterScreen extends StatelessWidget {
                           }
                         },
                       ),
-                      const SizedBox(height: 15),
+                      SizedBox(height: 2.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         // crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             'هل لديك حساب بالفعل ؟',
-                            style: Theme.of(context).textTheme.bodyText1!,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(fontSize: 10.sp),
                           ),
                           MyTextButton(
                             text: 'تسجيل الدخول',
-                            fontSize: 16,
+                            fontSize: 9.sp,
                             onpressed: () {
                               navigateAndFinish(
                                   context: context, screen: LoginScreen());
