@@ -3,7 +3,6 @@ import '../widgets/my_ok_text.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 //import 'package:tbib_toast/tbib_toast.dart';
 

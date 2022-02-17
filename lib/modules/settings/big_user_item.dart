@@ -23,8 +23,8 @@ class BigUserItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var mediaQueryHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: mediaQueryHeight / 5,
-      margin: const EdgeInsets.only(bottom: 20),
+      height: mediaQueryHeight / 5.5,
+      margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
         borderRadius:

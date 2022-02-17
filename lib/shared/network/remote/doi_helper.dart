@@ -5,7 +5,8 @@ class DioHelper {
   static init() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://container.ae.org/api/',
+       // baseUrl: 'https://container.ae.org/api/',
+       baseUrl: 'https://dareen.com.container.ae.org/api/',
         receiveDataWhenStatusError: true,
         //connectTimeout: 30000, // 30 seconds
         // receiveTimeout: 30000,

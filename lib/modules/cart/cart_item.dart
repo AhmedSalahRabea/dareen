@@ -47,13 +47,16 @@ class _CartItemState extends State<CartItem> {
                     Stack(
                       alignment: AlignmentDirectional.bottomStart,
                       children: [
+                         
                         FadeInImage(
                           height: 15.h,
                           width: 20.w,
                           placeholder: const AssetImage(
-                              'assets/images/imageloading.gif'),
+                            'assets/images/imageloading.gif',
+                          ),
                           image: CachedNetworkImageProvider(
-                              widget.model.productModel.images[0]),
+                            widget.model.productModel.images![0].image!
+                          ),
                           fit: BoxFit.contain,
                         ),
                         if (widget.model.productModel.newPrice != null &&

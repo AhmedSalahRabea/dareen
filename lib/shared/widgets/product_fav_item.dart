@@ -31,7 +31,7 @@ class ProductOrFavouriteItem extends StatelessWidget {
                 );
               },
               child: SizedBox(
-                height: 13.5.h,
+                height: 13.2.h,
                 child: IntrinsicHeight(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -44,7 +44,8 @@ class ProductOrFavouriteItem extends StatelessWidget {
                             width: 20.w,
                             placeholder: const AssetImage(
                                 'assets/images/imageloading.gif'),
-                            image: CachedNetworkImageProvider(model.images[0]),
+                            image: CachedNetworkImageProvider(
+                                model.images![0].image!),
                             fit: BoxFit.contain,
                           ),
                           if (model.newPrice != null && model.newPrice != 0)
@@ -70,12 +71,12 @@ class ProductOrFavouriteItem extends StatelessWidget {
                           children: [
                             Text(
                               model.name,
-                              maxLines: 2,
+                              maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!
-                                  .copyWith(fontSize: 14.sp),
+                                  .copyWith(fontSize: 13.sp),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,

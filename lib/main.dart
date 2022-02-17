@@ -38,18 +38,11 @@ void main() async {
   FirebaseMessaging.onMessage.listen((event) {
     print('========== when app opened in foreground');
     print(event.data.toString());
-    //  print(event.notification);
   });
   //to recieve notifications when app is open in background
   //this methos called when user clickon the notification
   FirebaseMessaging.onMessageOpenedApp.listen((event) {
     print('========== when app opened in background');
-
-    // if (event.data['productId'] != null) {
-    //   print('=========== before');
-    //   NotificationServices(productId:int.parse(event.data['productId']) );
-    //   print('=========== after');
-    // }
     print(event.data.toString());
   });
   //to recieve notifications when app is terminated or tottaky closed
@@ -88,9 +81,7 @@ class MyApp extends StatelessWidget {
           create: (context) => LoginCubit(),
         ),
         BlocProvider<AppCubit>(
-            create: (context) => AppCubit()..changeAppMode(fromShared: isLight)
-            // ..recieveNotifications(context)
-            // ..homeScreen(isOnBoardingSeen),
+            create: (context) => AppCubit()..changeAppMode(fromShared: isLight),
             ),
         BlocProvider<ShopCubit>(
           create: (context) => ShopCubit()

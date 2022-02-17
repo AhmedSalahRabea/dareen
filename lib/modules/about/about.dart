@@ -1,12 +1,11 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 class AboutScreen extends StatelessWidget {
   static const String line1 =
-      ' * شركة دارين هي شركة توصيل تقوم علي خدمة قرية صفط الخمار والقري المجاورة وهي أسهل وأسرع طريقة لشراء أي متطلبات من المنزل دون زيادة في المصاريف وأسرع طريقة لطلب المشاوير بضغطة زر واحدة';
+      ' شركة دارين هي شركة توصيل تقوم علي خدمة قرية صفط الخمار والقري المجاورة وهي أسهل وأسرع طريقة لشراء أي متطلبات من المنزل دون زيادة في المصاريف وأسرع طريقة لطلب المشاوير بضغطة زر واحدة';
   static const String line2 =
       '1) يجب عمل الحساب برقم الهاتف الخاص لسهولة التواصل ';
   static const String line3 = '2) يمكنكم التواصل عبر الهاتف او عبر الواتساب';
@@ -14,9 +13,9 @@ class AboutScreen extends StatelessWidget {
   static const String line5 =
       '4) للإبلاغ عن أي شكوي يمكن إرسال الشكوي في رسالة عبر الواتساب علي رقم الشركة الخاص أو الاتصال بنا مباشرة';
   static const String line6 =
-      '5) في حالة وجود أي إقتراح يساعد علي تطوير الخدمة وتسهيل الأمور علي أهالينا في البلد يمكن إرساله وسيتم العمل عليه فوراً';
+      '5) في حالة وجود أي إقتراح يساعد علي تطوير الخدمة وتسهيل الأمور علي أهلنا في البلد يمكن إرساله وسيتم العمل عليه فوراً';
   static const String line7 =
-      '6) التطبيق غير مقيد بالمنتجات الموجودة بداخله وفي حالة إحتياجك لأي شئ يمكن التواصل معانا وسنقوم بجلبه لك بأسرع وقت ممكن';
+      '6) التطبيق غير مقيد بالمنتجات الموجودة بداخله وفي حالة إحتياجك لأي شئ يمكن التواصل معنا وسنقوم بجلبه لك بأسرع وقت ممكن';
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -32,7 +31,8 @@ class AboutScreen extends StatelessWidget {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding:
+              EdgeInsets.only(right: 5.0.w, left: 5.w, top: 1.h, bottom: 1.h),
           child: ListView(
             children: [
               Text(
@@ -42,7 +42,7 @@ class AboutScreen extends StatelessWidget {
                     .bodyText2!
                     .copyWith(fontSize: 16.sp),
               ),
-              SizedBox(height: 2.h),
+              SizedBox(height: 1.h),
               DefaultTextStyle(
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: 15,
@@ -64,7 +64,7 @@ class AboutScreen extends StatelessWidget {
                     .bodyText2!
                     .copyWith(fontSize: 16.sp),
               ),
-              SizedBox(height: 2.h),
+              SizedBox(height: 1.h),
               DefaultTextStyle(
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: 12.sp,

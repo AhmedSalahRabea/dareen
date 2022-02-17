@@ -35,8 +35,8 @@ class SettingScreen extends StatelessWidget {
                   BigUserItem(
                     userName: CacheHelper.getDataFromSharedPrefrences(
                         key: 'userName'),
-                    userProfilePic:
-                        const AssetImage('assets/images/login/dareen.jpg'),
+                    userProfilePic: const AssetImage(
+                        'assets/images/login/backgroundlogo.jpg'),
                     phoneNumber: CacheHelper.getDataFromSharedPrefrences(
                         key: 'phoneNumber'),
                     address: 'كوبري المستشفي',
@@ -85,7 +85,7 @@ class SettingScreen extends StatelessWidget {
                         },
                         icons: Icons.call_rounded,
                         title: "عبر الموبايل",
-                        subtitle: 'للإتصال علي 01018388182 ',
+                        subtitle: 'للإتصال علي 01004294858 ',
                         subtitleStyle:
                             Theme.of(context).textTheme.subtitle2!.copyWith(
                                   fontSize: 10.sp,
@@ -115,7 +115,7 @@ class SettingScreen extends StatelessWidget {
                               .bodyText1!
                               .copyWith(color: Colors.black, fontSize: 13.sp),
                           iconStyle: IconStyle(
-                            iconsColor: Colors.green,
+                            iconsColor: Theme.of(context).primaryColor,
                             withBackground: true,
                             backgroundColor: Colors.white.withOpacity(0),
                           )),

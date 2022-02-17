@@ -79,6 +79,8 @@ class RegisterScreen extends StatelessWidget {
                 rePasswordController.clear();
                 regionController.clear();
                 addressController.clear();
+                ShopCubit.get(context).allProducts = [];
+                ShopCubit.get(context).products = [];
                 CartCubit.get(context).cartProducts = [];
                 ShopCubit.get(context).getCategoryData(context);
                 ShopCubit.get(context).getAllProducts();
@@ -118,7 +120,7 @@ class RegisterScreen extends StatelessWidget {
           RegisterCubit cubit = RegisterCubit.get(context);
           return SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.only(right: 5.w, left: 5.w, top: 2.h),
               child: Form(
                 key: formKey,
                 child: Directionality(
@@ -129,7 +131,7 @@ class RegisterScreen extends StatelessWidget {
                       SizedBox(
                         height: 20.h,
                         width: double.infinity,
-                        child: Image.asset('assets/images/login/dareen.jpg'),
+                       child: Image.asset('assets/images/login/logo.png'),
                       ),
                       Text(
                         'قم بالتسجيل لتستمتع بجميع خدمات تطبيق دارين',
@@ -141,7 +143,7 @@ class RegisterScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 2.h),
                       MyTextFormField(
                         controller: nameController,
                         type: TextInputType.name,
@@ -157,7 +159,7 @@ class RegisterScreen extends StatelessWidget {
                         label: 'الإسم بالكامل',
                         prefix: Icons.person,
                       ),
-                      SizedBox(height: 2.h), // Text(
+                      SizedBox(height: 1.8.h), // Text(
                       MyTextFormField(
                         controller: phoneController,
                         type: TextInputType.phone,
@@ -179,7 +181,7 @@ class RegisterScreen extends StatelessWidget {
                         label: 'رقم الهاتف',
                         prefix: Icons.phone,
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 1.8.h),
                       MyTextFormField(
                         controller: passwordController,
                         type: TextInputType.visiblePassword,
@@ -200,7 +202,7 @@ class RegisterScreen extends StatelessWidget {
                           cubit.changePasswordVisibilty();
                         },
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 1.8.h),
                       MyTextFormField(
                         controller: rePasswordController,
                         type: TextInputType.visiblePassword,
@@ -220,7 +222,7 @@ class RegisterScreen extends StatelessWidget {
                           cubit.changePasswordVisibilty();
                         },
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 1.8.h),
                       MyTextFormField(
                         controller: regionController,
                         type: TextInputType.text,
@@ -234,7 +236,7 @@ class RegisterScreen extends StatelessWidget {
                         label: 'المنطقة',
                         prefix: Icons.location_city,
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 1.8.h),
                       MyTextFormField(
                         controller: addressController,
                         type: TextInputType.text,
@@ -249,7 +251,7 @@ class RegisterScreen extends StatelessWidget {
                         prefix: Icons.cottage,
                         isDetailedAddress: true,
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 1.8.h),
                       MyDefaultButton(
                         text: 'التسجيل',
                         function: () async {
@@ -267,7 +269,7 @@ class RegisterScreen extends StatelessWidget {
                           }
                         },
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 1.8.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         // crossAxisAlignment: CrossAxisAlignment.start,

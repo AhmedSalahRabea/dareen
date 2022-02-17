@@ -35,7 +35,7 @@ class AppCubit extends Cubit<AppState> {
 
 // =======to open what's app
   void openWhatapp(BuildContext context) async {
-    String url = "https://wa.me/+201018388182";
+    String url = "https://wa.me/+201004294858";
     if (await canLaunch(url)) {
       launch(url);
     } else {
@@ -53,7 +53,7 @@ class AppCubit extends Cubit<AppState> {
 
   // === to call on phone ====
   void callPhone(BuildContext context) async {
-    String url = "tel:+201018388182";
+    String url = "tel:+201004294858";
     if (await canLaunch(url)) {
       launch(url);
     } else {

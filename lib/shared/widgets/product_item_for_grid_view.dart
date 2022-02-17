@@ -42,7 +42,7 @@ class ProductOrFavouriteItemForGridView extends StatelessWidget {
                         width: 15.w,
                         placeholder:
                             const AssetImage('assets/images/imageloading.gif'),
-                        image: CachedNetworkImageProvider(model.images[0]),
+                        image: CachedNetworkImageProvider(model.images![0].image!),
                         fit: BoxFit.contain,
                       ),
                       if (model.newPrice != null && model.newPrice != 0)

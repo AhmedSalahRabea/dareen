@@ -10,26 +10,26 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return LiquidPullToRefresh(
-      onRefresh: () async {
-        ShopCubit.get(context).getCategoryData(context);
-        ShopCubit.get(context).getAllProducts();
-      },
-      borderWidth: 300,
-      height: 70,
-      showChildOpacityTransition: false,
-      springAnimationDurationInMilliseconds: 700,
-      child: BlocConsumer<ShopCubit, ShopState>(
-        listener: (context, state) async {},
-        builder: (context, state) {
-          ShopCubit cubit = ShopCubit.get(context);
-          var mediaQueryHeight = MediaQuery.of(context).size.height;
+    return BlocConsumer<ShopCubit, ShopState>(
+      listener: (context, state) async {},
+      builder: (context, state) {
+        ShopCubit cubit = ShopCubit.get(context);
+        var mediaQueryHeight = MediaQuery.of(context).size.height;
 
-          return BuildCondition(
-            condition:
-                cubit.categoriesModel != null && cubit.allProducts.isNotEmpty,
-            builder: (context) => Directionality(
-              textDirection: TextDirection.rtl,
+        return BuildCondition(
+          condition:
+              cubit.categoriesModel != null && cubit.allProducts.isNotEmpty,
+          builder: (context) => Directionality(
+            textDirection: TextDirection.rtl,
+            child: LiquidPullToRefresh(
+              onRefresh: () async {
+                await ShopCubit.get(context).getCategoryData(context);
+                await ShopCubit.get(context).getAllProducts();
+              },
+              borderWidth: 300,
+              height: 70,
+              showChildOpacityTransition: true,
+              springAnimationDurationInMilliseconds: 700,
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -41,7 +41,7 @@ class CategoriesScreen extends StatelessWidget {
                   mainAxisSpacing: 0.5,
                 ),
                 itemCount: cubit.categoriesModel!.data!.length,
-                physics: const BouncingScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   return CategoryItem(
@@ -50,11 +50,11 @@ class CategoriesScreen extends StatelessWidget {
                 },
               ),
             ),
-            fallback: (context) =>
-                const Center(child: CircularProgressIndicator()),
-          );
-        },
-      ),
+          ),
+          fallback: (context) =>
+              const Center(child: CircularProgressIndicator()),
+        );
+      },
     );
   }
 }

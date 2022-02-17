@@ -49,7 +49,7 @@ class OnBoardingItem extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1!
-                    .copyWith(fontSize: 16.sp),
+                    .copyWith(fontSize: 16.sp, height: 1.5),
               ),
             ),
             //  SizedBox(height: 20),

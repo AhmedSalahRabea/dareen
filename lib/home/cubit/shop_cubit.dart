@@ -24,9 +24,9 @@ class ShopCubit extends Cubit<ShopState> {
 
   //========= method to get Catageories from api=====
   CategoriesModel? categoriesModel;
-  void getCategoryData(BuildContext context) {
+  Future<void> getCategoryData(BuildContext context) async {
     emit(CategoriesGetLoading());
-    DioHelper.getData(
+    await DioHelper.getData(
       url: CATEGORIES,
     ).then((value) {
       categoriesModel = CategoriesModel.fromJson(value.data);
@@ -50,10 +50,10 @@ class ShopCubit extends Cubit<ShopState> {
   List<ProductModel> allProducts = [];
   SearchModel? searchModel;
 
-  void getAllProducts() {
+  Future<void> getAllProducts() async {
     allProducts = [];
     emit(GetAllProductsLoading());
-    DioHelper.getData(
+    await DioHelper.getData(
       url: GETALLPRODUCTS,
     ).then((value) {
       searchModel = SearchModel.fromJson(value.data);
@@ -61,6 +61,7 @@ class ShopCubit extends Cubit<ShopState> {
         searchModel!.data!.forEach((product) {
           allProducts.add(product);
         });
+        allProducts.sort((a, b) => a.name.compareTo(b.name),);
         emit(GetAllProductsSuccess());
       }
     }).catchError((error) {

@@ -27,7 +27,7 @@ class CategoryItem extends StatelessWidget {
       margin: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
       padding: const EdgeInsetsDirectional.all(4),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(1.0),
+        //  color: Colors.white.withOpacity(0.0),
         borderRadius: BorderRadius.circular(10),
       ),
       child: InkWell(
@@ -41,14 +41,17 @@ class CategoryItem extends StatelessWidget {
               ));
         },
         child: GridTile(
-          child: FadeInImage(
-            image: CachedNetworkImageProvider(model.image),
-            placeholder: const AssetImage('assets/images/imageloading.gif'),
-            fit: BoxFit.contain,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 2.h),
+            child: FadeInImage(
+              image: CachedNetworkImageProvider(model.image),
+              placeholder: const AssetImage('assets/images/imageloading.gif'),
+              fit: BoxFit.contain,
+            ),
           ),
           footer: Container(
             width: double.infinity,
-            height: mediaQueryHeight / 20,
+            height: mediaQueryHeight / 22,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Theme.of(context).primaryColor,

@@ -50,6 +50,8 @@ class LoginScreen extends StatelessWidget {
               navigateAndFinish(context: context, screen: HomeScreen());
               phoneController.clear();
               passwordController.clear();
+              ShopCubit.get(context).allProducts = [];
+              ShopCubit.get(context).products = [];
               CartCubit.get(context).cartProducts = [];
               ShopCubit.get(context).getCategoryData(context);
               ShopCubit.get(context).getAllProducts();
@@ -91,9 +93,9 @@ class LoginScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                          height: 35.h,
+                          height: 32.h,
                           width: double.infinity,
-                          child: Image.asset('assets/images/login/dareen.jpg')),
+                          child: Image.asset('assets/images/login/logo.png')),
                       Text(
                         'قم بتسجيل الدخول لتستمتع بجميع خدمات تطبيق دارين',
                         maxLines: 3,

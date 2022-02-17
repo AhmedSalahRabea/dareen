@@ -16,19 +16,19 @@ class OnBoardingScreen extends StatelessWidget {
     BoardingModel(
       image: 'assets/images/onboarding/onboarding1.png',
       title: 'أهلا بك في تطبيق دارين',
-      body: 'هذا التطبيق هو تطبيق متكامل لكل متاجر صفط الخمار',
+      body: 'هذا التطبيق هو تطبيق متكامل لمتاجر صفط الخمار والقري المجاورة',
     ),
     BoardingModel(
       image: 'assets/images/onboarding/onboarding2.png',
       title: 'قريتنا تستحق دائما الأفضل',
       body:
-          'وعلشان كده كان لازم يكون في طريقة تسهل علينا وعلي أهلنا شراء جميع المنتجات بضغطة زر واحدة',
+          'وعلشان كده كان لازم يكون في طريقة تسهل علينا شراء جميع المنتجات بضغطة زر واحدة',
     ),
     BoardingModel(
       image: 'assets/images/onboarding/onboarding3.png',
-      title: 'صفط الخمار كلها بين ايديك',
+      title: 'كل المنتجات بين ايديك',
       body:
-          'من خلال تطبيق دارين تقدر تطلب أي حاجة ف اي وقت ومن أكتر من مكان وتجيلك لغاية البيت في دقايق ',
+          'من خلال تطبيق دارين تقدر تطلب أي حاجة ف أي وقت ومن أكتر من مكان وتجيلك لغاية البيت في دقايق ',
     ),
   ];
 

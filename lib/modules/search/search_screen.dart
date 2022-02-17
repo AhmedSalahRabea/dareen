@@ -44,8 +44,10 @@ class SearchScreen extends StatelessWidget {
                         type: TextInputType.text,
                         validate: (value) {
                           if (value.isEmpty) {
+                            return;
                             // return 'من فضلك أدخل اسم المنتج الذي تريد البحث عنه في منتجاتنا';
                           }
+                          return null;
                         },
                         label: 'البحث',
                         prefix: Icons.search,

@@ -17,7 +17,7 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mediaQueryHeight = MediaQuery.of(context).size.height;
-    var mediaQueryWidth = MediaQuery.of(context).size.width;
+    // var mediaQueryWidth = MediaQuery.of(context).size.width;
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -33,12 +33,12 @@ class ProductDetailsScreen extends StatelessWidget {
         ),
         body: Padding(
           padding:
-              EdgeInsets.only(right: 5.w, top: 1.h, bottom: 3.h, left: 5.w),
+              EdgeInsets.only(right: 5.w, top: 0.2.h, bottom: 3.h, left: 5.w),
           child: Stack(
             alignment: AlignmentDirectional.bottomStart,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              ListView(
+                //crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Stack(alignment: AlignmentDirectional.bottomStart, children: [
                     SizedBox(
@@ -50,20 +50,20 @@ class ProductDetailsScreen extends StatelessWidget {
                             height: double.infinity,
                             placeholder: const AssetImage(
                                 'assets/images/imageloading.gif'),
-                            image:
-                                CachedNetworkImageProvider(model.images[index]),
+                            image: CachedNetworkImageProvider(
+                                model.images![index].image!),
                             width: double.infinity,
                             fit: BoxFit.contain,
                           ),
                         ),
-                        itemCount: model.images.length,
+                        itemCount: model.images!.length,
                         physics: const BouncingScrollPhysics(),
                         controller: boardController,
                       ),
                     ),
                     SmoothPageIndicator(
                       controller: boardController,
-                      count: model.images.length,
+                      count: model.images!.length,
                       effect: ExpandingDotsEffect(
                         dotColor: Colors.grey,
                         dotHeight: 10,
@@ -151,20 +151,12 @@ class ProductDetailsScreen extends StatelessWidget {
                   ),
                   if (model.desc != null) const SizedBox(height: 10),
                   if (model.desc != null)
-                    Expanded(
-                      child: SizedBox(
-                        child: ListView(
-                          children: [
-                            Text(
-                              model.desc!,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(fontSize: 14.sp),
-                            ),
-                          ],
-                        ),
-                      ),
+                    Text(
+                      model.desc!,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 14.sp),
                     ),
                   if (model.desc == null)
                     Text(
@@ -174,6 +166,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           .bodyText1!
                           .copyWith(fontSize: 16.sp),
                     ),
+                  SizedBox(height: 7.h),
                 ],
               ),
               BlocConsumer<CartCubit, CartState>(
@@ -181,7 +174,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   builder: (context, state) {
                     return SizedBox(
                       width: double.infinity,
-                      height: 7.h,
+                      height: 6.h,
                       child: OutlinedButton.icon(
                         onPressed: () {
                           CartCubit.get(context).addProductToCart(
